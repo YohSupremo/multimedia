@@ -1127,15 +1127,55 @@
       gap: 0.8rem;
     }
 
-    .panel-filename {
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: #8b949e;
-      font-family: 'Courier New', monospace;
+    /* Sidebar download-all button */
+    .sidebar-header {
+      padding: 0.6rem 0.75rem 0.6rem 1rem;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,0.02);
       display: flex;
       align-items: center;
-      gap: 0.4rem;
+      justify-content: space-between;
     }
+
+    .sidebar-dl-all-btn {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.2rem 0.55rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--accent-2);
+      background: rgba(121,167,255,0.08);
+      color: var(--accent-2);
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+    .sidebar-dl-all-btn:hover { background: rgba(121,167,255,0.2); }
+
+    /* Topbar download button */
+    .panel-dl-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.35rem 0.85rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--accent-2);
+      background: rgba(121,167,255,0.08);
+      border: 1px solid var(--accent-2);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s, transform 0.1s;
+    }
+    .panel-dl-btn:hover { background: rgba(121,167,255,0.18); transform: scale(1.03); }
+    .panel-dl-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
     .panel-filename-dot {
       width: 8px; height: 8px;
       border-radius: 50%;
@@ -2530,7 +2570,10 @@
 
         <!-- Sidebar: script file list -->
         <aside class="explorer-sidebar">
-          <div class="sidebar-header">📂 Scripts</div>
+          <div class="sidebar-header">
+            <span>📂 Scripts</span>
+            <button class="sidebar-dl-all-btn" id="sidebar-dl-all" title="Download all scripts for this planet">⬇ All</button>
+          </div>
           <div id="sidebar-files">
             <!-- built by JS -->
           </div>
@@ -2545,6 +2588,7 @@
             </div>
             <div class="panel-actions">
               <span class="panel-line-count" id="panel-lines"></span>
+              <button class="panel-dl-btn" id="panel-dl-btn" title="Download this script">⬇ Download</button>
               <button class="panel-copy-btn" id="panel-copy-btn" title="Copy script to clipboard">
                 📋 Copy
               </button>
@@ -2983,6 +3027,46 @@
         });
       }
 
+      /* ─ Download individual script ─ */
+      function downloadCurrentScript() {
+        if (!currentCode || !activeScript) return;
+        const blob = new Blob([currentCode], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = activeScript;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+
+      /* ─ Download ALL scripts for active planet ─ */
+      async function downloadAllPlanetScripts(planet) {
+        const btn = document.getElementById('sidebar-dl-all');
+        btn.disabled = true;
+        btn.textContent = '⧗…';
+        for (const file of planet.scripts) {
+          try {
+            const res = await fetch(`blender/${planet.name}/${file}`);
+            if (!res.ok) continue;
+            const text = await res.text();
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = file;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            await new Promise(r => setTimeout(r, 400));
+          } catch {}
+        }
+        btn.disabled = false;
+        btn.textContent = '⬇ All';
+      }
+
       /* ─ Copy button ─ */
       document.getElementById('panel-copy-btn').addEventListener('click', async () => {
         if (!currentCode) return;
@@ -2997,6 +3081,12 @@
           setTimeout(() => { btn.innerHTML = '📋 Copy'; }, 2000);
         }
       });
+
+      /* ─ Download current button ─ */
+      document.getElementById('panel-dl-btn').addEventListener('click', downloadCurrentScript);
+
+      /* ─ Download all button ─ */
+      document.getElementById('sidebar-dl-all').addEventListener('click', () => downloadAllPlanetScripts(activePlanet));
 
       /* ─ Init ─ */
       buildTabs();
