@@ -2951,10 +2951,11 @@
         const container = document.getElementById('sidebar-files');
         container.innerHTML = '';
         planet.scripts.forEach(file => {
+          const label = file.replace(/\.py$/i, '');
           const el = document.createElement('div');
           el.className = 'sidebar-file' + (file === activeScript ? ' active' : '');
           el.dataset.file = file;
-          el.innerHTML = `<span class="sidebar-file-icon">🐍</span> ${file}`;
+          el.innerHTML = `<span class="sidebar-file-icon">🐍</span> ${label}`;
           el.addEventListener('click', () => loadScript(planet, file));
           container.appendChild(el);
         });
@@ -3004,7 +3005,6 @@
     // Run on load
     calcAndRender();
     renderEncyclopedia();
-    renderDownloads();
 
     /* ── WEIGHT CALCULATOR ── */
     const GRAVITY = { Mercury:0.378,Venus:0.907,Earth:1,Mars:0.377,Jupiter:2.528,Saturn:1.065,Uranus:0.886,Neptune:1.137,Pluto:0.063 };
