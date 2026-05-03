@@ -986,21 +986,257 @@
     }
     .copy-btn-icon { font-size: 1rem; line-height: 1; }
 
-    @media (max-width: 860px) {
-      .dl-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
+    /* ── Script Explorer ── */
+    .script-explorer {
+      padding: 0 2rem 4rem;
+      max-width: 1280px;
+      margin: 0 auto;
+      width: 100%;
+      box-sizing: border-box;
     }
 
-    @media (max-width: 520px) {
-      .dl-grid {
-        grid-template-columns: 1fr;
-      }
+    .script-explorer-header {
+      padding-top: 2rem;
+      border-top: 1px solid var(--line);
+      margin-bottom: 1.6rem;
+    }
 
-      .downloads-section {
-        padding-left: 1rem;
-        padding-right: 1rem;
-      }
+    .script-explorer-header h2 {
+      font-size: clamp(1.3rem, 3vw, 1.9rem);
+      font-weight: 700;
+      margin: 0 0 0.4rem;
+    }
+
+    .script-explorer-header p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      max-width: 60ch;
+      margin: 0;
+    }
+
+    /* Planet tabs (horizontal scroll) */
+    .planet-tabs {
+      display: flex;
+      gap: 0.35rem;
+      overflow-x: auto;
+      padding-bottom: 0.2rem;
+      margin-bottom: 1.2rem;
+      scrollbar-width: none;
+    }
+    .planet-tabs::-webkit-scrollbar { display: none; }
+
+    .planet-tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.48rem 1.1rem;
+      border-radius: 99px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--muted);
+      font-size: 0.83rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      white-space: nowrap;
+      transition: border-color 0.15s, color 0.15s, background 0.15s;
+      flex-shrink: 0;
+    }
+    .planet-tab:hover {
+      border-color: var(--accent-2);
+      color: var(--accent-2);
+    }
+    .planet-tab.active {
+      background: var(--accent-2);
+      border-color: var(--accent-2);
+      color: #0a0c12;
+    }
+    .planet-tab-emoji { font-size: 1.1rem; line-height: 1; }
+
+    /* Main layout: sidebar + code panel */
+    .explorer-layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 1rem;
+      min-height: 480px;
+    }
+
+    /* Sidebar file list */
+    .explorer-sidebar {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar-header {
+      padding: 0.75rem 1rem;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,0.02);
+    }
+
+    .sidebar-file {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1rem;
+      font-size: 0.84rem;
+      font-weight: 500;
+      color: var(--muted);
+      cursor: pointer;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      transition: background 0.12s, color 0.12s;
+      border-left: 2.5px solid transparent;
+    }
+    .sidebar-file:hover {
+      background: rgba(121,167,255,0.06);
+      color: var(--text);
+    }
+    .sidebar-file.active {
+      background: rgba(121,167,255,0.1);
+      border-left-color: var(--accent-2);
+      color: var(--accent-2);
+      font-weight: 700;
+    }
+    .sidebar-file-icon { font-size: 0.9rem; flex-shrink: 0; }
+
+    /* Code viewer */
+    .explorer-panel {
+      display: flex;
+      flex-direction: column;
+      background: #0d1117;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .panel-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.6rem 1rem;
+      background: #161b22;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      gap: 0.8rem;
+    }
+
+    .panel-filename {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #8b949e;
+      font-family: 'Courier New', monospace;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .panel-filename-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent-2);
+      flex-shrink: 0;
+    }
+
+    .panel-actions { display: flex; gap: 0.5rem; align-items: center; }
+
+    .panel-copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.85rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #0a0c12;
+      background: var(--accent-2);
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      font-family: inherit;
+      transition: opacity 0.15s, transform 0.1s, background 0.2s;
+    }
+    .panel-copy-btn:hover { opacity: 0.88; transform: scale(1.03); }
+    .panel-copy-btn.copied { background: var(--accent); }
+
+    .panel-line-count {
+      font-size: 0.72rem;
+      color: #4a5568;
+      font-family: monospace;
+    }
+
+    /* Code body with line numbers */
+    .code-body {
+      flex: 1;
+      overflow: auto;
+      display: flex;
+      min-height: 420px;
+    }
+
+    .code-gutter {
+      padding: 1rem 0.75rem 1rem 1rem;
+      text-align: right;
+      user-select: none;
+      color: #30363d;
+      font-size: 0.78rem;
+      font-family: 'Courier New', monospace;
+      line-height: 1.6;
+      border-right: 1px solid rgba(255,255,255,0.04);
+      background: #0d1117;
+      min-width: 48px;
+      flex-shrink: 0;
+    }
+
+    .code-content {
+      padding: 1rem 1.2rem;
+      overflow-x: auto;
+      flex: 1;
+    }
+
+    .code-content pre {
+      margin: 0;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.8rem;
+      line-height: 1.6;
+      color: #e6edf3;
+      white-space: pre;
+      tab-size: 4;
+    }
+
+    /* Very lightweight Python syntax highlight colours */
+    .tok-kw    { color: #ff7b72; }   /* keywords */
+    .tok-str   { color: #a5d6ff; }   /* strings */
+    .tok-cmt   { color: #8b949e; font-style: italic; }  /* comments */
+    .tok-num   { color: #79c0ff; }   /* numbers */
+    .tok-fn    { color: #d2a8ff; }   /* function names */
+    .tok-cls   { color: #ffa657; }   /* class names */
+    .tok-dec   { color: #ffa657; }   /* decorators */
+
+    /* Loading / empty states */
+    .code-placeholder {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #4a5568;
+      gap: 0.6rem;
+      padding: 2rem;
+    }
+    .code-placeholder-icon { font-size: 2.5rem; }
+    .code-placeholder p { font-size: 0.9rem; text-align: center; margin: 0; }
+
+    @media (max-width: 860px) {
+      .script-explorer { padding-left: 1rem; padding-right: 1rem; }
+      .explorer-layout { grid-template-columns: 1fr; }
+      .explorer-sidebar { min-height: auto; flex-direction: row; flex-wrap: wrap; }
+      .sidebar-header { width: 100%; }
+      .sidebar-file { flex: 1 1 auto; border-left: none; border-bottom: none; border-top: 2.5px solid transparent; }
+      .sidebar-file.active { border-top-color: var(--accent-2); border-left-color: transparent; }
     }
 
     @media (max-width: 720px) {
@@ -2274,22 +2510,52 @@
       </div>
     </section>
 
-    <!-- ── PLANET SCRIPTS ── -->
-    <section class="downloads-section" id="downloads">
-      <div class="downloads-header reveal">
+    <!-- ── PLANET SCRIPT EXPLORER ── -->
+    <section class="script-explorer" id="downloads">
+      <div class="script-explorer-header reveal">
         <p class="eyebrow">🐍 Planet Scripts</p>
-        <h2>Copy Python Scripts</h2>
-        <p>Click the copy button on any planet card to instantly copy its Blender Python (<code>.py</code>) script to your clipboard — then paste directly into Blender's Scripting editor.</p>
+        <h2>Blender Python Scripts</h2>
+        <p>Select a planet tab, choose a script from the sidebar, and copy it straight to your clipboard — then paste into Blender’s Scripting editor and hit <strong>Run Script</strong>.</p>
       </div>
-      <div class="dl-all-bar reveal">
-        <button class="dl-all-btn" id="dl-all-btn" onclick="copyAllScripts()">
-          <span id="dl-all-icon">📋</span> Copy All Scripts
-        </button>
-        <span class="dl-all-progress" id="dl-all-progress"></span>
+
+      <!-- Planet tab nav -->
+      <div class="planet-tabs" id="planet-tabs" role="tablist">
+        <!-- built by JS -->
       </div>
-      <p class="dl-all-note reveal">📌 Open Blender → Scripting workspace → New → paste the copied script → Run Script.</p>
-      <div class="dl-grid" id="dl-grid">
-        <!-- filled by JS -->
+
+      <!-- Two-panel layout -->
+      <div class="explorer-layout">
+
+        <!-- Sidebar: script file list -->
+        <aside class="explorer-sidebar">
+          <div class="sidebar-header">📂 Scripts</div>
+          <div id="sidebar-files">
+            <!-- built by JS -->
+          </div>
+        </aside>
+
+        <!-- Code viewer -->
+        <div class="explorer-panel">
+          <div class="panel-topbar">
+            <div class="panel-filename">
+              <span class="panel-filename-dot"></span>
+              <span id="panel-fname">Select a script ——</span>
+            </div>
+            <div class="panel-actions">
+              <span class="panel-line-count" id="panel-lines"></span>
+              <button class="panel-copy-btn" id="panel-copy-btn" title="Copy script to clipboard">
+                📋 Copy
+              </button>
+            </div>
+          </div>
+          <div class="code-body" id="code-body">
+            <div class="code-placeholder">
+              <span class="code-placeholder-icon">🪐</span>
+              <p>Choose a planet and script<br>to view its source code</p>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -2578,83 +2844,162 @@
       });
     }
 
-    async function copyScript(pyPath, btn) {
-      try {
-        const res = await fetch(pyPath);
-        if (!res.ok) throw new Error('fetch failed');
-        const text = await res.text();
-        await navigator.clipboard.writeText(text);
-        btn.classList.add('copied');
-        btn.innerHTML = '<span class="copy-btn-icon">✓</span> Copied!';
-        setTimeout(() => {
-          btn.classList.remove('copied');
-          btn.innerHTML = '<span class="copy-btn-icon">📋</span> Copy Script';
-        }, 2200);
-      } catch (err) {
-        btn.innerHTML = '⚠ Failed';
-        setTimeout(() => { btn.innerHTML = '<span class="copy-btn-icon">📋</span> Copy Script'; }, 2000);
-      }
-    }
+    /* ── SCRIPT EXPLORER ── */
+    (function () {
+      const PLANET_SCRIPTS = [
+        { name: 'Mercury', emoji: '🪨', scripts: ['Mercury.py'] },
+        { name: 'Venus',   emoji: '🌕', scripts: ['Venus.py'] },
+        { name: 'Earth',   emoji: '🌍', scripts: ['Earth.py', 'Moon.py', 'Orbit.py'] },
+        { name: 'Mars',    emoji: '🔴', scripts: ['Mars.py', 'Moon.py', 'Orbit.py'] },
+        { name: 'Jupiter', emoji: '🟠', scripts: ['Jupiter and Moons.py', 'Enhancement.py', 'Light.py'] },
+        { name: 'Saturn',  emoji: '🪐', scripts: ['Saturn.py', 'Moons and Orbit.py'] },
+        { name: 'Uranus',  emoji: '🔵', scripts: ['Uranus.py', 'Moon.py'] },
+        { name: 'Neptune', emoji: '🌀', scripts: ['Neptune.py', 'Moon.py', 'Light.py'] },
+        { name: 'Pluto',   emoji: '🌑', scripts: ['Pluto.py', 'Moon.py', 'Light.py'] },
+      ];
 
-    function renderDownloads() {
-      const grid = document.getElementById('dl-grid');
-      if (!grid) return;
-      grid.innerHTML = '';
-      PLANETS.forEach((p, i) => {
-        if (!p.pyScript) return;
-        const card = document.createElement('div');
-        card.className = 'dl-card reveal';
-        card.style.animationDelay = (i * 50) + 'ms';
-        const fileName = p.pyScript.split('/').pop();
-        card.innerHTML = `
-          <div class="dl-card-top">
-            <span class="dl-card-emoji">${p.emoji}</span>
-            <div class="dl-card-meta">
-              <p class="dl-card-name">${p.name}</p>
-              <span class="dl-card-type">${p.type}</span>
-            </div>
-          </div>
-          <span class="dl-card-file">${fileName}</span>
-          <button class="copy-btn" id="copy-btn-${p.name.toLowerCase()}" title="Copy ${fileName} to clipboard">
-            <span class="copy-btn-icon">📋</span> Copy Script
-          </button>
+      let activePlanet = PLANET_SCRIPTS[0];
+      let activeScript = null;
+      let currentCode = '';
+
+      /* ─ Syntax highlighter (lightweight Python) ─ */
+      function highlightPython(code) {
+        const escape = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        const KW = /\b(import|from|as|def|class|return|if|elif|else|for|while|in|not|and|or|is|None|True|False|pass|break|continue|try|except|finally|raise|with|lambda|yield|global|nonlocal|del|assert|async|await)\b/g;
+        const lines = code.split('\n');
+        return lines.map(line => {
+          // comment
+          const cIdx = line.indexOf('#');
+          let pre = line, cmt = '';
+          if (cIdx >= 0) {
+            // make sure # is not inside a string (simple heuristic)
+            const beforeHash = line.slice(0, cIdx);
+            const q = (beforeHash.match(/"/g)||[]).length + (beforeHash.match(/'/g)||[]).length;
+            if (q % 2 === 0) { pre = line.slice(0, cIdx); cmt = line.slice(cIdx); }
+          }
+          let out = escape(pre)
+            .replace(/(&quot;|&#039;)(.*?)\1/g, (m) => `<span class="tok-str">${m}</span>`)
+            .replace(/("""[\s\S]*?"""|'''[\s\S]*?''')/g, m => `<span class="tok-str">${m}</span>`)
+            .replace(/\b(\d+\.?\d*|\.\d+)\b/g, '<span class="tok-num">$&</span>')
+            .replace(KW, '<span class="tok-kw">$&</span>')
+            .replace(/\bdef (\w+)/g, 'def <span class="tok-fn">$1</span>')
+            .replace(/\bclass (\w+)/g, 'class <span class="tok-cls">$1</span>')
+            .replace(/(@\w+)/g, '<span class="tok-dec">$1</span>');
+          if (cmt) out += `<span class="tok-cmt">${escape(cmt)}</span>`;
+          return out;
+        }).join('\n');
+      }
+
+      /* ─ Render gutter + code ─ */
+      function renderCode(code, filename) {
+        currentCode = code;
+        const lines = code.split('\n');
+        const body = document.getElementById('code-body');
+        document.getElementById('panel-fname').textContent = filename;
+        document.getElementById('panel-lines').textContent = lines.length + ' lines';
+        body.innerHTML = `
+          <div class="code-gutter" id="code-gutter"></div>
+          <div class="code-content"><pre id="code-pre"></pre></div>
         `;
-        grid.appendChild(card);
-        const btn = card.querySelector('.copy-btn');
-        btn.addEventListener('click', () => copyScript(p.pyScript, btn));
-      });
-    }
+        // Gutter numbers
+        document.getElementById('code-gutter').textContent = lines.map((_,i) => i+1).join('\n');
+        // Highlighted code
+        document.getElementById('code-pre').innerHTML = highlightPython(code);
+        // Reset copy btn
+        const copyBtn = document.getElementById('panel-copy-btn');
+        copyBtn.innerHTML = '📋 Copy';
+        copyBtn.classList.remove('copied');
+      }
 
-    async function copyAllScripts() {
-      const scripts = PLANETS.filter(p => p.pyScript);
-      const btn = document.getElementById('dl-all-btn');
-      const icon = document.getElementById('dl-all-icon');
-      const progress = document.getElementById('dl-all-progress');
-      btn.disabled = true;
-      progress.classList.add('visible');
-      let combined = '';
-      for (let i = 0; i < scripts.length; i++) {
-        progress.textContent = `Fetching ${i + 1} / ${scripts.length}…`;
+      function showPlaceholder() {
+        currentCode = '';
+        document.getElementById('panel-fname').textContent = 'Select a script ——';
+        document.getElementById('panel-lines').textContent = '';
+        document.getElementById('code-body').innerHTML = `
+          <div class="code-placeholder">
+            <span class="code-placeholder-icon">🪐</span>
+            <p>Choose a planet and script<br>to view its source code</p>
+          </div>`;
+      }
+
+      /* ─ Load script file ─ */
+      async function loadScript(planet, filename) {
+        activeScript = filename;
+        updateSidebarActive();
+        const path = `blender/${planet.name}/${filename}`;
+        document.getElementById('panel-fname').textContent = filename + '  ⏳';
+        document.getElementById('panel-lines').textContent = '';
+        document.getElementById('code-body').innerHTML = `<div class="code-placeholder"><span class="code-placeholder-icon" style="font-size:1.8rem;animation:spin .8s linear infinite;display:inline-block">⧗</span><p>Loading…</p></div>`;
         try {
-          const res = await fetch(scripts[i].pyScript);
+          const res = await fetch(path);
+          if (!res.ok) throw new Error();
           const text = await res.text();
-          combined += `# ===== ${scripts[i].name}.py =====\n` + text + '\n\n';
-        } catch(e) {}
+          renderCode(text, filename);
+        } catch {
+          document.getElementById('code-body').innerHTML = `<div class="code-placeholder"><span class="code-placeholder-icon">⚠️</span><p>Could not load ${filename}</p></div>`;
+        }
       }
-      try {
-        await navigator.clipboard.writeText(combined);
-        icon.textContent = '✓';
-        progress.textContent = `All ${scripts.length} scripts copied!`;
-      } catch(e) {
-        progress.textContent = 'Copy failed — try individual buttons.';
+
+      /* ─ Sidebar ─ */
+      function updateSidebarActive() {
+        document.querySelectorAll('.sidebar-file').forEach(el => {
+          el.classList.toggle('active', el.dataset.file === activeScript);
+        });
       }
-      setTimeout(() => {
-        btn.disabled = false;
-        icon.textContent = '📋';
-        progress.classList.remove('visible');
-        setTimeout(() => { progress.textContent = ''; }, 220);
-      }, 3000);
-    }
+
+      function buildSidebar(planet) {
+        const container = document.getElementById('sidebar-files');
+        container.innerHTML = '';
+        planet.scripts.forEach(file => {
+          const el = document.createElement('div');
+          el.className = 'sidebar-file' + (file === activeScript ? ' active' : '');
+          el.dataset.file = file;
+          el.innerHTML = `<span class="sidebar-file-icon">🐍</span> ${file}`;
+          el.addEventListener('click', () => loadScript(planet, file));
+          container.appendChild(el);
+        });
+      }
+
+      /* ─ Planet tabs ─ */
+      function buildTabs() {
+        const nav = document.getElementById('planet-tabs');
+        PLANET_SCRIPTS.forEach(planet => {
+          const btn = document.createElement('button');
+          btn.className = 'planet-tab' + (planet === activePlanet ? ' active' : '');
+          btn.setAttribute('role','tab');
+          btn.innerHTML = `<span class="planet-tab-emoji">${planet.emoji}</span>${planet.name}`;
+          btn.addEventListener('click', () => {
+            activePlanet = planet;
+            activeScript = null;
+            document.querySelectorAll('.planet-tab').forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+            buildSidebar(planet);
+            showPlaceholder();
+          });
+          nav.appendChild(btn);
+        });
+      }
+
+      /* ─ Copy button ─ */
+      document.getElementById('panel-copy-btn').addEventListener('click', async () => {
+        if (!currentCode) return;
+        const btn = document.getElementById('panel-copy-btn');
+        try {
+          await navigator.clipboard.writeText(currentCode);
+          btn.innerHTML = '✓ Copied!';
+          btn.classList.add('copied');
+          setTimeout(() => { btn.innerHTML = '📋 Copy'; btn.classList.remove('copied'); }, 2200);
+        } catch {
+          btn.innerHTML = '⚠ Failed';
+          setTimeout(() => { btn.innerHTML = '📋 Copy'; }, 2000);
+        }
+      });
+
+      /* ─ Init ─ */
+      buildTabs();
+      buildSidebar(activePlanet);
+
+    })();
 
     // Run on load
     calcAndRender();
