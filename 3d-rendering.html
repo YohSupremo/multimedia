@@ -1596,6 +1596,94 @@
     .opc-stat-v { display: block; font-size: 0.9rem; font-weight: 700; color: var(--text); }
     @media (max-width: 720px) { .opc-card { grid-template-columns: 1fr; } .opc-media { min-height: 200px; } .opc-stats { grid-template-columns: repeat(2,1fr); } }
     @keyframes czm-pop { from { transform: scale(0.88); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+    /* ── Production Breakdown Accordion ── */
+    .prod-accordion-section {
+      padding: 3.5rem 2rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .prod-toggle {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      padding: 1.4rem 1.8rem;
+      cursor: pointer;
+      font-family: inherit;
+      color: var(--text);
+      transition: border-color 0.2s, background 0.2s;
+      text-align: left;
+    }
+
+    .prod-toggle:hover {
+      border-color: var(--accent-2);
+      background: rgba(121, 167, 255, 0.04);
+    }
+
+    .prod-toggle.open {
+      border-color: var(--accent-2);
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .prod-toggle-left { display: flex; align-items: center; gap: 0.9rem; }
+    .prod-toggle-icon { font-size: 1.4rem; line-height: 1; }
+    .prod-toggle-title { font-size: 1rem; font-weight: 700; color: var(--text); margin: 0; }
+    .prod-toggle-sub { font-size: 0.8rem; color: var(--muted); margin: 0; margin-top: 0.15rem; }
+
+    .prod-toggle-right { display: flex; align-items: center; gap: 0.9rem; flex-shrink: 0; }
+    .prod-step-count {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-2);
+      background: rgba(121, 167, 255, 0.1);
+      border: 1px solid rgba(121, 167, 255, 0.25);
+      border-radius: 99px;
+      padding: 0.18rem 0.7rem;
+    }
+
+    .prod-chevron {
+      font-size: 1rem;
+      color: var(--accent-2);
+      transition: transform 0.3s ease;
+    }
+
+    .prod-toggle.open .prod-chevron { transform: rotate(180deg); }
+
+    .prod-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      background: var(--panel);
+      border: 1px solid var(--accent-2);
+      border-top: none;
+      border-bottom-left-radius: var(--radius-xl);
+      border-bottom-right-radius: var(--radius-xl);
+    }
+
+    .prod-body.open { max-height: 20000px; }
+
+    .prod-inner {
+      padding: 1.8rem 2rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    @media (max-width: 720px) {
+      .prod-accordion-section { padding: 2rem 1rem 1.5rem; }
+      .prod-inner { padding: 1.2rem 1.2rem 1.5rem; }
+    }
   </style>
 </head>
 
@@ -1702,130 +1790,140 @@
 
     </section>
 
-    <!-- ── STEP BY STEP ── -->
-    <section class="steps-section" id="steps">
-      <div class="steps-header reveal">
-        <p class="eyebrow">Production Breakdown</p>
-        <h2>How it was made — step by step</h2>
-        <p>A walkthrough of the full pipeline from scene setup to final render, built in Blender 5.1 using the Cycles
-          render engine and automated with a custom Python script via the bpy API.</p>
+    <!-- ── PRODUCTION BREAKDOWN ACCORDION ── -->
+    <section class="prod-accordion-section" id="steps">
+
+      <button class="prod-toggle reveal" id="prod-toggle" aria-expanded="false" aria-controls="prod-body">
+        <div class="prod-toggle-left">
+          <span class="prod-toggle-icon">📋</span>
+          <div>
+            <p class="prod-toggle-title">Production Breakdown</p>
+            <p class="prod-toggle-sub">How it was made — step by step · Blender 5.1 + Python bpy API</p>
+          </div>
+        </div>
+        <div class="prod-toggle-right">
+          <span class="prod-step-count">10 Steps</span>
+          <span class="prod-chevron">▾</span>
+        </div>
+      </button>
+
+      <div class="prod-body" id="prod-body" role="region" aria-labelledby="prod-toggle">
+        <div class="prod-inner">
+
+          <div class="step-card">
+            <div class="step-number">01</div>
+            <div class="step-body">
+              <h3>Scene Setup &amp; Reference Gathering</h3>
+              <p>Opened Blender 5.1 and configured a new scene with a black HDRI background to simulate deep space.
+                Collected NASA reference images for each planet — surface textures, color palettes, and relative size
+                ratios — to guide the Python script's planet definitions.</p>
+              <span class="step-tag">Scene</span>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">02</div>
+            <div class="step-body">
+              <h3>Python Script — Planet Generation</h3>
+              <p>Wrote a Python script using Blender's <code>bpy</code> API to procedurally generate all planets as UV
+                spheres with correct relative scales (Jupiter ~11× Earth). The script automated object naming, placement
+                along orbital distances, and Saturn's ring torus — eliminating repetitive manual work.</p>
+              <span class="step-tag">Scripting</span>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">03</div>
+            <div class="step-body">
+              <h3>UV Unwrapping &amp; Texture Mapping</h3>
+              <p>The script applied spherical UV unwraps to each planet programmatically. NASA diffuse/albedo texture maps
+                were loaded via <code>bpy.ops.image.open()</code> and assigned through Image Texture nodes in the Shader
+                Editor, with Mapping nodes to correct polar stretching.</p>
+              <span class="step-tag">Texturing</span>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">04</div>
+            <div class="step-body">
+              <h3>Materials &amp; Shader Setup</h3>
+              <p>Planet materials used Principled BSDF shaders, configured in the script via node trees. The Sun received
+                a custom Emission shader with a color ramp for solar glow. Saturn's rings used a Transparent BSDF blended
+                with Principled BSDF for semi-transparent opacity.</p>
+              <span class="step-tag">Shading</span>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">05</div>
+            <div class="step-body">
+              <h3>Lighting — The Sun as a Light Source</h3>
+              <p>A Point Light was placed inside the Sun mesh via script with high intensity to cast realistic directional
+                shadows across all planets. A low-strength ambient world light (0.05) was set to keep the dark sides of
+                planets faintly visible without washing out the scene.</p>
+              <span class="step-tag">Lighting</span>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">06</div>
+            <div class="step-body">
+              <h3>Python Script — Orbital Animation</h3>
+              <p>The script automated keyframe insertion for each planet's axial rotation and orbital motion using
+                <code>bpy.ops.anim.keyframe_insert()</code>. Orbital speeds were derived from real planetary periods,
+                scaled down proportionally. The camera was constrained to a Bezier curve path for a smooth orbit
+                fly-through.</p>
+              <span class="step-tag">Animation</span>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">07</div>
+            <div class="step-body">
+              <h3>Star Field Background</h3>
+              <p>A procedural star field was generated using Blender's World shader with a Noise Texture driving an
+                Emission background — set up in the script via node group assignments. This avoided the overhead of a
+                particle system while producing a convincing deep-space environment.</p>
+              <span class="step-tag">Environment</span>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">08</div>
+            <div class="step-body">
+              <h3>Render Settings &amp; GPU Configuration</h3>
+              <p>Render engine set to Cycles with GPU Compute enabled for the RTX 3050 Ti (CUDA) — configured
+                programmatically via <code>bpy.context.scene.cycles</code>. Samples set to 256 for stills and 128 for
+                animation frames, with OptiX denoising enabled to reduce noise without increasing sample count.</p>
+              <span class="step-tag">Render Setup</span>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">09</div>
+            <div class="step-body">
+              <h3>Post-Processing in Blender Compositor</h3>
+              <p>Used Blender 5.1's Compositor to add a Glare node (Fog Glow) around the Sun and bright stars for a bloom
+                effect. Color Balance node applied a cinematic grade — cooled shadows and warmed midtones. Node layout was
+                partially automated through the Python script.</p>
+              <span class="step-tag">Compositing</span>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">10</div>
+            <div class="step-body">
+              <h3>Final Export</h3>
+              <p>Rendered as a PNG image sequence (1920×1080) and compiled into MP4 using Blender's Video Sequence Editor
+                with FFmpeg / H.264 encoding at 24 fps. The script set output paths and format settings automatically
+                before the render batch was launched.</p>
+              <span class="step-tag">Export</span>
+            </div>
+          </div>
+
+        </div>
       </div>
 
-      <div class="step-list">
-
-        <div class="step-card reveal">
-          <div class="step-number">01</div>
-          <div class="step-body">
-            <h3>Scene Setup &amp; Reference Gathering</h3>
-            <p>Opened Blender 5.1 and configured a new scene with a black HDRI background to simulate deep space.
-              Collected NASA reference images for each planet — surface textures, color palettes, and relative size
-              ratios — to guide the Python script's planet definitions.</p>
-            <span class="step-tag">Scene</span>
-          </div>
-        </div>
-
-        <div class="step-card reveal">
-          <div class="step-number">02</div>
-          <div class="step-body">
-            <h3>Python Script — Planet Generation</h3>
-            <p>Wrote a Python script using Blender's <code>bpy</code> API to procedurally generate all planets as UV
-              spheres with correct relative scales (Jupiter ~11× Earth). The script automated object naming, placement
-              along orbital distances, and Saturn's ring torus — eliminating repetitive manual work.</p>
-            <span class="step-tag">Scripting</span>
-          </div>
-        </div>
-
-        <div class="step-card reveal">
-          <div class="step-number">03</div>
-          <div class="step-body">
-            <h3>UV Unwrapping &amp; Texture Mapping</h3>
-            <p>The script applied spherical UV unwraps to each planet programmatically. NASA diffuse/albedo texture maps
-              were loaded via <code>bpy.ops.image.open()</code> and assigned through Image Texture nodes in the Shader
-              Editor, with Mapping nodes to correct polar stretching.</p>
-            <span class="step-tag">Texturing</span>
-          </div>
-        </div>
-
-        <div class="step-card reveal">
-          <div class="step-number">04</div>
-          <div class="step-body">
-            <h3>Materials &amp; Shader Setup</h3>
-            <p>Planet materials used Principled BSDF shaders, configured in the script via node trees. The Sun received
-              a custom Emission shader with a color ramp for solar glow. Saturn's rings used a Transparent BSDF blended
-              with Principled BSDF for semi-transparent opacity.</p>
-            <span class="step-tag">Shading</span>
-          </div>
-        </div>
-
-        <div class="step-card reveal">
-          <div class="step-number">05</div>
-          <div class="step-body">
-            <h3>Lighting — The Sun as a Light Source</h3>
-            <p>A Point Light was placed inside the Sun mesh via script with high intensity to cast realistic directional
-              shadows across all planets. A low-strength ambient world light (0.05) was set to keep the dark sides of
-              planets faintly visible without washing out the scene.</p>
-            <span class="step-tag">Lighting</span>
-          </div>
-        </div>
-
-        <div class="step-card reveal">
-          <div class="step-number">06</div>
-          <div class="step-body">
-            <h3>Python Script — Orbital Animation</h3>
-            <p>The script automated keyframe insertion for each planet's axial rotation and orbital motion using
-              <code>bpy.ops.anim.keyframe_insert()</code>. Orbital speeds were derived from real planetary periods,
-              scaled down proportionally. The camera was constrained to a Bezier curve path for a smooth orbit
-              fly-through.
-            </p>
-            <span class="step-tag">Animation</span>
-          </div>
-        </div>
-
-        <div class="step-card reveal">
-          <div class="step-number">07</div>
-          <div class="step-body">
-            <h3>Star Field Background</h3>
-            <p>A procedural star field was generated using Blender's World shader with a Noise Texture driving an
-              Emission background — set up in the script via node group assignments. This avoided the overhead of a
-              particle system while producing a convincing deep-space environment.</p>
-            <span class="step-tag">Environment</span>
-          </div>
-        </div>
-
-        <div class="step-card reveal">
-          <div class="step-number">08</div>
-          <div class="step-body">
-            <h3>Render Settings &amp; GPU Configuration</h3>
-            <p>Render engine set to Cycles with GPU Compute enabled for the RTX 3050 Ti (CUDA) — configured
-              programmatically via <code>bpy.context.scene.cycles</code>. Samples set to 256 for stills and 128 for
-              animation frames, with OptiX denoising enabled to reduce noise without increasing sample count.</p>
-            <span class="step-tag">Render Setup</span>
-          </div>
-        </div>
-
-        <div class="step-card reveal">
-          <div class="step-number">09</div>
-          <div class="step-body">
-            <h3>Post-Processing in Blender Compositor</h3>
-            <p>Used Blender 5.1's Compositor to add a Glare node (Fog Glow) around the Sun and bright stars for a bloom
-              effect. Color Balance node applied a cinematic grade — cooled shadows and warmed midtones. Node layout was
-              partially automated through the Python script.</p>
-            <span class="step-tag">Compositing</span>
-          </div>
-        </div>
-
-        <div class="step-card reveal">
-          <div class="step-number">10</div>
-          <div class="step-body">
-            <h3>Final Export</h3>
-            <p>Rendered as a PNG image sequence (1920×1080) and compiled into MP4 using Blender's Video Sequence Editor
-              with FFmpeg / H.264 encoding at 24 fps. The script set output paths and format settings automatically
-              before the render batch was launched.</p>
-            <span class="step-tag">Export</span>
-          </div>
-        </div>
-
-      </div>
     </section>
 
     <!-- ── RENDER INFO ── -->
@@ -2833,6 +2931,18 @@
     })();
 
     /* ── TYPE-FILTER READY — data-type set in renderEncyclopedia above ── */
+
+    /* ── Production Breakdown Accordion ── */
+    (function () {
+      const toggle = document.getElementById('prod-toggle');
+      const body   = document.getElementById('prod-body');
+      if (!toggle || !body) return;
+      toggle.addEventListener('click', () => {
+        const isOpen = body.classList.toggle('open');
+        toggle.classList.toggle('open', isOpen);
+        toggle.setAttribute('aria-expanded', isOpen);
+      });
+    })();
   </script>
 </body>
 
