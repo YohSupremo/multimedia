@@ -915,7 +915,7 @@
       line-height: 1;
     }
 
-    /* ── Download All button ── */
+    /* ── Copy Script button ── */
     .dl-all-bar {
       display: flex;
       align-items: center;
@@ -946,27 +946,8 @@
       transform: translateY(-1px);
     }
 
-    .dl-all-btn:active {
-      transform: scale(0.97);
-    }
-
-    .dl-all-btn:disabled {
-      opacity: 0.55;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .dl-all-spin {
-      display: inline-block;
-      animation: spin 0.8s linear infinite;
-      font-style: normal;
-    }
-
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
+    .dl-all-btn:active { transform: scale(0.97); }
+    .dl-all-btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
 
     .dl-all-progress {
       font-size: 0.82rem;
@@ -975,16 +956,35 @@
       opacity: 0;
       transition: opacity 0.2s;
     }
+    .dl-all-progress.visible { opacity: 1; }
+    .dl-all-note { font-size: 0.78rem; color: var(--muted); margin: 0; }
 
-    .dl-all-progress.visible {
-      opacity: 1;
+    /* Copy button on each card */
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.42rem;
+      padding: 0.52rem 1rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      color: #0a0c12;
+      background: var(--accent-2);
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      font-family: inherit;
+      transition: opacity 0.15s, transform 0.12s, background 0.2s;
+      margin-top: auto;
     }
-
-    .dl-all-note {
-      font-size: 0.78rem;
-      color: var(--muted);
-      margin: 0;
+    .copy-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .copy-btn:active { transform: scale(0.96); }
+    .copy-btn.copied {
+      background: var(--accent);
+      color: #0a0c12;
     }
+    .copy-btn-icon { font-size: 1rem; line-height: 1; }
 
     @media (max-width: 860px) {
       .dl-grid {
@@ -2274,22 +2274,20 @@
       </div>
     </section>
 
-    <!-- ── PROJECT DOWNLOADS ── -->
+    <!-- ── PLANET SCRIPTS ── -->
     <section class="downloads-section" id="downloads">
       <div class="downloads-header reveal">
-        <p class="eyebrow">⬇️ Project Files</p>
-        <h2>Download Blender Files</h2>
-        <p>Each download is a <code>.zip</code> archive containing the <code>.blend</code> project file and its
-          accompanying Python (<code>.py</code>) script — open in Blender 5.1 or later.</p>
+        <p class="eyebrow">🐍 Planet Scripts</p>
+        <h2>Copy Python Scripts</h2>
+        <p>Click the copy button on any planet card to instantly copy its Blender Python (<code>.py</code>) script to your clipboard — then paste directly into Blender's Scripting editor.</p>
       </div>
       <div class="dl-all-bar reveal">
-        <button class="dl-all-btn" id="dl-all-btn" onclick="downloadAll()">
-          <span id="dl-all-icon">⬇️</span> Download All Planets
+        <button class="dl-all-btn" id="dl-all-btn" onclick="copyAllScripts()">
+          <span id="dl-all-icon">📋</span> Copy All Scripts
         </button>
         <span class="dl-all-progress" id="dl-all-progress"></span>
       </div>
-      <p class="dl-all-note reveal">📌 Your browser may ask you to allow multiple downloads — click
-        <strong>Allow</strong> when prompted.</p>
+      <p class="dl-all-note reveal">📌 Open Blender → Scripting workspace → New → paste the copied script → Run Script.</p>
       <div class="dl-grid" id="dl-grid">
         <!-- filled by JS -->
       </div>
@@ -2311,7 +2309,7 @@
         tempRange: '-180°C to 430°C', distanceKm: '57.9 million km',
         dayLength: '58.6 Earth days', gravity: '0.38g',
         isEarth: false, video: 'mercury.mp4',
-        blendFile: 'blender/Mercury.zip',
+        pyScript: 'blender/Mercury/Mercury.py',
         desc: 'The smallest planet and closest to the Sun. With no atmosphere to retain heat, Mercury swings from -180°C at night to 430°C during the day — the most extreme temperature range in the Solar System.'
       },
       {
@@ -2320,7 +2318,7 @@
         tempRange: '~465°C (avg)', distanceKm: '108.2 million km',
         dayLength: '243 Earth days', gravity: '0.91g',
         isEarth: false, video: 'venus.mp4',
-        blendFile: 'blender/Venus.zip',
+        pyScript: 'blender/Venus/Venus.py',
         desc: 'The hottest planet despite not being the closest to the Sun. A thick CO₂ atmosphere traps heat in a runaway greenhouse effect. A day on Venus is longer than its year, and it rotates backwards.'
       },
       {
@@ -2329,7 +2327,7 @@
         tempRange: '-89°C to 57°C', distanceKm: '149.6 million km',
         dayLength: '24 hours', gravity: '1.00g',
         isEarth: true, video: 'earth.mp4',
-        blendFile: 'blender/Earth.zip',
+        pyScript: 'blender/Earth/Earth.py',
         desc: 'The only known planet to harbor life. Earth has liquid water, a protective magnetic field, and a nitrogen-oxygen atmosphere that makes complex life possible. It is the densest planet in the Solar System.'
       },
       {
@@ -2338,7 +2336,7 @@
         tempRange: '-125°C to 20°C', distanceKm: '227.9 million km',
         dayLength: '24 hrs 37 min', gravity: '0.38g',
         isEarth: false, video: 'mars.mp4',
-        blendFile: 'blender/Mars.zip',
+        pyScript: 'blender/Mars/Mars.py',
         desc: 'Known as the Red Planet due to iron oxide on its surface. Mars is home to Olympus Mons, the tallest volcano in the Solar System at 22 km high. Evidence suggests it once had liquid water.'
       },
       {
@@ -2347,7 +2345,7 @@
         tempRange: '~-110°C (cloud top)', distanceKm: '778.5 million km',
         dayLength: '9 hrs 56 min', gravity: '2.53g',
         isEarth: false, video: 'jupiter.mp4',
-        blendFile: 'blender/Jupiter.zip',
+        pyScript: 'blender/Jupiter/Jupiter.py',
         desc: 'The largest planet — more than twice the mass of all other planets combined. Its Great Red Spot is a storm wider than Earth that has been raging for over 350 years. Jupiter has 95 known moons.'
       },
       {
@@ -2356,7 +2354,7 @@
         tempRange: '~-140°C (cloud top)', distanceKm: '1.43 billion km',
         dayLength: '10 hrs 42 min', gravity: '1.07g',
         isEarth: false, video: 'saturn.mp4',
-        blendFile: 'blender/Saturn.zip',
+        pyScript: 'blender/Saturn/Saturn.py',
         desc: 'Famous for its iconic ring system made of ice and rock particles spanning 282,000 km. Saturn is the least dense planet — it would float on water. It has 146 known moons, including Titan with a thick atmosphere.'
       },
       {
@@ -2365,7 +2363,7 @@
         tempRange: '~-195°C (cloud top)', distanceKm: '2.87 billion km',
         dayLength: '17 hrs 14 min', gravity: '0.89g',
         isEarth: false, video: 'uranus.mp4',
-        blendFile: 'blender/Uranus.zip',
+        pyScript: 'blender/Uranus/Uranus.py',
         desc: 'An ice giant that rotates on its side with an axial tilt of 98° — likely caused by a massive collision long ago. It is the coldest planetary atmosphere in the Solar System at -224°C.'
       },
       {
@@ -2374,7 +2372,7 @@
         tempRange: '~-200°C (cloud top)', distanceKm: '4.50 billion km',
         dayLength: '16 hrs 6 min', gravity: '1.14g',
         isEarth: false, video: 'neptune.mp4',
-        blendFile: 'blender/Neptune.zip',
+        pyScript: 'blender/Neptune/Neptune.py',
         desc: 'The windiest planet, with supersonic storms reaching 2,100 km/h. Neptune was the first planet predicted mathematically before being directly observed. Its largest moon Triton orbits in the opposite direction.'
       },
       {
@@ -2383,7 +2381,7 @@
         tempRange: '-233°C to -223°C', distanceKm: '5.91 billion km',
         dayLength: '6.4 Earth days', gravity: '0.063g',
         isEarth: false, video: 'pluto.mp4',
-        blendFile: 'blender/Pluto.zip',
+        pyScript: 'blender/Pluto/Pluto.py',
         desc: 'A dwarf planet in the Kuiper Belt, reclassified from a planet in 2006. It has a heart-shaped nitrogen ice plain called Tombaugh Regio. Pluto has five moons, with Charon being so large the two form a binary system.'
       }
     ];
@@ -2580,16 +2578,34 @@
       });
     }
 
+    async function copyScript(pyPath, btn) {
+      try {
+        const res = await fetch(pyPath);
+        if (!res.ok) throw new Error('fetch failed');
+        const text = await res.text();
+        await navigator.clipboard.writeText(text);
+        btn.classList.add('copied');
+        btn.innerHTML = '<span class="copy-btn-icon">✓</span> Copied!';
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          btn.innerHTML = '<span class="copy-btn-icon">📋</span> Copy Script';
+        }, 2200);
+      } catch (err) {
+        btn.innerHTML = '⚠ Failed';
+        setTimeout(() => { btn.innerHTML = '<span class="copy-btn-icon">📋</span> Copy Script'; }, 2000);
+      }
+    }
+
     function renderDownloads() {
       const grid = document.getElementById('dl-grid');
       if (!grid) return;
       grid.innerHTML = '';
       PLANETS.forEach((p, i) => {
-        if (!p.blendFile) return;
+        if (!p.pyScript) return;
         const card = document.createElement('div');
         card.className = 'dl-card reveal';
         card.style.animationDelay = (i * 50) + 'ms';
-        const fileName = p.blendFile.split('/').pop();
+        const fileName = p.pyScript.split('/').pop();
         card.innerHTML = `
           <div class="dl-card-top">
             <span class="dl-card-emoji">${p.emoji}</span>
@@ -2599,52 +2615,45 @@
             </div>
           </div>
           <span class="dl-card-file">${fileName}</span>
-          <a class="dl-btn" href="${p.blendFile}" download title="Download ${fileName}">
-            <span class="dl-btn-icon">⬇</span> Download .zip
-          </a>
+          <button class="copy-btn" id="copy-btn-${p.name.toLowerCase()}" title="Copy ${fileName} to clipboard">
+            <span class="copy-btn-icon">📋</span> Copy Script
+          </button>
         `;
         grid.appendChild(card);
+        const btn = card.querySelector('.copy-btn');
+        btn.addEventListener('click', () => copyScript(p.pyScript, btn));
       });
     }
 
-    function downloadAll() {
-      const files = PLANETS.filter(p => p.blendFile);
+    async function copyAllScripts() {
+      const scripts = PLANETS.filter(p => p.pyScript);
       const btn = document.getElementById('dl-all-btn');
       const icon = document.getElementById('dl-all-icon');
       const progress = document.getElementById('dl-all-progress');
-
       btn.disabled = true;
-      icon.className = 'dl-all-spin';
-      icon.textContent = '⧗';
       progress.classList.add('visible');
-
-      let i = 0;
-      function next() {
-        if (i >= files.length) {
-          // Done
-          btn.disabled = false;
-          icon.className = '';
-          icon.textContent = '✔️';
-          progress.textContent = `All ${files.length} files queued!`;
-          setTimeout(() => {
-            icon.textContent = '⬇️';
-            progress.classList.remove('visible');
-            setTimeout(() => { progress.textContent = ''; }, 220);
-          }, 3000);
-          return;
-        }
-        const p = files[i];
-        progress.textContent = `Downloading ${i + 1} / ${files.length}…`;
-        const a = document.createElement('a');
-        a.href = p.blendFile;
-        a.download = p.blendFile.split('/').pop();
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        i++;
-        setTimeout(next, 650);
+      let combined = '';
+      for (let i = 0; i < scripts.length; i++) {
+        progress.textContent = `Fetching ${i + 1} / ${scripts.length}…`;
+        try {
+          const res = await fetch(scripts[i].pyScript);
+          const text = await res.text();
+          combined += `# ===== ${scripts[i].name}.py =====\n` + text + '\n\n';
+        } catch(e) {}
       }
-      next();
+      try {
+        await navigator.clipboard.writeText(combined);
+        icon.textContent = '✓';
+        progress.textContent = `All ${scripts.length} scripts copied!`;
+      } catch(e) {
+        progress.textContent = 'Copy failed — try individual buttons.';
+      }
+      setTimeout(() => {
+        btn.disabled = false;
+        icon.textContent = '📋';
+        progress.classList.remove('visible');
+        setTimeout(() => { progress.textContent = ''; }, 220);
+      }, 3000);
     }
 
     // Run on load
