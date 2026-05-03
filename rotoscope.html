@@ -608,13 +608,16 @@
         overflow: hidden;
         transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
         background: var(--panel);
-        border: 1px solid var(--accent-2);
-        border-top: none;
+        border: none;
         border-bottom-left-radius: var(--radius-xl);
         border-bottom-right-radius: var(--radius-xl);
       }
 
-      .workflow-body.open { max-height: 30000px; }
+      .workflow-body.open {
+        max-height: 30000px;
+        border: 1px solid var(--accent-2);
+        border-top: none;
+      }
 
       .workflow-inner {
         padding: 1.8rem 2rem 2rem;
