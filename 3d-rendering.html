@@ -1058,6 +1058,20 @@
       margin: 0;
     }
 
+    /* ── Sun + Moon two-column row ── */
+    .sun-moon-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      margin-bottom: 1.8rem;
+    }
+
+    @media (max-width: 900px) {
+      .sun-moon-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
     .sun-card {
       display: flex;
       flex-direction: row;
@@ -1065,7 +1079,6 @@
       border: 1px solid rgba(255, 150, 50, 0.35);
       border-radius: var(--radius-xl);
       overflow: hidden;
-      margin-bottom: 1.8rem;
       min-height: 260px;
       box-shadow: 0 0 48px rgba(255, 130, 40, 0.12);
       animation: fadeUp 600ms ease both;
@@ -1075,6 +1088,146 @@
     .sun-card:hover {
       border-color: rgba(255, 180, 80, 0.6);
       transform: translateY(-3px);
+    }
+
+    /* ── Moon card ── */
+    .moon-card {
+      display: flex;
+      flex-direction: row;
+      background: linear-gradient(135deg, rgba(180, 190, 210, 0.07) 0%, rgba(120, 135, 165, 0.04) 100%);
+      border: 1px solid rgba(160, 175, 210, 0.32);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      min-height: 260px;
+      box-shadow: 0 0 48px rgba(150, 170, 220, 0.10);
+      animation: fadeUp 700ms ease both;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .moon-card:hover {
+      border-color: rgba(190, 205, 240, 0.6);
+      transform: translateY(-3px);
+    }
+
+    .moon-card-video-wrap {
+      width: 42%;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+      border-right: 1px solid rgba(160, 175, 210, 0.22);
+    }
+
+    .moon-card-video-wrap video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .moon-card-body {
+      flex: 1;
+      padding: 1.5rem 1.6rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.85rem;
+      min-width: 0;
+    }
+
+    .moon-card-title-row {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+    }
+
+    .moon-card-emoji {
+      font-size: 2.2rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .moon-card-name {
+      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+      font-weight: 800;
+      color: #c8d8f0;
+      margin: 0;
+      letter-spacing: -0.01em;
+      text-shadow: 0 0 20px rgba(180, 200, 240, 0.4);
+    }
+
+    .moon-card-type {
+      display: inline-block;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: #9ab0d8;
+      background: rgba(150, 175, 220, 0.12);
+      border: 1px solid rgba(150, 175, 220, 0.28);
+      border-radius: 99px;
+      padding: 0.15rem 0.65rem;
+      align-self: center;
+    }
+
+    .moon-card-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin: 0;
+    }
+
+    .moon-card-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.55rem;
+    }
+
+    .moon-stat {
+      background: rgba(150, 175, 220, 0.07);
+      border: 1px solid rgba(150, 175, 220, 0.18);
+      border-radius: var(--radius-md);
+      padding: 0.6rem 0.8rem;
+      text-align: center;
+    }
+
+    .moon-stat-key {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: rgba(160, 185, 225, 0.7);
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+
+    .moon-stat-val {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #c8d8f0;
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .moon-card {
+        flex-direction: column;
+        min-height: auto;
+      }
+
+      .moon-card-video-wrap {
+        width: 100%;
+        height: 180px;
+        border-right: none;
+        border-bottom: 1px solid rgba(160, 175, 210, 0.22);
+      }
+
+      .moon-card-body {
+        padding: 1.2rem 1.3rem;
+      }
+
+      .moon-card-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
 
     .sun-card-video-wrap {
@@ -1185,13 +1338,13 @@
 
       .sun-card-video-wrap {
         width: 100%;
-        height: 200px;
+        height: 180px;
         border-right: none;
         border-bottom: 1px solid rgba(255, 150, 50, 0.25);
       }
 
       .sun-card-body {
-        padding: 1.4rem 1.5rem;
+        padding: 1.2rem 1.3rem;
       }
 
       .sun-card-stats {
@@ -1881,50 +2034,98 @@
         </div>
       </div>
 
-      <!-- Sun feature card -->
-      <div class="sun-card reveal">
-        <div class="sun-card-video-wrap">
-          <video src="videos/sun.mp4" autoplay muted loop playsinline></video>
-        </div>
-        <div class="sun-card-body">
-          <div class="sun-card-title-row">
-            <span class="sun-card-emoji">☀️</span>
-            <h3 class="sun-card-name">The Sun</h3>
-            <span class="sun-card-type">Star · G-type</span>
+      <!-- Sun + Moon two-column row -->
+      <div class="sun-moon-row reveal">
+
+        <!-- Sun feature card -->
+        <div class="sun-card">
+          <div class="sun-card-video-wrap">
+            <video src="videos/sun.mp4" autoplay muted loop playsinline></video>
           </div>
-          <p class="sun-card-desc">The Sun is the star at the center of our Solar System — a nearly perfect sphere of
-            hot plasma that accounts for 99.86% of the total mass of the Solar System. Its core reaches temperatures of
-            15 million °C, fusing hydrogen into helium and releasing the energy that powers all life on Earth. The Sun's
-            outer atmosphere, the corona, extends millions of kilometres into space and is the source of the solar wind.
-          </p>
-          <div class="sun-card-stats">
-            <div class="sun-stat">
-              <span class="sun-stat-key">Surface Temp</span>
-              <span class="sun-stat-val">~5,500°C</span>
+          <div class="sun-card-body">
+            <div class="sun-card-title-row">
+              <span class="sun-card-emoji">☀️</span>
+              <h3 class="sun-card-name">The Sun</h3>
+              <span class="sun-card-type">Star · G-type</span>
             </div>
-            <div class="sun-stat">
-              <span class="sun-stat-key">Core Temp</span>
-              <span class="sun-stat-val">~15 million °C</span>
-            </div>
-            <div class="sun-stat">
-              <span class="sun-stat-key">Diameter</span>
-              <span class="sun-stat-val">1.39 million km</span>
-            </div>
-            <div class="sun-stat">
-              <span class="sun-stat-key">Mass</span>
-              <span class="sun-stat-val">1.989 × 10³⁰ kg</span>
-            </div>
-            <div class="sun-stat">
-              <span class="sun-stat-key">Age</span>
-              <span class="sun-stat-val">~4.6 billion yrs</span>
-            </div>
-            <div class="sun-stat">
-              <span class="sun-stat-key">Distance (Earth)</span>
-              <span class="sun-stat-val">149.6 million km</span>
+            <p class="sun-card-desc">The Sun is the star at the center of our Solar System — a nearly perfect sphere of
+              hot plasma that accounts for 99.86% of the total mass of the Solar System. Its core reaches temperatures of
+              15 million °C, fusing hydrogen into helium and releasing the energy that powers all life on Earth.
+            </p>
+            <div class="sun-card-stats">
+              <div class="sun-stat">
+                <span class="sun-stat-key">Surface Temp</span>
+                <span class="sun-stat-val">~5,500°C</span>
+              </div>
+              <div class="sun-stat">
+                <span class="sun-stat-key">Core Temp</span>
+                <span class="sun-stat-val">~15 million °C</span>
+              </div>
+              <div class="sun-stat">
+                <span class="sun-stat-key">Diameter</span>
+                <span class="sun-stat-val">1.39 million km</span>
+              </div>
+              <div class="sun-stat">
+                <span class="sun-stat-key">Mass</span>
+                <span class="sun-stat-val">1.989 × 10³⁰ kg</span>
+              </div>
+              <div class="sun-stat">
+                <span class="sun-stat-key">Age</span>
+                <span class="sun-stat-val">~4.6 billion yrs</span>
+              </div>
+              <div class="sun-stat">
+                <span class="sun-stat-key">Distance (Earth)</span>
+                <span class="sun-stat-val">149.6 million km</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+
+        <!-- Moon feature card -->
+        <div class="moon-card">
+          <div class="moon-card-video-wrap">
+            <video src="videos/moon.mp4" autoplay muted loop playsinline></video>
+          </div>
+          <div class="moon-card-body">
+            <div class="moon-card-title-row">
+              <span class="moon-card-emoji">🌕</span>
+              <h3 class="moon-card-name">The Moon</h3>
+              <span class="moon-card-type">Natural Satellite</span>
+            </div>
+            <p class="moon-card-desc">Earth's only natural satellite and the fifth-largest moon in the Solar System.
+              It stabilizes Earth's axial tilt, drives ocean tides, and is the only extraterrestrial body humans have
+              set foot on — first reached during Apollo 11 in 1969.
+            </p>
+            <div class="moon-card-stats">
+              <div class="moon-stat">
+                <span class="moon-stat-key">Surface Temp</span>
+                <span class="moon-stat-val">-173 to 127°C</span>
+              </div>
+              <div class="moon-stat">
+                <span class="moon-stat-key">Diameter</span>
+                <span class="moon-stat-val">3,474 km</span>
+              </div>
+              <div class="moon-stat">
+                <span class="moon-stat-key">Distance (Earth)</span>
+                <span class="moon-stat-val">384,400 km</span>
+              </div>
+              <div class="moon-stat">
+                <span class="moon-stat-key">Orbital Period</span>
+                <span class="moon-stat-val">27.3 Earth days</span>
+              </div>
+              <div class="moon-stat">
+                <span class="moon-stat-key">Gravity</span>
+                <span class="moon-stat-val">0.165g</span>
+              </div>
+              <div class="moon-stat">
+                <span class="moon-stat-key">First Landing</span>
+                <span class="moon-stat-val">Apollo 11 (1969)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- end .sun-moon-row -->
 
       <div class="encyc-grid" id="encyc-grid"><!-- filled by JS --></div>
     </section>
