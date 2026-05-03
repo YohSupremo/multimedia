@@ -2903,6 +2903,11 @@
         { name: 'Uranus',  emoji: '🔵', scripts: ['Uranus.py', 'Moon.py'] },
         { name: 'Neptune', emoji: '🌀', scripts: ['Neptune.py', 'Moon.py', 'Light.py'] },
         { name: 'Pluto',   emoji: '🌑', scripts: ['Pluto.py', 'Moon.py', 'Light.py'] },
+        // ─ Natural bodies ─
+        { name: 'Moon',    emoji: '🌙', scripts: ['Moon.py'] },
+        { name: 'Sun',     emoji: '☀️', scripts: [], placeholder: true },
+        // ─ Full system (separator before this group) ─
+        { name: 'Solar System', emoji: '🌌', scripts: [], placeholder: true, separator: true },
       ];
 
       let activePlanet = PLANET_SCRIPTS[0];
@@ -2997,6 +3002,16 @@
       function buildSidebar(planet) {
         const container = document.getElementById('sidebar-files');
         container.innerHTML = '';
+        // Placeholder state (no scripts yet)
+        if (planet.placeholder || planet.scripts.length === 0) {
+          container.innerHTML = `
+            <div class="sidebar-coming-soon">
+              <span style="font-size:2rem">${planet.emoji}</span>
+              <p><strong>${planet.name}</strong></p>
+              <p class="coming-label">Scripts coming soon</p>
+            </div>`;
+          return;
+        }
         planet.scripts.forEach(file => {
           const label = file.replace(/\.py$/i, '');
           const el = document.createElement('div');
@@ -3012,10 +3027,18 @@
       function buildTabs() {
         const nav = document.getElementById('planet-tabs');
         PLANET_SCRIPTS.forEach(planet => {
+          // Insert a visual separator before grouped items
+          if (planet.separator) {
+            const sep = document.createElement('span');
+            sep.className = 'planet-tab-sep';
+            sep.setAttribute('aria-hidden','true');
+            nav.appendChild(sep);
+          }
           const btn = document.createElement('button');
-          btn.className = 'planet-tab' + (planet === activePlanet ? ' active' : '');
+          btn.className = 'planet-tab' + (planet === activePlanet ? ' active' : '') + (planet.placeholder ? ' placeholder-tab' : '');
           btn.setAttribute('role','tab');
           btn.innerHTML = `<span class="planet-tab-emoji">${planet.emoji}</span>${planet.name}`;
+          if (planet.placeholder) btn.title = 'Script coming soon';
           btn.addEventListener('click', () => {
             activePlanet = planet;
             activeScript = null;
