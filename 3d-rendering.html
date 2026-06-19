@@ -1835,19 +1835,49 @@
     .weight-unit-btn { background: none; border: none; padding: 0.35rem 1.1rem; font-size: 0.82rem; font-weight: 700; color: var(--muted); cursor: pointer; font-family: inherit; transition: background 0.15s, color 0.15s; border-radius: 99px; }
     .weight-unit-btn.active { background: var(--accent); color: #0a0c12; }
 
-    /* ── Render Estimator ── */
-    .est-section { padding: 0 2rem 4rem; max-width: 1100px; margin: 0 auto; width: 100%; }
-    .est-form { display: flex; gap: 1rem; flex-wrap: wrap; align-items: flex-end; margin-bottom: 1.5rem; }
-    .est-field { display: flex; flex-direction: column; gap: 0.5rem; }
-    .est-select { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 0.6rem 0.9rem; color: var(--text); font-family: inherit; font-size: 0.95rem; font-weight: 600; transition: border-color 0.15s; cursor: pointer; min-width: 190px; color-scheme: dark; }
-    .est-select:focus { outline: none; border-color: var(--accent-2); }
-    .est-result { background: var(--panel); border: 1px solid var(--accent-2); border-radius: var(--radius-lg); padding: 1.4rem 1.6rem; animation: fadeUp 0.3s ease; }
-    .est-result-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-bottom: 1rem; }
-    .est-stat { text-align: center; background: rgba(121,167,255,0.05); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 0.8rem; }
-    .est-stat-label { display: block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.25rem; }
-    .est-stat-value { display: block; font-size: 1.5rem; font-weight: 800; color: var(--accent-2); line-height: 1.1; }
-    .est-note { font-size: 0.78rem; color: var(--muted); margin: 0; line-height: 1.6; }
-    @media (max-width: 600px) { .est-result-grid { grid-template-columns: 1fr; } .est-form { flex-direction: column; } }
+    /* ── Travel Time Calculator ── */
+    .travel-section { padding: 0 2rem 4rem; max-width: 1100px; margin: 0 auto; width: 100%; }
+    .travel-select { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 0.6rem 0.9rem; color: var(--text); font-family: inherit; font-size: 0.95rem; font-weight: 600; transition: border-color 0.15s; cursor: pointer; min-width: 190px; color-scheme: dark; }
+    .travel-select:focus { outline: none; border-color: var(--accent-2); }
+    .travel-form { display: flex; gap: 1rem; flex-wrap: wrap; align-items: flex-end; margin-bottom: 1.5rem; }
+    .travel-result { background: var(--panel); border: 1px solid var(--accent-2); border-radius: var(--radius-lg); padding: 1.6rem; animation: fadeUp 0.3s ease; }
+    .travel-result-main { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1rem; }
+    .travel-stat { text-align: center; background: rgba(121,167,255,0.06); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 0.9rem 0.7rem; }
+    .travel-stat-label { display: block; font-size: 0.67rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.3rem; }
+    .travel-stat-value { display: block; font-size: 1.4rem; font-weight: 800; color: var(--accent-2); line-height: 1.1; }
+    .travel-note { font-size: 0.8rem; color: var(--muted); margin: 0; line-height: 1.65; }
+    .travel-rocket { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; overflow: hidden; position: relative; height: 36px; }
+    .travel-track { flex: 1; height: 2px; background: rgba(121,167,255,0.18); border-radius: 1px; position: relative; }
+    .travel-rocket-icon { font-size: 1.5rem; position: absolute; left: 0; transition: left 1.2s cubic-bezier(.4,0,.2,1); top: -12px; }
+    .travel-planet-icon { font-size: 1.5rem; flex-shrink: 0; }
+    @media (max-width: 600px) { .travel-result-main { grid-template-columns: 1fr; } .travel-form { flex-direction: column; } }
+
+    /* ── Space Fact Generator ── */
+    .fact-section { padding: 0 2rem 4rem; max-width: 900px; margin: 0 auto; width: 100%; }
+    .fact-card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius-xl); padding: 2.2rem 2rem; text-align: center; position: relative; overflow: hidden; transition: border-color 0.2s; }
+    .fact-card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(121,167,255,0.06) 0%, transparent 70%); pointer-events: none; }
+    .fact-card.flash { animation: factFlash 0.35s ease; }
+    @keyframes factFlash { 0%,100%{opacity:1} 40%{opacity:0} }
+    .fact-emoji { font-size: 3.5rem; display: block; margin-bottom: 1rem; filter: drop-shadow(0 0 14px rgba(121,167,255,0.4)); }
+    .fact-text { font-size: 1.05rem; font-weight: 500; color: var(--text); line-height: 1.8; margin: 0 0 1rem; max-width: 65ch; margin-left: auto; margin-right: auto; min-height: 4em; }
+    .fact-source { font-size: 0.75rem; color: var(--muted); margin: 0 0 1.6rem; }
+    .fact-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg, var(--accent-2), #a4c8ff); color: #0a0c12; border: none; border-radius: var(--radius-md); padding: 0.65rem 1.6rem; font-size: 0.93rem; font-weight: 800; cursor: pointer; font-family: inherit; transition: transform 0.12s, opacity 0.15s; letter-spacing: 0.02em; }
+    .fact-btn:hover { transform: translateY(-2px); opacity: 0.9; }
+    .fact-btn:active { transform: scale(0.96); }
+    .fact-counter { font-size: 0.72rem; color: var(--muted); margin-top: 1rem; }
+
+    /* ── Planet Size Comparator ── */
+    .compare-section { padding: 0 2rem 4rem; max-width: 1100px; margin: 0 auto; width: 100%; }
+    .compare-canvas-wrap { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius-xl); padding: 1.8rem 1.6rem; overflow-x: auto; }
+    .compare-bars { display: flex; flex-direction: column; gap: 0.7rem; min-width: 480px; }
+    .compare-row { display: flex; align-items: center; gap: 0.8rem; }
+    .compare-label { width: 88px; font-size: 0.78rem; font-weight: 700; color: var(--muted); text-align: right; flex-shrink: 0; }
+    .compare-bar-wrap { flex: 1; height: 30px; background: rgba(255,255,255,0.03); border-radius: 5px; overflow: hidden; position: relative; }
+    .compare-bar { height: 100%; border-radius: 5px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.6rem; font-size: 0.7rem; font-weight: 700; color: rgba(0,0,0,0.8); white-space: nowrap; transition: width 0.9s cubic-bezier(.4,0,.2,1); min-width: 4px; }
+    .compare-val { width: 80px; font-size: 0.72rem; font-weight: 700; color: var(--muted); flex-shrink: 0; }
+    .compare-sort { display: inline-flex; border: 1px solid var(--line); border-radius: 99px; overflow: hidden; background: var(--panel); margin-top: 0.8rem; }
+    .compare-sort-btn { background: none; border: none; padding: 0.35rem 1rem; font-size: 0.8rem; font-weight: 700; color: var(--muted); cursor: pointer; font-family: inherit; transition: background 0.15s, color 0.15s; border-radius: 99px; }
+    .compare-sort-btn.active { background: var(--accent-2); color: #0a0c12; }
 
     /* ── Planet Filter ── */
     .encyc-filter { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.8rem; }
@@ -2068,8 +2098,14 @@
         <a class="scroll-pill" href="#planet-encyc">
           <span class="scroll-pill-icon">🌌</span> Planet Encyclopedia
         </a>
-        <a class="scroll-pill" href="#render-est">
-          <span class="scroll-pill-icon">⏱️</span> Render Estimator
+        <a class="scroll-pill" href="#travel-calc">
+          <span class="scroll-pill-icon">🚀</span> Travel Time
+        </a>
+        <a class="scroll-pill" href="#space-facts">
+          <span class="scroll-pill-icon">🎲</span> Space Facts
+        </a>
+        <a class="scroll-pill" href="#planet-compare">
+          <span class="scroll-pill-icon">📊</span> Size Comparator
         </a>
         <a class="scroll-pill" href="#downloads">
           <span class="scroll-pill-icon">⬇️</span> Download Files
@@ -2511,46 +2547,97 @@
       <div class="encyc-grid" id="encyc-grid"><!-- filled by JS --></div>
     </section>
 
-    <!-- ── RENDER TIME ESTIMATOR ── -->
-    <section class="est-section" id="render-est">
+    <!-- ── TRAVEL TIME CALCULATOR ── -->
+    <section class="travel-section" id="travel-calc">
       <hr class="info-divider">
       <div class="reveal" style="margin-bottom:1.5rem">
-        <p class="eyebrow">⏱️ Interactive Tool</p>
-        <h2 style="font-size:clamp(1.4rem,3vw,2rem);font-weight:700;margin:0 0 0.5rem">Render Time Estimator</h2>
-        <p style="color:var(--muted);font-size:0.97rem;max-width:55ch;margin:0">Estimate render time for your own Blender project, benchmarked against this machine's <strong style="color:var(--text)">RTX 3050 Ti</strong> (Cycles GPU).</p>
+        <p class="eyebrow">🚀 Interactive Tool</p>
+        <h2 style="font-size:clamp(1.4rem,3vw,2rem);font-weight:700;margin:0 0 0.5rem">Space Travel Time Calculator</h2>
+        <p style="color:var(--muted);font-size:0.97rem;max-width:55ch;margin:0">Calculate how long it would take to travel to different celestial bodies at various speeds.</p>
       </div>
-      <div class="est-form reveal">
+      <div class="travel-form reveal">
         <div class="est-field">
-          <label class="age-label" for="est-frames">Total Frames</label>
-          <input id="est-frames" class="age-input" type="number" min="1" max="100000" value="240" placeholder="240">
-        </div>
-        <div class="est-field">
-          <label class="age-label" for="est-quality">Sample Count</label>
-          <select id="est-quality" class="est-select">
-            <option value="0.5">Fast — 128 samples</option>
-            <option value="1" selected>Standard — 256 samples</option>
-            <option value="2">High — 512 samples</option>
-            <option value="4">Ultra — 1024 samples</option>
+          <label class="age-label" for="travel-destination">Destination</label>
+          <select id="travel-destination" class="travel-select">
+            <option value="Moon" selected>The Moon (384,400 km)</option>
+            <option value="Mars">Mars (54.6M km)</option>
+            <option value="Venus">Venus (38M km)</option>
+            <option value="Mercury">Mercury (77M km)</option>
+            <option value="Sun">The Sun (149.6M km)</option>
+            <option value="Jupiter">Jupiter (588M km)</option>
+            <option value="Saturn">Saturn (1.2B km)</option>
+            <option value="Uranus">Uranus (2.6B km)</option>
+            <option value="Neptune">Neptune (4.3B km)</option>
+            <option value="Pluto">Pluto (4.28B km)</option>
           </select>
         </div>
         <div class="est-field">
-          <label class="age-label" for="est-res">Resolution</label>
-          <select id="est-res" class="est-select">
-            <option value="0.44">HD — 1280×720</option>
-            <option value="1" selected>Full HD — 1920×1080</option>
-            <option value="2.25">2K — 2560×1440</option>
-            <option value="4">4K — 3840×2160</option>
+          <label class="age-label" for="travel-speed">Transport Mode / Speed</label>
+          <select id="travel-speed" class="travel-select">
+            <option value="120" selected>Highway Car (120 km/h)</option>
+            <option value="900">Commercial Jet (900 km/h)</option>
+            <option value="28000">ISS Orbit (28,000 km/h)</option>
+            <option value="40000">Apollo 11 Rocket (40,000 km/h)</option>
+            <option value="62136">Voyager 1 (62,136 km/h)</option>
+            <option value="398970">Parker Solar Probe (398,970 km/h)</option>
+            <option value="1079252848">Speed of Light (1.08B km/h)</option>
           </select>
         </div>
-        <button id="est-btn" class="age-calc-btn">Estimate</button>
+        <button id="travel-btn" class="age-calc-btn">Launch Journey</button>
       </div>
-      <div class="est-result" id="est-result" style="display:none">
-        <div class="est-result-grid">
-          <div class="est-stat"><span class="est-stat-label">Per Frame</span><span class="est-stat-value" id="est-per-frame">—</span></div>
-          <div class="est-stat"><span class="est-stat-label">Total Time</span><span class="est-stat-value" id="est-total">—</span></div>
-          <div class="est-stat"><span class="est-stat-label">At 24 fps =</span><span class="est-stat-value" id="est-duration">—</span></div>
+      <div class="travel-result" id="travel-result" style="display:none">
+        <div class="travel-rocket">
+          <span class="travel-rocket-icon" id="travel-rocket-icon">🚀</span>
+          <div class="travel-track"></div>
+          <span class="travel-planet-icon" id="travel-planet-icon">🌙</span>
         </div>
-        <p class="est-note">📌 Benchmark: ~4 min/frame at Full HD, 256 samples on RTX 3050 Ti (Cycles GPU, OptiX denoising). Actual times vary by scene complexity.</p>
+        <div class="travel-result-main">
+          <div class="travel-stat"><span class="travel-stat-label">Hours</span><span class="travel-stat-value" id="travel-hours">—</span></div>
+          <div class="travel-stat"><span class="travel-stat-label">Days</span><span class="travel-stat-value" id="travel-days">—</span></div>
+          <div class="travel-stat"><span class="travel-stat-label">Years</span><span class="travel-stat-value" id="travel-years">—</span></div>
+        </div>
+        <p class="travel-note" id="travel-note">📌 Safe travels! Keep in mind this assumes straight-line travel at constant speed without accounting for orbital mechanics, gravity assists, or deceleration.</p>
+      </div>
+    </section>
+
+    <!-- ── SPACE FACT GENERATOR ── -->
+    <section class="fact-section" id="space-facts">
+      <hr class="info-divider">
+      <div class="reveal" style="margin-bottom:1.5rem">
+        <p class="eyebrow">🎲 Astronomy Trivia</p>
+        <h2 style="font-size:clamp(1.4rem,3vw,2rem);font-weight:700;margin:0 0 0.5rem">Random Space Fact Generator</h2>
+        <p style="color:var(--muted);font-size:0.97rem;max-width:55ch;margin:0">Did you know? Click the button to discover fascinating facts about the cosmos.</p>
+      </div>
+      <div class="fact-card reveal" id="fact-card">
+        <span class="fact-emoji" id="fact-emoji">🌌</span>
+        <p class="fact-text" id="fact-text">Click the button below to retrieve a mind-blowing cosmic fact!</p>
+        <p class="fact-source" id="fact-source">Source: NASA Science</p>
+        <button id="fact-btn" class="fact-btn">
+          <span>🎲</span> Next Fact
+        </button>
+        <div class="fact-counter" id="fact-counter">Fact 0 of 0</div>
+      </div>
+    </section>
+
+    <!-- ── PLANET SIZE COMPARATOR ── -->
+    <section class="compare-section" id="planet-compare">
+      <hr class="info-divider">
+      <div class="reveal" style="margin-bottom:1.5rem">
+        <p class="eyebrow">📊 Scale comparison</p>
+        <h2 style="font-size:clamp(1.4rem,3vw,2rem);font-weight:700;margin:0 0 0.5rem">Planet Size Comparator</h2>
+        <p style="color:var(--muted);font-size:0.97rem;max-width:55ch;margin:0">See how the planets in our Solar System stack up against Earth (relative equatorial diameter).</p>
+      </div>
+      <div class="compare-canvas-wrap reveal">
+        <div class="compare-bars" id="compare-bars">
+          <!-- Filled by JS -->
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+          <div class="compare-sort" id="compare-sort">
+            <button class="compare-sort-btn active" id="sort-order" data-sort="order">Solar Order</button>
+            <button class="compare-sort-btn" id="sort-size" data-sort="size">By Size</button>
+          </div>
+          <p style="font-size:0.75rem; color:var(--muted); margin:0.8rem 0 0;">*Sizes are relative to Earth diameter (12,742 km = 1.0x)</p>
+        </div>
       </div>
     </section>
 
@@ -3171,29 +3258,148 @@
       });
     });
 
-    /* ── RENDER TIME ESTIMATOR ── */
-    function fmtTime(mins) {
-      if (mins < 60) return Math.round(mins) + ' min';
-      const h = Math.floor(mins / 60), m = Math.round(mins % 60);
-      if (h < 24) return h + 'h ' + m + 'm';
-      const d = Math.floor(h / 24), hr = h % 24;
-      return d + 'd ' + hr + 'h';
+    /* ── TRAVEL TIME CALCULATOR ── */
+    const TRAVEL_DESTINATIONS = {
+      Moon: { dist: 384400, emoji: '🌙' },
+      Mars: { dist: 54600000, emoji: '🔴' },
+      Venus: { dist: 38000000, emoji: '🪐' },
+      Mercury: { dist: 77000000, emoji: '☄️' },
+      Sun: { dist: 149600000, emoji: '☀️' },
+      Jupiter: { dist: 588000000, emoji: '🪐' },
+      Saturn: { dist: 1200000000, emoji: '🪐' },
+      Uranus: { dist: 2600000000, emoji: '🪐' },
+      Neptune: { dist: 4300000000, emoji: '🔵' },
+      Pluto: { dist: 4280000000, emoji: '❄️' }
+    };
+    document.getElementById('travel-btn').addEventListener('click', () => {
+      const destKey = document.getElementById('travel-destination').value;
+      const speed = parseFloat(document.getElementById('travel-speed').value);
+      const dest = TRAVEL_DESTINATIONS[destKey];
+      if (!dest || !speed) return;
+
+      const dist = dest.dist;
+      const hours = dist / speed;
+      const days = hours / 24;
+      const years = days / 365.25;
+
+      // Update values
+      document.getElementById('travel-hours').textContent = hours >= 10 ? Math.round(hours).toLocaleString() : hours.toFixed(2);
+      document.getElementById('travel-days').textContent = days >= 10 ? Math.round(days).toLocaleString() : days.toFixed(2);
+      document.getElementById('travel-years').textContent = years >= 1 ? years.toFixed(2) : years.toFixed(4);
+
+      // Update emoji
+      document.getElementById('travel-planet-icon').textContent = dest.emoji;
+
+      // Show result
+      const resultDiv = document.getElementById('travel-result');
+      resultDiv.style.display = 'block';
+
+      // Rocket animation
+      const rocket = document.getElementById('travel-rocket-icon');
+      rocket.style.left = '0%';
+      // Force reflow
+      void rocket.offsetWidth;
+      rocket.style.left = 'calc(100% - 2.5rem)';
+    });
+
+    /* ── SPACE FACT GENERATOR ── */
+    const SPACE_FACTS = [
+      { text: "One day on Venus is longer than one year on Venus. It takes Venus longer to rotate once on its axis (243 Earth days) than to complete one orbit of the Sun (225 Earth days).", emoji: "🪐", source: "NASA Science" },
+      { text: "Neutron stars are so dense that a single teaspoon of their material would weigh about 6 billion tons on Earth.", emoji: "💫", source: "National Geographic" },
+      { text: "Because there is no atmosphere or wind on the Moon, footprints left by Apollo astronauts will stay there for at least 100 million years.", emoji: "👣", source: "NASA SpacePlace" },
+      { text: "Outer space is completely silent. Sound waves need a medium like air or water to travel through, and space is a vacuum.", emoji: "🔇", source: "Astronomy Magazine" },
+      { text: "Sunlight takes about 8 minutes and 20 seconds to travel from the Sun to Earth.", emoji: "☀️", source: "NASA Science" },
+      { text: "The footprint of the Solar System's largest volcano, Olympus Mons on Mars, is roughly the size of the entire state of Arizona.", emoji: "🌋", source: "NASA Mars Exploration" },
+      { text: "Jupiter's Great Red Spot is a giant, spinning storm that is wider than the entire planet Earth and has been raging for hundreds of years.", emoji: "🔴", source: "NASA Hubble" },
+      { text: "Saturn's rings are not solid sheets. They are composed of billions of individual particles of water ice, rocky debris, and dust, ranging in size from tiny grains to mountain-sized chunks.", emoji: "🪐", source: "NASA Cassini" },
+      { text: "There are more trees on Earth than stars in the Milky Way galaxy. Earth has about 3 trillion trees; the Milky Way has an estimated 100 to 400 billion stars.", emoji: "🌲", source: "Nature Journal / NASA" },
+      { text: "Venus is the hottest planet in our solar system, with a constant surface temperature of about 462°C (864°F), even though Mercury is closer to the Sun.", emoji: "🔥", source: "NASA Science" }
+    ];
+    let factIndex = -1;
+    function showNextFact() {
+      const card = document.getElementById('fact-card');
+      if (!card) return;
+      card.classList.remove('flash');
+      void card.offsetWidth; // trigger reflow
+      card.classList.add('flash');
+
+      let nextIndex;
+      do {
+        nextIndex = Math.floor(Math.random() * SPACE_FACTS.length);
+      } while (nextIndex === factIndex && SPACE_FACTS.length > 1);
+
+      factIndex = nextIndex;
+      const fact = SPACE_FACTS[factIndex];
+      document.getElementById('fact-emoji').textContent = fact.emoji;
+      document.getElementById('fact-text').textContent = fact.text;
+      document.getElementById('fact-source').textContent = `Source: ${fact.source}`;
+      document.getElementById('fact-counter').textContent = `Fact ${factIndex + 1} of ${SPACE_FACTS.length}`;
     }
-    document.getElementById('est-btn').addEventListener('click', () => {
-      const frames = parseInt(document.getElementById('est-frames').value) || 0;
-      const qMul = parseFloat(document.getElementById('est-quality').value);
-      const rMul = parseFloat(document.getElementById('est-res').value);
-      if (frames < 1) return;
-      const perFrame = 4 * qMul * rMul;
-      const total = perFrame * frames;
-      const vidSecs = frames / 24;
-      const vidFmt = vidSecs < 60 ? vidSecs.toFixed(1) + 's clip' : Math.floor(vidSecs/60) + 'm ' + Math.round(vidSecs%60) + 's clip';
-      document.getElementById('est-per-frame').textContent = fmtTime(perFrame);
-      document.getElementById('est-total').textContent = fmtTime(total);
-      document.getElementById('est-duration').textContent = vidFmt;
-      const r = document.getElementById('est-result');
-      r.style.display = 'block';
-      r.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    document.getElementById('fact-btn').addEventListener('click', showNextFact);
+
+    /* ── PLANET SIZE COMPARATOR ── */
+    const COMPARE_DATA = [
+      { name: 'Mercury', ratio: 0.38, color: '#b0b8c8' },
+      { name: 'Venus', ratio: 0.95, color: '#e8c87a' },
+      { name: 'Earth', ratio: 1.00, color: '#5bc8f5' },
+      { name: 'Mars', ratio: 0.53, color: '#e0613a' },
+      { name: 'Jupiter', ratio: 11.21, color: '#d4a46a' },
+      { name: 'Saturn', ratio: 9.45, color: '#ead99a' },
+      { name: 'Uranus', ratio: 4.01, color: '#7ecfc8' },
+      { name: 'Neptune', ratio: 3.88, color: '#4b8fd9' },
+      { name: 'Pluto', ratio: 0.19, color: '#a08878' }
+    ];
+    let currentSort = 'order';
+
+    function renderComparator() {
+      const container = document.getElementById('compare-bars');
+      if (!container) return;
+      container.innerHTML = '';
+
+      let items = [...COMPARE_DATA];
+      if (currentSort === 'size') {
+        items.sort((a, b) => b.ratio - a.ratio);
+      }
+
+      // Find max ratio to set width percentage
+      const maxRatio = Math.max(...COMPARE_DATA.map(item => item.ratio));
+
+      items.forEach(item => {
+        const pct = (item.ratio / maxRatio) * 100;
+        const row = document.createElement('div');
+        row.className = 'compare-row';
+
+        row.innerHTML = `
+          <span class="compare-label">${item.name}</span>
+          <div class="compare-bar-wrap">
+            <div class="compare-bar" style="width: 0%; background: ${item.color};">
+              ${item.ratio.toFixed(2)}x
+            </div>
+          </div>
+          <span class="compare-val">${item.name === 'Earth' ? 'Earth (1.0x)' : (item.ratio >= 1 ? item.ratio.toFixed(1) + 'x Earth' : '0' + item.ratio.toFixed(2) + 'x Earth')}</span>
+        `;
+        container.appendChild(row);
+
+        // Animate width after inserting
+        setTimeout(() => {
+          const bar = row.querySelector('.compare-bar');
+          if (bar) bar.style.width = pct + '%';
+        }, 50);
+      });
+    }
+
+    document.getElementById('sort-order').addEventListener('click', () => {
+      currentSort = 'order';
+      document.getElementById('sort-order').classList.add('active');
+      document.getElementById('sort-size').classList.remove('active');
+      renderComparator();
+    });
+
+    document.getElementById('sort-size').addEventListener('click', () => {
+      currentSort = 'size';
+      document.getElementById('sort-size').classList.add('active');
+      document.getElementById('sort-order').classList.remove('active');
+      renderComparator();
     });
 
     /* ── SOLAR SYSTEM ORRERY ── */
@@ -3428,6 +3634,10 @@
         toggle.setAttribute('aria-expanded', isOpen);
       });
     })();
+
+    // Initialize new widgets
+    showNextFact();
+    renderComparator();
   </script>
 </body>
 
