@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
@@ -380,6 +381,256 @@
     @media (max-width: 920px) {
       .info-card {
         grid-template-columns: 1fr;
+      }
+    }
+
+    /* ── Combined Cosmic Calculator Premium Styles ── */
+    .calc-type-selector {
+      display: inline-flex;
+      border: 1px solid var(--line);
+      border-radius: 99px;
+      padding: 3px;
+      background: var(--panel);
+      margin-bottom: 1.8rem;
+    }
+
+    .type-btn {
+      background: none;
+      border: none;
+      padding: 0.45rem 1.2rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--muted);
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.18s, color 0.18s;
+      border-radius: 99px;
+    }
+
+    .type-btn.active {
+      background: var(--accent-2);
+      color: #0a0c12;
+    }
+
+    .combined-calc-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+      margin: 0 auto 3rem;
+      max-width: 840px;
+      width: 100%;
+      background: linear-gradient(135deg, rgba(24, 28, 35, 0.6) 0%, rgba(16, 19, 26, 0.8) 100%);
+      border: 1px solid rgba(121, 167, 255, 0.15);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(12px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .combined-calc-panel::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%);
+    }
+
+    .calc-inputs-grid {
+      display: flex;
+      flex-direction: row;
+      gap: 1.5rem;
+      width: 100%;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .calc-card {
+      flex: 1;
+      min-width: 280px;
+      max-width: 580px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      transition: border-color 0.25s, background 0.25s;
+    }
+
+    .calc-card:hover {
+      border-color: rgba(121, 167, 255, 0.25);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .calc-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 32px;
+    }
+
+    .calc-card-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .calc-card-title .icon {
+      font-size: 1.1rem;
+    }
+
+    .calc-input-field-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+
+    .calc-input-field-wrap .input-icon {
+      position: absolute;
+      left: 12px;
+      font-size: 1.2rem;
+      color: var(--muted);
+      pointer-events: none;
+    }
+
+    .calc-input-field-wrap .input-suffix {
+      position: absolute;
+      right: 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .combined-calc-panel .age-input {
+      width: 100%;
+      background: rgba(10, 12, 18, 0.6);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1rem 0.75rem 2.5rem;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 1.2rem;
+      font-weight: 700;
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+      box-sizing: border-box;
+    }
+
+    .combined-calc-panel .age-input:focus {
+      outline: none;
+      border-color: var(--accent-2);
+      box-shadow: 0 0 12px rgba(121, 167, 255, 0.2);
+      background: rgba(10, 12, 18, 0.8);
+    }
+
+    .calc-actions {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin-top: 0.5rem;
+    }
+
+    .premium-calc-btn {
+      min-width: 260px;
+      height: 48px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, var(--accent-2) 0%, #4b8fd9 100%);
+      color: #05070a;
+      border: none;
+      border-radius: 99px;
+      box-shadow: 0 4px 15px rgba(121, 167, 255, 0.25);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+    }
+
+    .premium-calc-btn:hover {
+      opacity: 1;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(121, 167, 255, 0.4);
+    }
+
+    .premium-calc-btn:active {
+      transform: translateY(1px);
+      box-shadow: 0 2px 10px rgba(121, 167, 255, 0.2);
+    }
+
+    .calc-mode-toggle, .weight-unit-pill {
+      border: 1px solid var(--line);
+      border-radius: 99px;
+      padding: 2px;
+      background: rgba(10, 12, 18, 0.4);
+      margin-top: 0;
+      display: inline-flex;
+    }
+
+    .mode-btn, .weight-unit-btn {
+      background: none;
+      border: none;
+      padding: 0.28rem 0.85rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--muted);
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s, color 0.15s;
+      border-radius: 99px;
+    }
+
+    .mode-btn.active, .weight-unit-btn.active {
+      background: var(--accent-2);
+      color: #0a0c12;
+    }
+
+    /* Override is-invalid for premium look */
+    .combined-calc-panel .age-input.is-invalid {
+      border-color: #ff5c7a;
+      background: rgba(255, 92, 122, 0.08);
+      box-shadow: 0 0 12px rgba(255, 92, 122, 0.15);
+    }
+
+    .planet-badges-row {
+      display: flex;
+      gap: 0.6rem;
+      margin-bottom: 0.3rem;
+      flex-wrap: wrap;
+    }
+
+    .planet-badges-row .planet-age-badge {
+      flex: 1;
+      min-width: 120px;
+      padding: 0.45rem 0.6rem;
+      margin: 0;
+    }
+
+    @media (max-width: 768px) {
+      .calc-inputs-grid {
+        gap: 1.2rem;
+      }
+      .combined-calc-panel {
+        padding: 1.2rem;
+      }
+      .premium-calc-btn {
+        width: 100%;
       }
     }
 
@@ -2088,10 +2339,7 @@
           <span class="scroll-pill-icon">🔭</span> Solar System Orrery
         </a>
         <a class="scroll-pill" href="#age-calc">
-          <span class="scroll-pill-icon">🪐</span> Planet Age Calculator
-        </a>
-        <a class="scroll-pill" href="#weight-calc">
-          <span class="scroll-pill-icon">⚖️</span> Weight Calculator
+          <span class="scroll-pill-icon">⚖️</span> Age & Weight Calculator
         </a>
         <a class="scroll-pill" href="#planet-encyc">
           <span class="scroll-pill-icon">🌌</span> Planet Encyclopedia
@@ -2369,69 +2617,78 @@
       </div>
     </section>
 
-    <!-- ── PLANET AGE CALCULATOR ── -->
+    <!-- ── COSMIC AGE & WEIGHT CALCULATOR ── -->
     <section class="age-calc-section" id="age-calc">
+      <div id="weight-calc" style="position: absolute; margin-top: -100px;"></div>
       <hr class="info-divider">
       <div class="age-calc-header reveal">
-        <p class="eyebrow">🪐 Interactive Tool</p>
-        <h2>Planet Age Calculator</h2>
-        <p>Enter your age in Earth years — or switch to Date of Birth mode for an exact calculation.</p>
-
-        <!-- Mode toggle -->
-        <div class="calc-mode-toggle" role="group" aria-label="Input mode">
-          <button class="mode-btn active" id="mode-age" aria-pressed="true">Age</button>
-          <button class="mode-btn" id="mode-dob" aria-pressed="false">Date of Birth</button>
+        <p class="eyebrow">⚖️ Interactive Tool</p>
+        <h2>Cosmic Age & Weight Calculator</h2>
+        <p>Choose what to calculate, then enter your Earth details to see how they change on other worlds.</p>
+        
+        <!-- Calculation Type Selector -->
+        <div class="calc-type-selector" role="group" aria-label="Calculation type" style="margin-top: 1.2rem;">
+          <button class="type-btn active" id="type-both" aria-pressed="true">✨ Together</button>
+          <button class="type-btn" id="type-age" aria-pressed="false">📅 Age Only</button>
+          <button class="type-btn" id="type-weight" aria-pressed="false">⚖️ Weight Only</button>
         </div>
       </div>
 
-      <!-- Age input panel -->
-      <div class="age-input-row reveal" id="panel-age">
-        <label class="age-label" for="earth-age">Your age on Earth</label>
-        <div class="age-input-wrap">
-          <input id="earth-age" class="age-input" type="number" min="1" max="150" value="25" placeholder="25"
-            autocomplete="off">
-          <button id="calc-btn" class="age-calc-btn">Calculate</button>
-        </div>
-        <p class="age-error" id="age-error" role="alert" aria-live="polite"></p>
-      </div>
+      <!-- Combined Input Panel -->
+      <div class="reveal combined-calc-panel">
+        <div class="calc-inputs-grid">
+          <!-- Age Card -->
+          <div class="calc-card" id="age-input-group">
+            <div class="calc-card-header">
+              <span class="calc-card-title"><span class="icon">📅</span> Earth Age</span>
+              <div class="calc-mode-toggle" role="group" aria-label="Input mode">
+                <button class="mode-btn active" id="mode-age" aria-pressed="true">Age</button>
+                <button class="mode-btn" id="mode-dob" aria-pressed="false">DOB</button>
+              </div>
+            </div>
+            <div class="calc-input-field-wrap" id="panel-age">
+              <span class="input-icon">🪐</span>
+              <input id="earth-age" class="age-input" type="number" min="1" max="150" value="25" placeholder="25" autocomplete="off">
+              <span class="input-suffix">yrs</span>
+            </div>
+            <div class="calc-input-field-wrap" id="panel-dob" style="display:none">
+              <span class="input-icon">📅</span>
+              <input id="dob-input" class="age-input dob-input" type="date">
+            </div>
+            <p class="age-error" id="age-error" role="alert" aria-live="polite"></p>
+            <p class="age-error" id="dob-error" role="alert" aria-live="polite"></p>
+          </div>
 
-      <!-- DOB input panel -->
-      <div class="age-input-row reveal" id="panel-dob" style="display:none">
-        <label class="age-label" for="dob-input">Your date of birth</label>
-        <div class="age-input-wrap">
-          <input id="dob-input" class="age-input dob-input" type="date">
-          <button id="dob-calc-btn" class="age-calc-btn">Calculate</button>
+          <!-- Weight Card -->
+          <div class="calc-card" id="weight-input-group">
+            <div class="calc-card-header">
+              <span class="calc-card-title"><span class="icon">⚖️</span> Earth Weight</span>
+              <div class="weight-unit-pill" role="group" aria-label="Weight unit">
+                <button class="weight-unit-btn active" id="wunit-kg" aria-pressed="true">kg</button>
+                <button class="weight-unit-btn" id="wunit-lbs" aria-pressed="false">lbs</button>
+              </div>
+            </div>
+            <div class="calc-input-field-wrap">
+              <span class="input-icon">☄️</span>
+              <input id="earth-weight" class="age-input" type="number" min="1" max="999" value="60" placeholder="60" autocomplete="off">
+              <span class="input-suffix" id="weight-suffix">kg</span>
+            </div>
+            <p class="age-error" id="weight-error" role="alert" aria-live="polite"></p>
+          </div>
         </div>
-        <p class="age-error" id="dob-error" role="alert" aria-live="polite"></p>
+
+        <!-- Centered Submit Button -->
+        <div class="calc-actions">
+          <button id="calc-btn" class="age-calc-btn premium-calc-btn">
+            <span>✨</span> Calculate Space Stats
+          </button>
+        </div>
       </div>
 
       <!-- Planet cards grid -->
       <div class="planet-grid" id="planet-grid">
         <!-- filled by JS -->
       </div>
-    </section>
-
-    <!-- ── WEIGHT CALCULATOR ── -->
-    <section class="weight-section" id="weight-calc">
-      <hr class="info-divider">
-      <div class="age-calc-header reveal">
-        <p class="eyebrow">⚖️ Interactive Tool</p>
-        <h2>Planet Weight Calculator</h2>
-        <p>Enter your weight on Earth — see how much you'd weigh on every other world.</p>
-        <div class="weight-unit-pill" role="group" aria-label="Weight unit">
-          <button class="weight-unit-btn active" id="wunit-kg" aria-pressed="true">kg</button>
-          <button class="weight-unit-btn" id="wunit-lbs" aria-pressed="false">lbs</button>
-        </div>
-      </div>
-      <div class="age-input-row reveal">
-        <label class="age-label" for="earth-weight">Your weight on Earth</label>
-        <div class="age-input-wrap">
-          <input id="earth-weight" class="age-input" type="number" min="1" max="999" value="60" placeholder="60" autocomplete="off">
-          <button id="weight-calc-btn" class="age-calc-btn">Calculate</button>
-        </div>
-        <p class="age-error" id="weight-error" role="alert" aria-live="polite"></p>
-      </div>
-      <div class="planet-grid" id="weight-planet-grid"></div>
     </section>
 
     <!-- ── PLANET ENCYCLOPEDIA ── -->
@@ -2786,50 +3043,118 @@
       }
     ];
 
-    function showError(msg) {
-      const input = document.getElementById('earth-age');
-      const err = document.getElementById('age-error');
+    const GRAVITY = { Mercury:0.378,Venus:0.907,Earth:1,Mars:0.377,Jupiter:2.528,Saturn:1.065,Uranus:0.886,Neptune:1.137,Pluto:0.063 };
+    let calcMode = 'age';
+    let weightUnit = 'kg';
+    let calcType = 'both';
+
+    function showError(inputId, errorId, msg) {
+      const input = document.getElementById(inputId);
+      const err = document.getElementById(errorId);
       input.classList.add('is-invalid');
       err.textContent = '⚠ ' + msg;
       err.classList.add('visible');
-      input.addEventListener('input', function clearErr() {
+      const clearErr = () => {
         input.classList.remove('is-invalid');
         err.classList.remove('visible');
         setTimeout(() => { err.textContent = ''; }, 210);
         input.removeEventListener('input', clearErr);
-      });
+        input.removeEventListener('change', clearErr);
+      };
+      input.addEventListener('input', clearErr);
+      input.addEventListener('change', clearErr);
     }
 
-    function calcAndRender() {
-      const raw = document.getElementById('earth-age').value.trim();
-      const earthAge = parseFloat(raw);
+    function calcAndRenderAll() {
+      // Clear errors
+      document.querySelectorAll('.age-error').forEach(el => el.classList.remove('visible'));
+      document.querySelectorAll('.age-input').forEach(el => el.classList.remove('is-invalid'));
 
-      if (raw === '' || isNaN(earthAge)) {
-        showError('Please enter a valid number.');
-        return;
-      }
-      if (earthAge <= 0) {
-        showError('Age must be greater than 0.');
-        return;
-      }
-      if (earthAge > 150) {
-        showError('Please enter an age of 150 or below.');
-        return;
-      }
-      calcAndRenderWithAge(earthAge);
-    }
+      let earthAge = 0;
+      let earthWeight = 0;
+      let hasError = false;
 
-    function calcAndRenderWithAge(earthAge) {
+      // 1. Validate Age / DOB
+      if (calcType === 'both' || calcType === 'age') {
+        if (calcMode === 'age') {
+          const rawAge = document.getElementById('earth-age').value.trim();
+          const ageNum = parseFloat(rawAge);
+          if (rawAge === '' || isNaN(ageNum)) {
+            showError('earth-age', 'age-error', 'Please enter a valid age.');
+            hasError = true;
+          } else if (ageNum <= 0) {
+            showError('earth-age', 'age-error', 'Age must be greater than 0.');
+            hasError = true;
+          } else if (ageNum > 150) {
+            showError('earth-age', 'age-error', 'Please enter an age of 150 or below.');
+            hasError = true;
+          } else {
+            earthAge = ageNum;
+          }
+        } else {
+          const val = document.getElementById('dob-input').value;
+          if (!val) {
+            showError('dob-input', 'dob-error', 'Please select your date of birth.');
+            hasError = true;
+          } else {
+            const dob = new Date(val);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            if (dob >= today) {
+              showError('dob-input', 'dob-error', 'Date of birth cannot be today or in the future.');
+              hasError = true;
+            } else {
+              const ageMs = today - dob;
+              const computedAge = ageMs / (1000 * 60 * 60 * 24 * 365.25);
+              if (computedAge > 150) {
+                showError('dob-input', 'dob-error', 'Date of birth is too far in the past (max 150 years).');
+                hasError = true;
+              } else {
+                earthAge = computedAge;
+              }
+            }
+          }
+        }
+      }
+
+      // 2. Validate Weight
+      if (calcType === 'both' || calcType === 'weight') {
+        const rawWeight = document.getElementById('earth-weight').value.trim();
+        const weightNum = parseFloat(rawWeight);
+        if (rawWeight === '' || isNaN(weightNum)) {
+          showError('earth-weight', 'weight-error', 'Please enter a valid weight.');
+          hasError = true;
+        } else if (weightNum <= 0 || weightNum > 999) {
+          showError('earth-weight', 'weight-error', 'Enter a valid weight (1–999).');
+          hasError = true;
+        } else {
+          earthWeight = weightNum;
+        }
+      }
+
+      if (hasError) return;
+
+      // 3. Render Planet Cards
       const grid = document.getElementById('planet-grid');
+      if (!grid) return;
       grid.innerHTML = '';
 
       PLANETS.forEach((p, i) => {
+        // Age calculation
         const age = earthAge / p.orbitalYears;
         const ageDisplay = age >= 1000
           ? age.toFixed(0)
           : age < 10
             ? age.toFixed(2)
             : age.toFixed(1);
+
+        // Weight calculation
+        const g = GRAVITY[p.name] || 1;
+        const wDisplay = (earthWeight * g).toFixed(1);
+
+        // Gravity vs Earth string
+        const vsEarth = (g - 1) * 100;
+        const vsEarthStr = g === 1 ? 'same' : (g >= 1 ? '+' : '') + vsEarth.toFixed(0) + '%';
 
         const card = document.createElement('div');
         card.className = 'planet-card' + (p.isEarth ? ' is-earth' : '') + (p.video ? ' has-video' : '');
@@ -2838,6 +3163,26 @@
         const earthVideoSide = p.video
           ? `<video class="planet-card-video" src="videos/${p.video}" autoplay muted loop playsinline></video>`
           : `<span class="planet-emoji">${p.emoji}</span>`;
+
+        let badgesHtml = '';
+        if (calcType === 'both' || calcType === 'age') {
+          badgesHtml += `
+            <div class="planet-age-badge" style="margin: 0;">
+              <span class="planet-age-label">Age</span>
+              <span class="planet-age-value">${ageDisplay}</span>
+              <span class="planet-age-unit">${p.name} years</span>
+            </div>
+          `;
+        }
+        if (calcType === 'both' || calcType === 'weight') {
+          badgesHtml += `
+            <div class="planet-age-badge" style="background: rgba(121, 167, 255, 0.06); margin: 0;">
+              <span class="planet-age-label">Weight</span>
+              <span class="planet-age-value" style="color: var(--accent-2);">${wDisplay}</span>
+              <span class="planet-age-unit">${weightUnit}</span>
+            </div>
+          `;
+        }
 
         card.innerHTML = `
             <div class="planet-card-side">
@@ -2850,16 +3195,19 @@
                 <span class="planet-type">${p.type}</span>
               </div>
 
-              <div class="planet-age-badge">
-                <span class="planet-age-label">Your age on ${p.name}</span>
-                <span class="planet-age-value">${ageDisplay}</span>
-                <span class="planet-age-unit">${p.name} years</span>
+              <!-- Badges row -->
+              <div class="planet-badges-row">
+                ${badgesHtml}
               </div>
 
               <div class="planet-info">
                 <div class="planet-info-row">
                   <span class="pi-key">Orbital period</span>
                   <span class="pi-val">${p.orbitalDays.toLocaleString()} Earth days</span>
+                </div>
+                <div class="planet-info-row">
+                  <span class="pi-key">Surface gravity</span>
+                  <span class="pi-val">${g}g (${vsEarthStr} vs Earth)</span>
                 </div>
                 <div class="planet-info-row">
                   <span class="pi-key">Temperature</span>
@@ -2873,10 +3221,6 @@
                   <span class="pi-key">Day length</span>
                   <span class="pi-val">${p.dayLength}</span>
                 </div>
-                <div class="planet-info-row">
-                  <span class="pi-key">Gravity</span>
-                  <span class="pi-val">${p.gravity}</span>
-                </div>
               </div>
             </div>
           `;
@@ -2884,55 +3228,9 @@
       });
     }
 
-    document.getElementById('calc-btn').addEventListener('click', calcAndRender);
-    document.getElementById('earth-age').addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') calcAndRender();
-    });
-
-    /* ── DOB mode ── */
-    function showDobError(msg) {
-      const input = document.getElementById('dob-input');
-      const err = document.getElementById('dob-error');
-      input.classList.add('is-invalid');
-      err.textContent = '⚠ ' + msg;
-      err.classList.add('visible');
-      input.addEventListener('change', function clearErr() {
-        input.classList.remove('is-invalid');
-        err.classList.remove('visible');
-        setTimeout(() => { err.textContent = ''; }, 210);
-        input.removeEventListener('change', clearErr);
-      });
-    }
-
-    function calcFromDOB() {
-      const val = document.getElementById('dob-input').value;
-      if (!val) {
-        showDobError('Please select your date of birth.');
-        return;
-      }
-      const dob = new Date(val);
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      if (dob >= today) {
-        showDobError('Date of birth cannot be today or in the future.');
-        return;
-      }
-      const ageMs = today - dob;
-      const earthAge = ageMs / (1000 * 60 * 60 * 24 * 365.25);
-      if (earthAge > 150) {
-        showDobError('Date of birth is too far in the past (max 150 years).');
-        return;
-      }
-      calcAndRenderWithAge(earthAge);
-    }
-
-    document.getElementById('dob-calc-btn').addEventListener('click', calcFromDOB);
-    document.getElementById('dob-input').addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') calcFromDOB();
-    });
-
-    /* ── Mode toggle ── */
+    // Toggle event listeners
     document.getElementById('mode-age').addEventListener('click', () => {
+      calcMode = 'age';
       document.getElementById('panel-age').style.display = '';
       document.getElementById('panel-dob').style.display = 'none';
       document.getElementById('mode-age').classList.add('active');
@@ -2942,12 +3240,78 @@
     });
 
     document.getElementById('mode-dob').addEventListener('click', () => {
+      calcMode = 'dob';
       document.getElementById('panel-dob').style.display = '';
       document.getElementById('panel-age').style.display = 'none';
       document.getElementById('mode-dob').classList.add('active');
       document.getElementById('mode-dob').setAttribute('aria-pressed', 'true');
       document.getElementById('mode-age').classList.remove('active');
       document.getElementById('mode-age').setAttribute('aria-pressed', 'false');
+    });
+
+    document.getElementById('wunit-kg').addEventListener('click', () => {
+      weightUnit = 'kg';
+      document.getElementById('wunit-kg').classList.add('active');
+      document.getElementById('wunit-lbs').classList.remove('active');
+      document.getElementById('earth-weight').placeholder = '60';
+      const suffix = document.getElementById('weight-suffix');
+      if (suffix) suffix.textContent = 'kg';
+      calcAndRenderAll();
+    });
+
+    document.getElementById('wunit-lbs').addEventListener('click', () => {
+      weightUnit = 'lbs';
+      document.getElementById('wunit-lbs').classList.add('active');
+      document.getElementById('wunit-kg').classList.remove('active');
+      document.getElementById('earth-weight').placeholder = '132';
+      const suffix = document.getElementById('weight-suffix');
+      if (suffix) suffix.textContent = 'lbs';
+      calcAndRenderAll();
+    });
+
+    // Calculation Type listeners
+    document.getElementById('type-both').addEventListener('click', () => {
+      calcType = 'both';
+      updateTypeSelector();
+      document.getElementById('age-input-group').style.display = '';
+      document.getElementById('weight-input-group').style.display = '';
+      calcAndRenderAll();
+    });
+    document.getElementById('type-age').addEventListener('click', () => {
+      calcType = 'age';
+      updateTypeSelector();
+      document.getElementById('age-input-group').style.display = '';
+      document.getElementById('weight-input-group').style.display = 'none';
+      calcAndRenderAll();
+    });
+    document.getElementById('type-weight').addEventListener('click', () => {
+      calcType = 'weight';
+      updateTypeSelector();
+      document.getElementById('age-input-group').style.display = 'none';
+      document.getElementById('weight-input-group').style.display = '';
+      calcAndRenderAll();
+    });
+
+    function updateTypeSelector() {
+      ['both', 'age', 'weight'].forEach(t => {
+        const btn = document.getElementById('type-' + t);
+        if (btn) {
+          btn.classList.toggle('active', calcType === t);
+          btn.setAttribute('aria-pressed', calcType === t ? 'true' : 'false');
+        }
+      });
+    }
+
+    // Action listener
+    document.getElementById('calc-btn').addEventListener('click', calcAndRenderAll);
+    document.getElementById('earth-age').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') calcAndRenderAll();
+    });
+    document.getElementById('dob-input').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') calcAndRenderAll();
+    });
+    document.getElementById('earth-weight').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') calcAndRenderAll();
     });
 
     function renderEncyclopedia() {
@@ -3210,39 +3574,10 @@
     })();
 
     // Run on load
-    calcAndRender();
+    calcAndRenderAll();
     renderEncyclopedia();
 
-    /* ── WEIGHT CALCULATOR ── */
-    const GRAVITY = { Mercury:0.378,Venus:0.907,Earth:1,Mars:0.377,Jupiter:2.528,Saturn:1.065,Uranus:0.886,Neptune:1.137,Pluto:0.063 };
-    let weightUnit = 'kg';
-    document.getElementById('wunit-kg').addEventListener('click', () => { weightUnit='kg'; document.getElementById('wunit-kg').classList.add('active'); document.getElementById('wunit-lbs').classList.remove('active'); document.getElementById('earth-weight').placeholder='60'; });
-    document.getElementById('wunit-lbs').addEventListener('click', () => { weightUnit='lbs'; document.getElementById('wunit-lbs').classList.add('active'); document.getElementById('wunit-kg').classList.remove('active'); document.getElementById('earth-weight').placeholder='132'; });
-    function calcWeight() {
-      const raw = parseFloat(document.getElementById('earth-weight').value);
-      const err = document.getElementById('weight-error');
-      if (!raw || raw <= 0 || raw > 999) { err.textContent='⚠ Enter a valid weight (1–999).'; err.classList.add('visible'); return; }
-      err.classList.remove('visible');
-      const grid = document.getElementById('weight-planet-grid');
-      grid.innerHTML = '';
-      PLANETS.forEach((p, i) => {
-        const g = GRAVITY[p.name] || 1;
-        const w = (raw * g).toFixed(1);
-        const unit = weightUnit;
-        const card = document.createElement('div');
-        card.className = 'planet-card' + (p.isEarth ? ' is-earth' : '');
-        card.style.animationDelay = (i * 55) + 'ms';
-        card.innerHTML = `<div class="planet-card-side"><span class="planet-emoji">${p.emoji}</span></div>
-          <div class="planet-card-content">
-            <div class="planet-card-top"><p class="planet-name">${p.name}</p><span class="planet-type">${p.type}</span></div>
-            <div class="planet-age-badge"><span class="planet-age-label">Your weight on ${p.name}</span><span class="planet-age-value">${w}</span><span class="planet-age-unit">${unit}</span></div>
-            <div class="planet-info"><div class="planet-info-row"><span class="pi-key">Surface gravity</span><span class="pi-val">${g}g</span></div><div class="planet-info-row"><span class="pi-key">vs Earth</span><span class="pi-val">${g >= 1 ? '+' : ''}${((g-1)*100).toFixed(0)}%</span></div></div>
-          </div>`;
-        grid.appendChild(card);
-      });
-    }
-    document.getElementById('weight-calc-btn').addEventListener('click', calcWeight);
-    document.getElementById('earth-weight').addEventListener('keydown', e => { if (e.key === 'Enter') calcWeight(); });
+    // Weight Calculator logic is now integrated into Cosmic Calculator above
 
     /* ── PLANET FILTER ── */
     document.querySelectorAll('.filter-pill').forEach(btn => {
