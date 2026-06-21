@@ -719,15 +719,39 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: rgba(3, 5, 8, 0.45) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%2379a7ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>') no-repeat center;
+      background: rgba(3, 5, 8, 0.45);
       opacity: 0;
       transition: opacity 0.22s ease;
       pointer-events: none;
       border-radius: var(--radius-md);
     }
 
+    /* Magnifier icon drawn with pure CSS — no data: URI */
+    .step-image-wrap:not(.dual)::before,
+    .step-img-half::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 18px;
+      height: 18px;
+      border: 2.5px solid #79a7ff;
+      border-radius: 50%;
+      transform: translate(-60%, -60%);
+      opacity: 0;
+      transition: opacity 0.22s ease;
+      pointer-events: none;
+      z-index: 1;
+      box-shadow: 4px 4px 0 0 #79a7ff;
+    }
+
     .step-image-wrap:not(.dual):hover::after,
     .step-img-half:hover::after {
+      opacity: 1;
+    }
+
+    .step-image-wrap:not(.dual):hover::before,
+    .step-img-half:hover::before {
       opacity: 1;
     }
 
