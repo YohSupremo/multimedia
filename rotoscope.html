@@ -1,2524 +1,2778 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Rotoscope video gallery — watch frame-by-frame rotoscope tutorials and motion studies directly on Multimedia Studio.">
-    <title>Multimedia Studio | Rotoscope</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <style>
-      /* ── Page-specific styles ── */
-      .roto-hero {
-        width: 100%;
-        background: #0a0c12;
-        padding: 3.5rem 2rem 2.5rem;
-        text-align: center;
-        border-bottom: 1px solid var(--line);
-      }
 
-      .roto-hero-label {
-        display: inline-block;
-        font-size: 0.78rem;
-        font-weight: 700;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        color: var(--accent);
-        margin-bottom: 0.6rem;
-      }
+<head>
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Rotoscope video gallery — watch frame-by-frame rotoscope tutorials and motion studies directly on Multimedia Studio.">
+  <title>Multimedia Studio | Rotoscope</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── Page-specific styles ── */
+    .roto-hero {
+      width: 100%;
+      background: #0a0c12;
+      padding: 3.5rem 2rem 2.5rem;
+      text-align: center;
+      border-bottom: 1px solid var(--line);
+    }
 
-      .roto-hero h1 {
-        font-size: clamp(2.4rem, 7vw, 4.5rem);
-        font-weight: 800;
-        letter-spacing: -0.02em;
-        background: linear-gradient(135deg, #fff 30%, var(--accent) 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        margin: 0 auto 0.5rem;
-        line-height: 1.1;
-      }
+    .roto-hero-label {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
 
-      .roto-hero-sub {
-        color: var(--muted);
-        font-size: 1.05rem;
-        margin: 0 auto 2.2rem;
-        max-width: 52ch;
-      }
+    .roto-hero h1 {
+      font-size: clamp(2.4rem, 7vw, 4.5rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #fff 30%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 0 auto 0.5rem;
+      line-height: 1.1;
+    }
 
-      /* ── Side-by-side comparison videos ── */
-      .comparison-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1.2rem;
-        width: 100%;
-        max-width: 1200px;
-        margin: 0 auto 1.6rem;
-      }
+    .roto-hero-sub {
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin: 0 auto 2.2rem;
+      max-width: 52ch;
+    }
 
-      .comparison-col {
-        display: flex;
-        flex-direction: column;
-        gap: 0.55rem;
-      }
+    /* ── Side-by-side comparison videos ── */
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto 1.6rem;
+    }
 
-      .comparison-label {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.45rem;
-        font-size: 0.72rem;
-        font-weight: 700;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: var(--muted);
-      }
+    .comparison-col {
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
 
-      .comparison-label .cl-dot {
-        width: 7px;
-        height: 7px;
-        border-radius: 50%;
-        flex-shrink: 0;
-      }
+    .comparison-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
 
-      .comparison-label.cl-output .cl-dot { background: var(--accent); }
-      .comparison-label.cl-ref    .cl-dot { background: var(--accent-2); }
+    .comparison-label .cl-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
 
-      .featured-embed-wrap {
-        width: 100%;
-        border-radius: var(--radius-xl);
-        overflow: hidden;
-        border: 1px solid var(--line);
-        box-shadow: 0 0 40px rgba(124, 224, 195, 0.08);
-        aspect-ratio: 16 / 9;
-        position: relative;
-      }
+    .comparison-label.cl-output .cl-dot {
+      background: var(--accent);
+    }
 
-      .featured-embed-wrap iframe {
-        width: 100%;
-        height: 100%;
-        display: block;
-        border: none;
-      }
+    .comparison-label.cl-ref .cl-dot {
+      background: var(--accent-2);
+    }
 
-      /* Transparent blocker over the YouTube iframe — prevents manual play.
+    .featured-embed-wrap {
+      width: 100%;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      border: 1px solid var(--line);
+      box-shadow: 0 0 40px rgba(124, 224, 195, 0.08);
+      aspect-ratio: 16 / 9;
+      position: relative;
+    }
+
+    .featured-embed-wrap iframe {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border: none;
+    }
+
+    /* Transparent blocker over the YouTube iframe — prevents manual play.
          Removed by JS once the "Play Both" button is pressed. */
-      .yt-blocker {
-        position: absolute;
-        inset: 0;
-        z-index: 5;
-        cursor: not-allowed;
-        background: transparent;
-      }
-      .yt-blocker::after {
-        content: '\25B6\FE0F  Use "Play Both" to start';
-        position: absolute;
-        bottom: 1rem;
-        left: 50%;
-        transform: translateX(-50%);
-        background: rgba(10,12,18,0.82);
-        color: var(--muted);
-        font-size: 0.75rem;
-        font-family: inherit;
-        white-space: nowrap;
-        padding: 0.3rem 0.8rem;
-        border-radius: 99px;
-        border: 1px solid var(--line);
-        opacity: 0;
-        transition: opacity 0.2s;
-        pointer-events: none;
-      }
-      .yt-blocker:hover::after {
-        opacity: 1;
-      }
+    .yt-blocker {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      cursor: not-allowed;
+      background: transparent;
+    }
 
-      /* Reference column inside hero */
-      .ref-embed-wrap {
-        width: 100%;
-        border-radius: var(--radius-xl);
-        overflow: hidden;
-        border: 1px solid rgba(121, 167, 255, 0.25);
-        box-shadow: 0 0 40px rgba(121, 167, 255, 0.07);
-        aspect-ratio: 16 / 9;
-        position: relative;
-        background: #000;
-      }
+    .yt-blocker::after {
+      content: '\25B6\FE0F  Use "Play Both" to start';
+      position: absolute;
+      bottom: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(10, 12, 18, 0.82);
+      color: var(--muted);
+      font-size: 0.75rem;
+      font-family: inherit;
+      white-space: nowrap;
+      padding: 0.3rem 0.8rem;
+      border-radius: 99px;
+      border: 1px solid var(--line);
+      opacity: 0;
+      transition: opacity 0.2s;
+      pointer-events: none;
+    }
 
-      .ref-embed-wrap video {
-        width: 100%;
-        height: 100%;
-        display: block;
-        object-fit: cover;
-      }
+    .yt-blocker:hover::after {
+      opacity: 1;
+    }
 
-      /* ── Sync Control Panel (Card, Timeline, Slider, Row, Buttons) ── */
-      .sync-controls-card {
-        width: 100%;
-        max-width: 1200px;
-        margin: 1.5rem auto 1.5rem;
-        background: rgba(10, 12, 18, 0.6);
-        border: 1px solid var(--line);
-        border-radius: var(--radius-xl);
-        padding: 1.25rem 1.5rem;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 20px rgba(124, 224, 195, 0.03);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
-        backdrop-filter: blur(8px);
-      }
+    /* Reference column inside hero */
+    .ref-embed-wrap {
+      width: 100%;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      border: 1px solid rgba(121, 167, 255, 0.25);
+      box-shadow: 0 0 40px rgba(121, 167, 255, 0.07);
+      aspect-ratio: 16 / 9;
+      position: relative;
+      background: #000;
+    }
 
-      .timeline-container {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        width: 100%;
-        background: rgba(10, 12, 18, 0.4);
-        padding: 0.5rem 1rem;
-        border-radius: var(--radius-md);
-        border: 1px solid var(--line);
-      }
+    .ref-embed-wrap video {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
 
-      .time-display {
-        font-family: monospace;
-        font-size: 0.8rem;
-        color: var(--muted);
-        min-width: 45px;
-        text-align: center;
-        user-select: none;
-      }
+    /* ── Sync Control Panel (Card, Timeline, Slider, Row, Buttons) ── */
+    .sync-controls-card {
+      width: 100%;
+      max-width: 1200px;
+      margin: 1.5rem auto 1.5rem;
+      background: rgba(10, 12, 18, 0.6);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 20px rgba(124, 224, 195, 0.03);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      backdrop-filter: blur(8px);
+    }
 
-      .timeline-slider {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 100%;
-        height: 6px;
-        border-radius: 99px;
-        background: linear-gradient(to right, var(--accent) 0%, var(--accent) var(--progress, 0%), rgba(255, 255, 255, 0.1) var(--progress, 0%), rgba(255, 255, 255, 0.1) 100%);
-        outline: none;
-        cursor: pointer;
-        transition: background 0.2s;
-      }
+    .timeline-container {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      width: 100%;
+      background: rgba(10, 12, 18, 0.4);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+    }
 
-      .timeline-slider::-webkit-slider-runnable-track {
-        width: 100%;
-        height: 6px;
-        cursor: pointer;
-      }
+    .time-display {
+      font-family: monospace;
+      font-size: 0.8rem;
+      color: var(--muted);
+      min-width: 45px;
+      text-align: center;
+      user-select: none;
+    }
 
-      .timeline-slider::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 14px;
-        height: 14px;
-        border-radius: 50%;
-        background: var(--accent);
-        cursor: pointer;
-        box-shadow: 0 0 10px rgba(124, 224, 195, 0.6);
-        transition: transform 0.1s, background-color 0.2s;
-        margin-top: -4px;
-      }
+    .timeline-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      border-radius: 99px;
+      background: linear-gradient(to right, var(--accent) 0%, var(--accent) var(--progress, 0%), rgba(255, 255, 255, 0.1) var(--progress, 0%), rgba(255, 255, 255, 0.1) 100%);
+      outline: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
 
-      .timeline-slider::-webkit-slider-thumb:hover {
-        transform: scale(1.25);
-        background: #fff;
-      }
+    .timeline-slider::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 6px;
+      cursor: pointer;
+    }
 
-      .timeline-slider::-moz-range-thumb {
-        width: 14px;
-        height: 14px;
-        border: none;
-        border-radius: 50%;
-        background: var(--accent);
-        cursor: pointer;
-        box-shadow: 0 0 10px rgba(124, 224, 195, 0.6);
-        transition: transform 0.1s, background-color 0.2s;
-      }
+    .timeline-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(124, 224, 195, 0.6);
+      transition: transform 0.1s, background-color 0.2s;
+      margin-top: -4px;
+    }
 
-      .timeline-slider::-moz-range-thumb:hover {
-        transform: scale(1.25);
-        background: #fff;
-      }
+    .timeline-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.25);
+      background: #fff;
+    }
 
+    .timeline-slider::-moz-range-thumb {
+      width: 14px;
+      height: 14px;
+      border: none;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(124, 224, 195, 0.6);
+      transition: transform 0.1s, background-color 0.2s;
+    }
+
+    .timeline-slider::-moz-range-thumb:hover {
+      transform: scale(1.25);
+      background: #fff;
+    }
+
+    .controls-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    .playback-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+    }
+
+    .sync-play-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: linear-gradient(135deg, var(--accent), #4fc3a1);
+      color: #0a0c12;
+      border: none;
+      border-radius: 99px;
+      padding: 0.65rem 2rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(124, 224, 195, 0.35);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .sync-play-btn:hover {
+      transform: scale(1.04);
+      box-shadow: 0 6px 28px rgba(124, 224, 195, 0.5);
+    }
+
+    .sync-play-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    .skip-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--muted);
+      border: 1px solid var(--line);
+      border-radius: 99px;
+      padding: 0.45rem 1rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.1s;
+    }
+
+    .skip-btn:hover {
+      background: rgba(255, 255, 255, 0.09);
+      color: var(--text);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-1px);
+    }
+
+    .skip-btn:active {
+      transform: translateY(0);
+    }
+
+    .skip-val {
+      font-size: 0.72rem;
+      margin: 0 0.15rem;
+      color: var(--accent);
+    }
+
+    .sync-hint {
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    /* Integrated unmute button in controls card */
+    .sync-controls-card .unmute-btn {
+      position: static;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--line);
+      border-radius: 99px;
+      padding: 0.45rem 1rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--accent-2);
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, transform 0.1s;
+      backdrop-filter: none;
+    }
+
+    .sync-controls-card .unmute-btn:hover {
+      background: rgba(121, 167, 255, 0.08);
+      border-color: rgba(121, 167, 255, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .sync-controls-card .unmute-btn:active {
+      transform: translateY(0);
+    }
+
+    .sync-controls-card .unmute-btn svg {
+      width: 13px;
+      height: 13px;
+      fill: currentColor;
+    }
+
+    @media (max-width: 640px) {
       .controls-row {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.8rem;
-        flex-wrap: wrap;
-        width: 100%;
+        flex-direction: column;
+        gap: 0.75rem;
       }
 
       .playback-group {
-        display: flex;
+        width: 100%;
+        justify-content: center;
+        gap: 0.4rem;
+      }
+
+      .skip-btn .skip-val {
+        display: none;
+      }
+
+      .skip-btn {
+        padding: 0.5rem;
+        min-width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 0.6rem;
       }
 
       .sync-play-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.6rem;
-        background: linear-gradient(135deg, var(--accent), #4fc3a1);
-        color: #0a0c12;
-        border: none;
-        border-radius: 99px;
-        padding: 0.65rem 2rem;
-        font-size: 0.95rem;
-        font-weight: 700;
-        font-family: inherit;
-        cursor: pointer;
-        box-shadow: 0 4px 20px rgba(124,224,195,0.35);
-        transition: transform 0.15s, box-shadow 0.15s;
-      }
-
-      .sync-play-btn:hover {
-        transform: scale(1.04);
-        box-shadow: 0 6px 28px rgba(124,224,195,0.5);
-      }
-
-      .sync-play-btn svg { width: 18px; height: 18px; fill: currentColor; flex-shrink: 0; }
-
-      .skip-btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(255, 255, 255, 0.04);
-        color: var(--muted);
-        border: 1px solid var(--line);
-        border-radius: 99px;
-        padding: 0.45rem 1rem;
-        font-size: 0.82rem;
-        font-weight: 600;
-        font-family: inherit;
-        cursor: pointer;
-        transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.1s;
-      }
-
-      .skip-btn:hover {
-        background: rgba(255, 255, 255, 0.09);
-        color: var(--text);
-        border-color: rgba(255, 255, 255, 0.2);
-        transform: translateY(-1px);
-      }
-
-      .skip-btn:active {
-        transform: translateY(0);
-      }
-
-      .skip-val {
-        font-size: 0.72rem;
-        margin: 0 0.15rem;
-        color: var(--accent);
-      }
-
-      .sync-hint {
-        font-size: 0.75rem;
-        color: var(--muted);
-        letter-spacing: 0.04em;
-      }
-
-      /* Integrated unmute button in controls card */
-      .sync-controls-card .unmute-btn {
-        position: static;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.35rem;
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px solid var(--line);
-        border-radius: 99px;
-        padding: 0.45rem 1rem;
-        font-size: 0.82rem;
-        font-weight: 600;
-        color: var(--accent-2);
-        font-family: inherit;
-        cursor: pointer;
-        transition: background 0.2s, border-color 0.2s, transform 0.1s;
-        backdrop-filter: none;
-      }
-
-      .sync-controls-card .unmute-btn:hover {
-        background: rgba(121, 167, 255, 0.08);
-        border-color: rgba(121, 167, 255, 0.35);
-        transform: translateY(-1px);
-      }
-
-      .sync-controls-card .unmute-btn:active {
-        transform: translateY(0);
-      }
-
-      .sync-controls-card .unmute-btn svg { width: 13px; height: 13px; fill: currentColor; }
-
-      @media (max-width: 640px) {
-        .controls-row {
-          flex-direction: column;
-          gap: 0.75rem;
-        }
-        .playback-group {
-          width: 100%;
-          justify-content: center;
-          gap: 0.4rem;
-        }
-        .skip-btn .skip-val {
-          display: none;
-        }
-        .skip-btn {
-          padding: 0.5rem;
-          min-width: 36px;
-          height: 36px;
-          border-radius: 50%;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-        }
-        .sync-play-btn {
-          padding: 0.55rem 1.4rem;
-          font-size: 0.85rem;
-        }
-        .sync-controls-card .unmute-btn {
-          width: 100%;
-          justify-content: center;
-          margin-left: 0;
-        }
-      }
-
-      /* Disclaimer strip below comparison grid */
-      .comparison-disclaimer {
-        width: 100%;
-        max-width: 1200px;
-        margin: 0 auto;
-        background: rgba(121, 167, 255, 0.05);
-        border: 1px solid rgba(121, 167, 255, 0.15);
-        border-radius: var(--radius-lg);
-        padding: 1rem 1.4rem;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.6rem 2.4rem;
-        align-items: flex-start;
-      }
-
-      .disclaimer-title {
-        font-size: 0.72rem;
-        font-weight: 700;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: var(--accent-2);
-        margin-bottom: 0.25rem;
-      }
-
-      .disclaimer-block {
-        display: flex;
-        flex-direction: column;
-        min-width: 200px;
-        flex: 1;
-      }
-
-      .disclaimer-text {
-        font-size: 0.82rem;
-        color: var(--muted);
-        line-height: 1.6;
-        margin: 0;
-      }
-
-      .disclaimer-meta {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.3rem 1.2rem;
-        margin-top: 0.5rem;
-      }
-
-      .disclaimer-row {
-        display: flex;
-        gap: 0.4rem;
-        font-size: 0.8rem;
-      }
-
-      .disclaimer-role { color: var(--muted); min-width: 72px; flex-shrink: 0; }
-      .disclaimer-val  { color: var(--text); font-weight: 500; }
-
-      @media (max-width: 860px) {
-        .comparison-grid { grid-template-columns: 1fr; }
-      }
-
-      /* Video grid section */
-      .video-gallery-section {
-        padding: 3rem 2rem;
-        max-width: 1280px;
-        margin: 0 auto;
-        width: 100%;
-      }
-
-      .gallery-header {
-        display: flex;
-        align-items: baseline;
-        gap: 1rem;
-        margin-bottom: 2rem;
-      }
-
-      .gallery-header h2 {
-        font-size: 1.4rem;
-        font-weight: 700;
-        color: var(--text);
-        margin: 0;
-      }
-
-      .gallery-header .count-badge {
-        font-size: 0.8rem;
-        font-weight: 600;
-        color: var(--accent);
-        background: rgba(124, 224, 195, 0.1);
-        border: 1px solid rgba(124, 224, 195, 0.25);
-        border-radius: 99px;
-        padding: 0.15rem 0.65rem;
-      }
-
-      /* 12-card grid */
-      .video-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 1.4rem;
-      }
-
-      .video-card {
-        background: var(--panel);
-        border-radius: var(--radius-lg);
-        border: 1px solid var(--line);
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        position: relative;
-        z-index: 0;
-        transition:
-          border-color 0.25s,
-          transform   0.35s cubic-bezier(0.34, 1.4, 0.64, 1),
-          box-shadow  0.35s,
-          opacity     0.3s;
-      }
-
-      /* Hovered card: zoom forward and glow */
-      .video-card:hover {
-        border-color: var(--accent);
-        transform: scale(1.12);
-        z-index: 20;
-        box-shadow:
-          0 20px 60px rgba(0, 0, 0, 0.65),
-          0 0 0 1.5px rgba(124, 224, 195, 0.4),
-          0 0 40px rgba(124, 224, 195, 0.12);
-        opacity: 1;
-      }
-
-      /* All other cards dim when any card is hovered */
-      .video-grid:has(.video-card:hover) .video-card:not(:hover) {
-        opacity: 0.45;
-        transform: scale(0.97);
-      }
-
-      .video-card-embed {
-        width: 100%;
-        aspect-ratio: 16 / 9;
-        position: relative;
-        background: #0a0c12;
-      }
-
-      .video-card-embed iframe {
-        width: 100%;
-        height: 100%;
-        border: none;
-        display: block;
-      }
-
-      .video-card-body {
-        padding: 0.85rem 1rem;
-        display: flex;
-        flex-direction: column;
-        gap: 0.25rem;
-        flex: 1;
-      }
-
-      .video-card-week {
-        display: block;
-        font-size: 0.7rem;
-        font-weight: 700;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: var(--muted);
-        margin-bottom: 0.35rem;
-      }
-
-      .video-card-tag {
-        font-size: 0.72rem;
-        font-weight: 600;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        color: var(--accent-2);
-      }
-
-      .video-card-title {
-        font-size: 0.97rem;
-        font-weight: 600;
-        color: var(--text);
-        margin: 0;
-        line-height: 1.35;
-      }
-
-      .video-card-desc {
+        padding: 0.55rem 1.4rem;
         font-size: 0.85rem;
-        color: var(--muted);
-        margin: 0;
-        line-height: 1.5;
       }
 
-      /* Reference card */
-      .ref-section {
-        padding: 0 2rem 3.5rem;
-        max-width: 1280px;
-        margin: 0 auto;
+      .sync-controls-card .unmute-btn {
         width: 100%;
+        justify-content: center;
+        margin-left: 0;
+      }
+    }
+
+    /* Disclaimer strip below comparison grid */
+    .comparison-disclaimer {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      background: rgba(121, 167, 255, 0.05);
+      border: 1px solid rgba(121, 167, 255, 0.15);
+      border-radius: var(--radius-lg);
+      padding: 1rem 1.4rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem 2.4rem;
+      align-items: flex-start;
+    }
+
+    .disclaimer-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent-2);
+      margin-bottom: 0.25rem;
+    }
+
+    .disclaimer-block {
+      display: flex;
+      flex-direction: column;
+      min-width: 200px;
+      flex: 1;
+    }
+
+    .disclaimer-text {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .disclaimer-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem 1.2rem;
+      margin-top: 0.5rem;
+    }
+
+    .disclaimer-row {
+      display: flex;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+    }
+
+    .disclaimer-role {
+      color: var(--muted);
+      min-width: 72px;
+      flex-shrink: 0;
+    }
+
+    .disclaimer-val {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    @media (max-width: 860px) {
+      .comparison-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Video grid section */
+    .video-gallery-section {
+      padding: 3rem 2rem;
+      max-width: 1280px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .gallery-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .gallery-header h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0;
+    }
+
+    .gallery-header .count-badge {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent);
+      background: rgba(124, 224, 195, 0.1);
+      border: 1px solid rgba(124, 224, 195, 0.25);
+      border-radius: 99px;
+      padding: 0.15rem 0.65rem;
+    }
+
+    /* 12-card grid */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.4rem;
+    }
+
+    .video-card {
+      background: var(--panel);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 0;
+      transition:
+        border-color 0.25s,
+        transform 0.35s cubic-bezier(0.34, 1.4, 0.64, 1),
+        box-shadow 0.35s,
+        opacity 0.3s;
+    }
+
+    /* Hovered card: zoom forward and glow */
+    .video-card:hover {
+      border-color: var(--accent);
+      transform: scale(1.12);
+      z-index: 20;
+      box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.65),
+        0 0 0 1.5px rgba(124, 224, 195, 0.4),
+        0 0 40px rgba(124, 224, 195, 0.12);
+      opacity: 1;
+    }
+
+    /* All other cards dim when any card is hovered */
+    .video-grid:has(.video-card:hover) .video-card:not(:hover) {
+      opacity: 0.45;
+      transform: scale(0.97);
+    }
+
+    .video-card-embed {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      position: relative;
+      background: #0a0c12;
+    }
+
+    .video-card-embed iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    .video-card-body {
+      padding: 0.85rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      flex: 1;
+    }
+
+    .video-card-week {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .video-card-tag {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent-2);
+    }
+
+    .video-card-title {
+      font-size: 0.97rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0;
+      line-height: 1.35;
+    }
+
+    .video-card-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* Reference card */
+    .ref-section {
+      padding: 0 2rem 3.5rem;
+      max-width: 1280px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .ref-header {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      margin-bottom: 1.4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .ref-header h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0;
+    }
+
+    .ref-header .ref-badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent-2);
+      background: rgba(121, 167, 255, 0.1);
+      border: 1px solid rgba(121, 167, 255, 0.25);
+      border-radius: 99px;
+      padding: 0.12rem 0.6rem;
+    }
+
+    .ref-card {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 0;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .ref-card:hover {
+      border-color: var(--accent-2);
+    }
+
+    .ref-video {
+      min-height: 280px;
+      width: 100%;
+      position: relative;
+      background: #000;
+    }
+
+    .ref-video iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    .ref-info {
+      padding: 2rem 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      justify-content: flex-start;
+      border-left: 1px solid var(--line);
+    }
+
+    .ref-info-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .ref-info h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0;
+      line-height: 1.3;
+    }
+
+    .ref-info p {
+      font-size: 0.93rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    .ref-credits {
+      margin-top: 0.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .ref-credits-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.2rem;
+    }
+
+    .ref-credit-row {
+      display: flex;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+    }
+
+    .ref-credit-role {
+      color: var(--muted);
+      min-width: 90px;
+      flex-shrink: 0;
+    }
+
+    .ref-credit-name {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* Responsive */
+    @media (max-width: 720px) {
+      .roto-hero {
+        padding: 2.5rem 1rem 2rem;
       }
 
-      .ref-header {
-        display: flex;
-        align-items: baseline;
-        gap: 0.75rem;
-        margin-bottom: 1.4rem;
-        padding-top: 2rem;
-        border-top: 1px solid var(--line);
+      .video-gallery-section {
+        padding: 2rem 1rem;
       }
 
-      .ref-header h2 {
-        font-size: 1.2rem;
-        font-weight: 700;
-        color: var(--text);
-        margin: 0;
+      .video-grid {
+        grid-template-columns: 1fr;
       }
 
-      .ref-header .ref-badge {
-        font-size: 0.75rem;
-        font-weight: 600;
-        color: var(--accent-2);
-        background: rgba(121, 167, 255, 0.1);
-        border: 1px solid rgba(121, 167, 255, 0.25);
-        border-radius: 99px;
-        padding: 0.12rem 0.6rem;
+      .ref-section {
+        padding: 0 1rem 2.5rem;
       }
 
       .ref-card {
-        display: grid;
-        grid-template-columns: 1.2fr 1fr;
-        gap: 0;
-        background: var(--panel);
-        border: 1px solid var(--line);
-        border-radius: var(--radius-xl);
-        overflow: hidden;
-        transition: border-color 0.2s;
-      }
-
-      .ref-card:hover {
-        border-color: var(--accent-2);
-      }
-
-      .ref-video {
-        min-height: 280px;
-        width: 100%;
-        position: relative;
-        background: #000;
-      }
-
-      .ref-video iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border: none;
-        display: block;
+        grid-template-columns: 1fr;
       }
 
       .ref-info {
-        padding: 2rem 1.8rem;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        justify-content: flex-start;
-        border-left: 1px solid var(--line);
-      }
-
-      .ref-info-label {
-        font-size: 0.72rem;
-        font-weight: 700;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: var(--accent);
-      }
-
-      .ref-info h3 {
-        font-size: 1.15rem;
-        font-weight: 700;
-        color: var(--text);
-        margin: 0;
-        line-height: 1.3;
-      }
-
-      .ref-info p {
-        font-size: 0.93rem;
-        color: var(--muted);
-        line-height: 1.65;
-        margin: 0;
-      }
-
-      .ref-credits {
-        margin-top: 0.5rem;
-        padding-top: 1rem;
+        border-left: none;
         border-top: 1px solid var(--line);
-        display: flex;
-        flex-direction: column;
-        gap: 0.4rem;
       }
 
-      .ref-credits-label {
-        font-size: 0.7rem;
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--muted);
-        margin-bottom: 0.2rem;
+      .ref-video {
+        aspect-ratio: 16 / 9;
+      }
+    }
+
+    @media (max-width: 920px) {
+      .video-grid {
+        grid-template-columns: 1fr;
       }
 
-      .ref-credit-row {
-        display: flex;
-        gap: 0.5rem;
-        font-size: 0.85rem;
+      .ref-card {
+        grid-template-columns: 1fr;
       }
 
-      .ref-credit-role {
-        color: var(--muted);
-        min-width: 90px;
-        flex-shrink: 0;
+      .ref-info {
+        border-left: none;
+        border-top: 1px solid var(--line);
       }
+    }
 
-      .ref-credit-name {
-        color: var(--text);
-        font-weight: 500;
-      }
+    /* ── Workflow Accordion ── */
+    .workflow-section {
+      padding: 0 2rem;
+      max-width: 1280px;
+      margin: 0 auto;
+      width: 100%;
+      box-sizing: border-box;
+    }
 
-      /* Responsive */
-      @media (max-width: 720px) {
-        .roto-hero { padding: 2.5rem 1rem 2rem; }
-        .video-gallery-section { padding: 2rem 1rem; }
-        .video-grid { grid-template-columns: 1fr; }
-        .ref-section { padding: 0 1rem 2.5rem; }
-        .ref-card { grid-template-columns: 1fr; }
-        .ref-info { border-left: none; border-top: 1px solid var(--line); }
-        .ref-video { aspect-ratio: 16 / 9; }
-      }
+    .workflow-toggle {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      padding: 1.2rem 1.8rem;
+      cursor: pointer;
+      font-family: inherit;
+      color: var(--text);
+      transition: border-color 0.2s, background 0.2s;
+      text-align: left;
+    }
 
-      @media (max-width: 920px) {
-        .video-grid { grid-template-columns: 1fr; }
-        .ref-card { grid-template-columns: 1fr; }
-        .ref-info { border-left: none; border-top: 1px solid var(--line); }
-      }
+    .workflow-toggle:hover {
+      border-color: var(--accent-2);
+      background: rgba(121, 167, 255, 0.04);
+    }
 
-      /* ── Workflow Accordion ── */
+    .workflow-toggle.open {
+      border-color: var(--accent-2);
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .workflow-toggle-left {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .workflow-toggle-icon {
+      font-size: 1.3rem;
+      line-height: 1;
+    }
+
+    .workflow-toggle-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0;
+    }
+
+    .workflow-toggle-sub {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin: 0;
+      margin-top: 0.1rem;
+    }
+
+    .workflow-chevron {
+      font-size: 1rem;
+      color: var(--accent-2);
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .workflow-toggle.open .workflow-chevron {
+      transform: rotate(180deg);
+    }
+
+    .workflow-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+      background: var(--panel);
+      border: none;
+      border-bottom-left-radius: var(--radius-xl);
+      border-bottom-right-radius: var(--radius-xl);
+    }
+
+    .workflow-body.open {
+      max-height: 30000px;
+      border: 1px solid var(--accent-2);
+      border-top: none;
+    }
+
+    .workflow-inner {
+      padding: 1.8rem 2rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .workflow-step {
+      display: flex;
+      gap: 1.1rem;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: rgba(121, 167, 255, 0.12);
+      border: 1px solid rgba(121, 167, 255, 0.3);
+      color: var(--accent-2);
+      font-size: 0.78rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    .step-content {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .step-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 0.25rem;
+    }
+
+    .step-desc {
+      font-size: 0.87rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    kbd {
+      display: inline-block;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-bottom-width: 2px;
+      border-radius: 5px;
+      padding: 0.15rem 0.5rem;
+      font-size: 0.78rem;
+      font-family: monospace;
+      font-weight: 700;
+      color: var(--accent-2);
+      line-height: 1.4;
+    }
+
+    .step-kbd {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      margin-top: 0.4rem;
+    }
+
+    .workflow-tip {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      background: rgba(124, 224, 195, 0.06);
+      border: 1px solid rgba(124, 224, 195, 0.2);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1rem;
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .workflow-tip-icon {
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+    }
+
+    .workflow-divider {
+      height: 1px;
+      background: var(--line);
+      margin: 0.3rem 0;
+    }
+
+
+    /* Step image */
+    .step-img {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin-top: 0.9rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+      background: #0a0c12;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .step-img:hover {
+      border-color: rgba(121, 167, 255, 0.5);
+      box-shadow: 0 0 18px rgba(121, 167, 255, 0.12);
+    }
+
+    @media (max-width: 720px) {
       .workflow-section {
-        padding: 0 2rem;
-        max-width: 1280px;
-        margin: 0 auto;
-        width: 100%;
-        box-sizing: border-box;
-      }
-
-      .workflow-toggle {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 1rem;
-        background: var(--panel);
-        border: 1px solid var(--line);
-        border-radius: var(--radius-xl);
-        padding: 1.2rem 1.8rem;
-        cursor: pointer;
-        font-family: inherit;
-        color: var(--text);
-        transition: border-color 0.2s, background 0.2s;
-        text-align: left;
-      }
-
-      .workflow-toggle:hover {
-        border-color: var(--accent-2);
-        background: rgba(121, 167, 255, 0.04);
-      }
-
-      .workflow-toggle.open {
-        border-color: var(--accent-2);
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
-      }
-
-      .workflow-toggle-left { display: flex; align-items: center; gap: 0.8rem; }
-      .workflow-toggle-icon { font-size: 1.3rem; line-height: 1; }
-      .workflow-toggle-title { font-size: 1rem; font-weight: 700; color: var(--text); margin: 0; }
-      .workflow-toggle-sub { font-size: 0.8rem; color: var(--muted); margin: 0; margin-top: 0.1rem; }
-
-      .workflow-chevron {
-        font-size: 1rem;
-        color: var(--accent-2);
-        transition: transform 0.3s ease;
-        flex-shrink: 0;
-      }
-
-      .workflow-toggle.open .workflow-chevron { transform: rotate(180deg); }
-
-      .workflow-body {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
-        background: var(--panel);
-        border: none;
-        border-bottom-left-radius: var(--radius-xl);
-        border-bottom-right-radius: var(--radius-xl);
-      }
-
-      .workflow-body.open {
-        max-height: 30000px;
-        border: 1px solid var(--accent-2);
-        border-top: none;
+        padding: 0 1rem;
       }
 
       .workflow-inner {
-        padding: 1.8rem 2rem 2rem;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
+        padding: 1.2rem 1.2rem 1.5rem;
+      }
+    }
+
+    /* ── Card zoom lightbox ── */
+    .czm {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9900;
+      align-items: center;
+      justify-content: center;
+      animation: czm-in 0.22s ease;
+    }
+
+    .czm.visible {
+      display: flex;
+    }
+
+    @keyframes czm-in {
+      from {
+        opacity: 0;
       }
 
-      .workflow-step { display: flex; gap: 1.1rem; align-items: flex-start; }
+      to {
+        opacity: 1;
+      }
+    }
 
-      .step-num {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        background: rgba(121, 167, 255, 0.12);
-        border: 1px solid rgba(121, 167, 255, 0.3);
-        color: var(--accent-2);
-        font-size: 0.78rem;
-        font-weight: 800;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        margin-top: 0.1rem;
+    .czm-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(5, 7, 14, 0.82);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .czm-wrap {
+      position: relative;
+      z-index: 1;
+      width: min(860px, 90vw);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      animation: czm-pop 0.28s cubic-bezier(0.34, 1.4, 0.64, 1);
+    }
+
+    @keyframes czm-pop {
+      from {
+        transform: scale(0.88);
+        opacity: 0;
       }
 
-      .step-content { flex: 1; min-width: 0; display: flex; flex-direction: column; }
-      .step-title { font-size: 0.95rem; font-weight: 700; color: var(--text); margin: 0 0 0.25rem; }
-      .step-desc { font-size: 0.87rem; color: var(--muted); line-height: 1.65; margin: 0; }
-
-      kbd {
-        display: inline-block;
-        background: var(--bg);
-        border: 1px solid var(--line);
-        border-bottom-width: 2px;
-        border-radius: 5px;
-        padding: 0.15rem 0.5rem;
-        font-size: 0.78rem;
-        font-family: monospace;
-        font-weight: 700;
-        color: var(--accent-2);
-        line-height: 1.4;
+      to {
+        transform: scale(1);
+        opacity: 1;
       }
+    }
 
-      .step-kbd { display: inline-flex; align-items: center; gap: 0.25rem; margin-top: 0.4rem; }
+    .czm-video {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      border: 1.5px solid rgba(124, 224, 195, 0.35);
+      box-shadow:
+        0 32px 80px rgba(0, 0, 0, 0.8),
+        0 0 60px rgba(124, 224, 195, 0.08);
+    }
 
-      .workflow-tip {
-        display: flex;
-        align-items: flex-start;
-        gap: 0.6rem;
-        background: rgba(124, 224, 195, 0.06);
-        border: 1px solid rgba(124, 224, 195, 0.2);
-        border-radius: var(--radius-md);
-        padding: 0.75rem 1rem;
-        margin-top: 0.5rem;
-        font-size: 0.85rem;
-        color: var(--muted);
-        line-height: 1.6;
-      }
+    .czm-video iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
 
-      .workflow-tip-icon { font-size: 1rem; flex-shrink: 0; margin-top: 0.05rem; }
-      .workflow-divider { height: 1px; background: var(--line); margin: 0.3rem 0; }
+    .czm-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
 
+    .czm-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0;
+    }
 
-      /* Step image */
-      .step-img {
-        display: block;
-        width: 100%;
-        height: auto;
-        margin-top: 0.9rem;
-        border-radius: var(--radius-md);
-        border: 1px solid var(--line);
-        background: #0a0c12;
-        transition: border-color 0.2s, box-shadow 0.2s;
-      }
+    .czm-week {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0;
+    }
 
-      .step-img:hover {
-        border-color: rgba(121, 167, 255, 0.5);
-        box-shadow: 0 0 18px rgba(121, 167, 255, 0.12);
-      }
+    .czm-close {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid var(--line);
+      border-radius: 99px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 600;
+      font-family: inherit;
+      padding: 0.3rem 0.9rem;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      flex-shrink: 0;
+    }
 
-      @media (max-width: 720px) {
-        .workflow-section { padding: 0 1rem; }
-        .workflow-inner { padding: 1.2rem 1.2rem 1.5rem; }
-      }
+    .czm-close:hover {
+      background: rgba(255, 255, 255, 0.14);
+      color: var(--text);
+    }
 
-      /* ── Card zoom lightbox ── */
-      .czm {
-        display: none;
-        position: fixed;
-        inset: 0;
-        z-index: 9900;
-        align-items: center;
-        justify-content: center;
-        animation: czm-in 0.22s ease;
-      }
-      .czm.visible { display: flex; }
+    /* ── SIDE HOVER PANEL (SIDE-PEEK) STYLES ── */
+    :root {
+      --card-width: 290px;
+    }
 
-      @keyframes czm-in {
-        from { opacity: 0; }
-        to   { opacity: 1; }
-      }
-
-      .czm-backdrop {
-        position: absolute;
-        inset: 0;
-        background: rgba(5, 7, 14, 0.82);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-      }
-
-      .czm-wrap {
-        position: relative;
-        z-index: 1;
-        width: min(860px, 90vw);
-        display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
-        animation: czm-pop 0.28s cubic-bezier(0.34, 1.4, 0.64, 1);
-      }
-
-      @keyframes czm-pop {
-        from { transform: scale(0.88); opacity: 0; }
-        to   { transform: scale(1);    opacity: 1; }
-      }
-
-      .czm-video {
-        width: 100%;
-        aspect-ratio: 16 / 9;
-        border-radius: var(--radius-xl);
-        overflow: hidden;
-        border: 1.5px solid rgba(124, 224, 195, 0.35);
-        box-shadow:
-          0 32px 80px rgba(0, 0, 0, 0.8),
-          0 0 60px rgba(124, 224, 195, 0.08);
-      }
-
-      .czm-video iframe {
-        width: 100%;
-        height: 100%;
-        border: none;
-        display: block;
-      }
-
-      .czm-meta {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 1rem;
-      }
-
-      .czm-title {
-        font-size: 0.95rem;
-        font-weight: 700;
-        color: var(--text);
-        margin: 0;
-      }
-
-      .czm-week {
-        font-size: 0.72rem;
-        font-weight: 700;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: var(--muted);
-        margin: 0;
-      }
-
-      .czm-close {
-        background: rgba(255,255,255,0.07);
-        border: 1px solid var(--line);
-        border-radius: 99px;
-        color: var(--muted);
-        font-size: 0.78rem;
-        font-weight: 600;
-        font-family: inherit;
-        padding: 0.3rem 0.9rem;
-        cursor: pointer;
-        transition: background 0.2s, color 0.2s;
-        flex-shrink: 0;
-      }
-      .czm-close:hover { background: rgba(255,255,255,0.14); color: var(--text); }
-
-      /* ── SIDE HOVER PANEL (SIDE-PEEK) STYLES ── */
+    @media (max-width: 720px) {
       :root {
-        --card-width: 290px;
+        --card-width: min(70vw, 250px);
       }
+    }
 
-      @media (max-width: 720px) {
-        :root {
-          --card-width: min(70vw, 250px);
-        }
-      }
+    .side-peek-stack {
+      position: fixed;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      z-index: 500;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      pointer-events: none;
+    }
 
-      .side-peek-stack {
-        position: fixed;
-        top: 50%;
-        right: 0;
-        transform: translateY(-50%);
-        z-index: 500;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        pointer-events: none;
-      }
+    .side-peek {
+      display: flex;
+      align-items: stretch;
+      transform: translateX(var(--card-width));
+      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+      pointer-events: auto;
+      position: relative;
+    }
 
-      .side-peek {
-        display: flex;
-        align-items: stretch;
-        transform: translateX(var(--card-width));
-        transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-        pointer-events: auto;
-        position: relative;
-      }
+    .side-peek.is-open {
+      transform: translateX(0);
+    }
 
-      .side-peek.is-open {
+    .side-peek-tab {
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      flex-shrink: 0;
+      width: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      padding: 1rem 0;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-right: none;
+      border-radius: var(--radius-md) 0 0 var(--radius-md);
+      color: var(--accent-2);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: -6px 0 24px rgba(0, 0, 0, 0.25);
+      transition: color 0.2s, background 0.25s, border-color 0.25s, box-shadow 0.25s, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      user-select: none;
+      animation: peekBounce 2.6s ease-in-out infinite, peekGlow 2.6s ease-in-out infinite;
+    }
+
+    @keyframes peekBounce {
+
+      0%,
+      100% {
         transform: translateX(0);
       }
 
-      .side-peek-tab {
-        writing-mode: vertical-rl;
-        text-orientation: mixed;
-        flex-shrink: 0;
-        width: 36px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.45rem;
-        padding: 1rem 0;
-        background: var(--panel);
-        border: 1px solid var(--line);
-        border-right: none;
-        border-radius: var(--radius-md) 0 0 var(--radius-md);
-        color: var(--accent-2);
-        font-size: 0.68rem;
-        font-weight: 700;
-        letter-spacing: 0.09em;
-        text-transform: uppercase;
-        cursor: pointer;
-        box-shadow: -6px 0 24px rgba(0, 0, 0, 0.25);
-        transition: color 0.2s, background 0.25s, border-color 0.25s, box-shadow 0.25s, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-        user-select: none;
-        animation: peekBounce 2.6s ease-in-out infinite, peekGlow 2.6s ease-in-out infinite;
+      50% {
+        transform: translateX(-6px);
+      }
+    }
+
+    @keyframes peekGlow {
+
+      0%,
+      100% {
+        box-shadow: -6px 0 24px rgba(0, 0, 0, 0.25), 0 0 0 rgba(121, 167, 255, 0);
       }
 
-      @keyframes peekBounce {
-        0%, 100% { transform: translateX(0); }
-        50% { transform: translateX(-6px); }
+      50% {
+        box-shadow: -6px 0 24px rgba(0, 0, 0, 0.25), 0 0 16px 3px rgba(121, 167, 255, 0.45);
+      }
+    }
+
+    .side-peek.is-open .side-peek-tab {
+      animation-play-state: paused;
+      transform: translateX(-3px);
+    }
+
+    .side-peek-tab svg.side-peek-icon {
+      writing-mode: horizontal-tb;
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+    }
+
+    .side-peek-tab:hover {
+      color: var(--text);
+      background: rgba(121, 167, 255, 0.14);
+      border-color: var(--accent-2);
+      box-shadow: -8px 0 28px rgba(0, 0, 0, 0.3), 0 0 22px 4px rgba(121, 167, 255, 0.35), inset 0 0 0 1px rgba(121, 167, 255, 0.25);
+    }
+
+    .side-peek-tab:hover svg.side-peek-icon {
+      transform: scale(1.18) rotate(8deg);
+    }
+
+    .side-peek-tab:active {
+      transform: translateX(-1px) scale(0.97);
+    }
+
+    .side-peek-card {
+      width: var(--card-width);
+      flex-shrink: 0;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-right: none;
+      box-shadow: -10px 0 32px rgba(0, 0, 0, 0.35);
+      padding: 1.1rem 1.1rem 1rem;
+      max-height: 78vh;
+      overflow-y: auto;
+    }
+
+    .side-peek-card h3 {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 0.15rem;
+    }
+
+    .side-peek-card .side-peek-sub {
+      font-size: 0.68rem;
+      color: var(--muted);
+      margin: 0 0 0.7rem;
+      line-height: 1.4;
+    }
+
+    .side-peek-section {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: none;
+    }
+
+    .side-peek-section+.side-peek-section {
+      margin-top: 1.1rem;
+      padding-top: 1.1rem;
+      border-top: 1px solid var(--line);
+    }
+
+    /* Mobile styling moved to bottom for proper cascade */
+
+    /* Left-side stack overrides */
+    .side-peek-stack.left {
+      top: 110px;
+      transform: none;
+      left: 0;
+      right: auto;
+      align-items: flex-start;
+      gap: 0;
+      z-index: 500;
+    }
+
+    .side-peek-stack.left .side-peek {
+      transform: translateX(calc(-1 * var(--card-width)));
+      align-items: flex-start;
+      flex-direction: row;
+    }
+
+    .side-peek-stack.left .side-peek-tab {
+      padding: 0.8rem 0;
+      font-size: 0.62rem;
+      gap: 0.35rem;
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      border-right: 1px solid var(--line);
+      border-left: none;
+      box-shadow: 6px 0 24px rgba(0, 0, 0, 0.25);
+      animation: leftTabBounce 2.6s ease-in-out infinite, peekLeftGlow 2.6s ease-in-out infinite;
+    }
+
+    @keyframes leftTabBounce {
+
+      0%,
+      100% {
+        transform: translateX(0);
       }
 
-      @keyframes peekGlow {
-        0%, 100% { box-shadow: -6px 0 24px rgba(0, 0, 0, 0.25), 0 0 0 rgba(121, 167, 255, 0); }
-        50% { box-shadow: -6px 0 24px rgba(0, 0, 0, 0.25), 0 0 16px 3px rgba(121, 167, 255, 0.45); }
+      50% {
+        transform: translateX(5px);
+      }
+    }
+
+    @keyframes peekLeftGlow {
+
+      0%,
+      100% {
+        box-shadow: 6px 0 24px rgba(0, 0, 0, 0.25), 0 0 0 rgba(121, 167, 255, 0);
       }
 
-      .side-peek.is-open .side-peek-tab {
-        animation-play-state: paused;
-        transform: translateX(-3px);
+      50% {
+        box-shadow: 6px 0 24px rgba(0, 0, 0, 0.25), 0 0 16px 3px rgba(121, 167, 255, 0.45);
       }
+    }
 
-      .side-peek-tab svg.side-peek-icon {
-        writing-mode: horizontal-tb;
-        flex-shrink: 0;
-        transition: transform 0.3s ease;
-      }
+    .side-peek-stack.left .side-peek.is-open .side-peek-tab {
+      animation-play-state: paused;
+      transform: translateX(2px);
+    }
 
-      .side-peek-tab:hover {
-        color: var(--text);
-        background: rgba(121, 167, 255, 0.14);
-        border-color: var(--accent-2);
-        box-shadow: -8px 0 28px rgba(0, 0, 0, 0.3), 0 0 22px 4px rgba(121, 167, 255, 0.35), inset 0 0 0 1px rgba(121, 167, 255, 0.25);
-      }
+    .side-peek-stack.left .side-peek-tab svg.side-peek-icon {
+      width: 14px;
+      height: 14px;
+    }
 
-      .side-peek-tab:hover svg.side-peek-icon {
-        transform: scale(1.18) rotate(8deg);
-      }
+    .side-peek-stack.left .side-peek.is-open {
+      transform: translateX(0);
+    }
 
-      .side-peek-tab:active {
-        transform: translateX(-1px) scale(0.97);
-      }
+    .side-peek-stack.left .side-peek-card {
+      border-right: 1px solid var(--line);
+      border-left: none;
+      box-shadow: 10px 0 32px rgba(0, 0, 0, 0.35);
+      max-height: 0;
+      padding: 0 0.9rem;
+      border-top: 0 solid transparent;
+      border-bottom: 0 solid transparent;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+        padding 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+        border-color 0.4s;
+    }
 
-      .side-peek-card {
-        width: var(--card-width);
-        flex-shrink: 0;
-        background: var(--panel);
-        border: 1px solid var(--line);
-        border-right: none;
-        box-shadow: -10px 0 32px rgba(0, 0, 0, 0.35);
-        padding: 1.1rem 1.1rem 1rem;
-        max-height: 78vh;
-        overflow-y: auto;
-      }
+    .side-peek-stack.left .side-peek.is-open .side-peek-card {
+      max-height: 52vh;
+      padding: 0.85rem 0.9rem 0.8rem;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      overflow-y: auto;
+    }
 
-      .side-peek-card h3 {
-        font-size: 0.82rem;
-        font-weight: 700;
-        color: var(--text);
-        margin: 0 0 0.15rem;
-      }
+    /* Specific Card Widget Styling */
+    .tools-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 0.6rem;
+    }
 
-      .side-peek-card .side-peek-sub {
-        font-size: 0.68rem;
-        color: var(--muted);
-        margin: 0 0 0.7rem;
-        line-height: 1.4;
-      }
+    .tool-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 0.6rem 0.8rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
 
-      .side-peek-section {
-        margin-top: 0;
-        padding-top: 0;
-        border-top: none;
-      }
+    .tool-item:hover {
+      border-color: var(--accent);
+      background: rgba(124, 224, 195, 0.04);
+    }
 
-      .side-peek-section+.side-peek-section {
-        margin-top: 1.1rem;
-        padding-top: 1.1rem;
-        border-top: 1px solid var(--line);
-      }
+    .tool-item-header {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-weight: 700;
+      font-size: 0.78rem;
+      margin-bottom: 0.15rem;
+    }
 
-      /* Mobile styling moved to bottom for proper cascade */
+    .tool-item-name {
+      color: var(--text);
+    }
 
-      /* Left-side stack overrides */
+    .tool-item-role {
+      font-size: 0.65rem;
+      color: var(--muted);
+    }
+
+    /* Trivia styles */
+    .trivia-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 0.8rem 1rem;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .trivia-text {
+      font-size: 0.78rem;
+      line-height: 1.5;
+      color: var(--text);
+      margin: 0;
+    }
+
+    .trivia-btn {
+      background: linear-gradient(135deg, var(--accent-2), #79a7ff);
+      color: #05070c;
+      border: none;
+      border-radius: 99px;
+      padding: 0.45rem 1rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      transition: transform 0.1s, box-shadow 0.2s;
+    }
+
+    .trivia-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(121, 167, 255, 0.3);
+    }
+
+    /* Calculator styles */
+    .calc-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .calc-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    .calc-input {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 0.45rem 0.65rem;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.8rem;
+      outline: none;
+    }
+
+    .calc-input:focus {
+      border-color: var(--accent-2);
+    }
+
+    .calc-select {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 0.45rem 0.65rem;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.8rem;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .calc-select option {
+      background: #0d111a;
+    }
+
+    .calc-result-box {
+      background: rgba(121, 167, 255, 0.06);
+      border: 1px solid rgba(121, 167, 255, 0.15);
+      border-radius: var(--radius-md);
+      padding: 0.75rem;
+      text-align: center;
+    }
+
+    .calc-result-val {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--accent-2);
+      font-family: monospace;
+    }
+
+    .calc-result-label {
+      font-size: 0.68rem;
+      color: var(--muted);
+      margin-top: 0.15rem;
+    }
+
+    /* Glossary styles */
+    .glossary-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .glossary-term {
+      font-size: 0.75rem;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    .glossary-term strong {
+      color: var(--text);
+      font-weight: 700;
+      display: block;
+      margin-bottom: 0.05rem;
+    }
+
+    /* ── Mobile viewport overrides (cascade-correct bottom placement) ── */
+    @media (max-width: 720px) {
       .side-peek-stack.left {
-        top: 110px;
+        position: static;
         transform: none;
-        left: 0;
-        right: auto;
-        align-items: flex-start;
-        gap: 0;
-        z-index: 500;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.6rem !important;
+        /* Ensure proper spacing between cards */
+        padding: 0 1rem 3rem;
+        max-width: 1200px;
+        margin: 3.5rem auto 0;
+        /* Add top margin before the cards stack */
+        width: 100%;
+        box-sizing: border-box;
+        pointer-events: auto;
       }
 
       .side-peek-stack.left .side-peek {
-        transform: translateX(calc(-1 * var(--card-width)));
-        align-items: flex-start;
-        flex-direction: row;
+        position: static;
+        transform: none !important;
+        width: 100%;
+        display: block;
+        height: auto;
+        pointer-events: auto;
       }
 
       .side-peek-stack.left .side-peek-tab {
-        padding: 0.8rem 0;
-        font-size: 0.62rem;
-        gap: 0.35rem;
-        border-radius: 0 var(--radius-md) var(--radius-md) 0;
-        border-right: 1px solid var(--line);
-        border-left: none;
-        box-shadow: 6px 0 24px rgba(0, 0, 0, 0.25);
-        animation: leftTabBounce 2.6s ease-in-out infinite, peekLeftGlow 2.6s ease-in-out infinite;
+        display: none !important;
       }
 
-      @keyframes leftTabBounce {
-        0%, 100% { transform: translateX(0); }
-        50% { transform: translateX(5px); }
-      }
-
-      @keyframes peekLeftGlow {
-        0%, 100% { box-shadow: 6px 0 24px rgba(0, 0, 0, 0.25), 0 0 0 rgba(121, 167, 255, 0); }
-        50% { box-shadow: 6px 0 24px rgba(0, 0, 0, 0.25), 0 0 16px 3px rgba(121, 167, 255, 0.45); }
-      }
-
-      .side-peek-stack.left .side-peek.is-open .side-peek-tab {
-        animation-play-state: paused;
-        transform: translateX(2px);
-      }
-
-      .side-peek-stack.left .side-peek-tab svg.side-peek-icon {
-        width: 14px;
-        height: 14px;
-      }
-
-      .side-peek-stack.left .side-peek.is-open {
-        transform: translateX(0);
-      }
-
-      .side-peek-stack.left .side-peek-card {
-        border-right: 1px solid var(--line);
-        border-left: none;
-        box-shadow: 10px 0 32px rgba(0, 0, 0, 0.35);
-        max-height: 0;
-        padding: 0 0.9rem;
-        border-top: 0 solid transparent;
-        border-bottom: 0 solid transparent;
-        overflow: hidden;
-        transition: max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-                    padding 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-                    border-color 0.4s;
-      }
-
+      .side-peek-stack.left .side-peek-card,
       .side-peek-stack.left .side-peek.is-open .side-peek-card {
-        max-height: 52vh;
-        padding: 0.85rem 0.9rem 0.8rem;
-        border-top: 1px solid var(--line);
-        border-bottom: 1px solid var(--line);
-        overflow-y: auto;
+        width: 100% !important;
+        max-height: none !important;
+        padding: 1.5rem !important;
+        border: 1px solid var(--line) !important;
+        border-radius: var(--radius-xl) !important;
+        background: var(--panel) !important;
+        box-shadow: none !important;
+        overflow: visible !important;
+        display: block !important;
+        margin-top: 0 !important;
       }
+    }
+  </style>
+</head>
 
-      /* Specific Card Widget Styling */
-      .tools-list {
-        display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
-        margin-top: 0.6rem;
-      }
+<body>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
 
-      .tool-item {
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid var(--line);
-        border-radius: var(--radius-md);
-        padding: 0.6rem 0.8rem;
-        transition: border-color 0.2s, background 0.2s;
-      }
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="Multimedia Studio home">
+      <span class="brand-mark">M</span>
+      <span class="brand-text"><strong>Multimedia and Authoring</strong></span>
+    </a>
+    <button class="menu-toggle" aria-expanded="false" aria-controls="primary-nav">
+      <span></span><span></span><span></span>
+      <span class="sr-only">Toggle navigation menu</span>
+    </button>
+    <nav id="primary-nav" class="nav">
+      <a href="index.html">Home</a>
+      <a href="3d-rendering.html">3D Rendering</a>
+      <a class="active" href="rotoscope.html">Rotoscope</a>
+      <a href="about.html">About</a>
+    </nav>
+  </header>
 
-      .tool-item:hover {
-        border-color: var(--accent);
-        background: rgba(124, 224, 195, 0.04);
-      }
+  <main>
+    <!-- ── HERO: Featured Video + Reference Video (side by side) ── -->
+    <section class="roto-hero">
+      <span class="roto-hero-label">Multimedia Studio</span>
+      <h1>ROTOSCOPE</h1>
+      <p class="roto-hero-sub">Frame-by-frame trace, cleanup, and motion studies — compare the final output against the
+        reference source below.</p>
 
-      .tool-item-header {
-        display: flex;
-        align-items: center;
-        gap: 0.4rem;
-        font-weight: 700;
-        font-size: 0.78rem;
-        margin-bottom: 0.15rem;
-      }
+      <!-- Two-column comparison -->
+      <div class="comparison-grid">
 
-      .tool-item-name {
-        color: var(--text);
-      }
-
-      .tool-item-role {
-        font-size: 0.65rem;
-        color: var(--muted);
-      }
-
-      /* Trivia styles */
-      .trivia-card {
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid var(--line);
-        border-radius: var(--radius-md);
-        padding: 0.8rem 1rem;
-        min-height: 120px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        gap: 0.8rem;
-      }
-
-      .trivia-text {
-        font-size: 0.78rem;
-        line-height: 1.5;
-        color: var(--text);
-        margin: 0;
-      }
-
-      .trivia-btn {
-        background: linear-gradient(135deg, var(--accent-2), #79a7ff);
-        color: #05070c;
-        border: none;
-        border-radius: 99px;
-        padding: 0.45rem 1rem;
-        font-size: 0.75rem;
-        font-weight: 700;
-        cursor: pointer;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.35rem;
-        transition: transform 0.1s, box-shadow 0.2s;
-      }
-
-      .trivia-btn:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(121,167,255,0.3);
-      }
-
-      /* Calculator styles */
-      .calc-group {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-        margin-bottom: 0.75rem;
-      }
-
-      .calc-label {
-        font-size: 0.68rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        color: var(--muted);
-        letter-spacing: 0.05em;
-      }
-
-      .calc-input {
-        width: 100%;
-        background: rgba(0,0,0,0.25);
-        border: 1px solid var(--line);
-        border-radius: var(--radius-md);
-        padding: 0.45rem 0.65rem;
-        color: var(--text);
-        font-family: inherit;
-        font-size: 0.8rem;
-        outline: none;
-      }
-
-      .calc-input:focus {
-        border-color: var(--accent-2);
-      }
-
-      .calc-select {
-        width: 100%;
-        background: rgba(0,0,0,0.25);
-        border: 1px solid var(--line);
-        border-radius: var(--radius-md);
-        padding: 0.45rem 0.65rem;
-        color: var(--text);
-        font-family: inherit;
-        font-size: 0.8rem;
-        outline: none;
-        cursor: pointer;
-      }
-
-      .calc-select option {
-        background: #0d111a;
-      }
-
-      .calc-result-box {
-        background: rgba(121,167,255,0.06);
-        border: 1px solid rgba(121,167,255,0.15);
-        border-radius: var(--radius-md);
-        padding: 0.75rem;
-        text-align: center;
-      }
-
-      .calc-result-val {
-        font-size: 1.35rem;
-        font-weight: 800;
-        color: var(--accent-2);
-        font-family: monospace;
-      }
-
-      .calc-result-label {
-        font-size: 0.68rem;
-        color: var(--muted);
-        margin-top: 0.15rem;
-      }
-
-      /* Glossary styles */
-      .glossary-list {
-        display: flex;
-        flex-direction: column;
-        gap: 0.6rem;
-      }
-
-      .glossary-term {
-        font-size: 0.75rem;
-        line-height: 1.45;
-        color: var(--muted);
-      }
-
-      .glossary-term strong {
-        color: var(--text);
-        font-weight: 700;
-        display: block;
-        margin-bottom: 0.05rem;
-      }
-
-      /* ── Mobile viewport overrides (cascade-correct bottom placement) ── */
-      @media (max-width: 720px) {
-        .side-peek-stack.left {
-          position: static;
-          transform: none;
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 1.6rem !important; /* Ensure proper spacing between cards */
-          padding: 0 1rem 3rem;
-          max-width: 1200px;
-          margin: 3.5rem auto 0; /* Add top margin before the cards stack */
-          width: 100%;
-          box-sizing: border-box;
-          pointer-events: auto;
-        }
-
-        .side-peek-stack.left .side-peek {
-          position: static;
-          transform: none !important;
-          width: 100%;
-          display: block;
-          height: auto;
-          pointer-events: auto;
-        }
-
-        .side-peek-stack.left .side-peek-tab {
-          display: none !important;
-        }
-
-        .side-peek-stack.left .side-peek-card,
-        .side-peek-stack.left .side-peek.is-open .side-peek-card {
-          width: 100% !important;
-          max-height: none !important;
-          padding: 1.5rem !important;
-          border: 1px solid var(--line) !important;
-          border-radius: var(--radius-xl) !important;
-          background: var(--panel) !important;
-          box-shadow: none !important;
-          overflow: visible !important;
-          display: block !important;
-          margin-top: 0 !important;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="ambient ambient-one"></div>
-    <div class="ambient ambient-two"></div>
-
-    <header class="topbar">
-      <a class="brand" href="index.html" aria-label="Multimedia Studio home">
-        <span class="brand-mark">M</span>
-        <span class="brand-text"><strong>Multimedia and Authoring</strong></span>
-      </a>
-      <button class="menu-toggle" aria-expanded="false" aria-controls="primary-nav">
-        <span></span><span></span><span></span>
-        <span class="sr-only">Toggle navigation menu</span>
-      </button>
-      <nav id="primary-nav" class="nav">
-        <a href="index.html">Home</a>
-        <a href="3d-rendering.html">3D Rendering</a>
-        <a class="active" href="rotoscope.html">Rotoscope</a>
-        <a href="about.html">About</a>
-      </nav>
-    </header>
-
-    <main>
-      <!-- ── HERO: Featured Video + Reference Video (side by side) ── -->
-      <section class="roto-hero">
-        <span class="roto-hero-label">Multimedia Studio</span>
-        <h1>ROTOSCOPE</h1>
-        <p class="roto-hero-sub">Frame-by-frame trace, cleanup, and motion studies — compare the final output against the reference source below.</p>
-
-        <!-- Two-column comparison -->
-        <div class="comparison-grid">
-
-          <!-- Final Output -->
-          <div class="comparison-col">
-            <span class="comparison-label cl-output">
-              <span class="cl-dot"></span>
-              Final Output
-            </span>
-            <div class="featured-embed-wrap">
-              <!-- Blocker: removed once Play Both is clicked -->
-              <div class="yt-blocker" id="yt-blocker"></div>
-              <iframe id="featured-video"
-                src="https://www.youtube.com/embed/uBpFhj8OdO0?rel=0&modestbranding=1&enablejsapi=1"
-                title="Rotoscope Featured Video — Final Output"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
-            </div>
+        <!-- Final Output -->
+        <div class="comparison-col">
+          <span class="comparison-label cl-output">
+            <span class="cl-dot"></span>
+            Final Output
+          </span>
+          <div class="featured-embed-wrap">
+            <!-- Blocker: removed once Play Both is clicked -->
+            <div class="yt-blocker" id="yt-blocker"></div>
+            <iframe id="featured-video"
+              src="https://www.youtube.com/embed/uBpFhj8OdO0?rel=0&modestbranding=1&enablejsapi=1"
+              title="Rotoscope Featured Video — Final Output"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
           </div>
+        </div>
 
-          <!-- Reference Video (local MP4 — plays simultaneously with YouTube final) -->
-          <div class="comparison-col">
-            <span class="comparison-label cl-ref">
-              <span class="cl-dot"></span>
-              Reference Video
-            </span>
-            <div class="ref-embed-wrap" id="ref-wrap">
+        <!-- Reference Video (local MP4 — plays simultaneously with YouTube final) -->
+        <div class="comparison-col">
+          <span class="comparison-label cl-ref">
+            <span class="cl-dot"></span>
+            Reference Video
+          </span>
+          <div class="ref-embed-wrap" id="ref-wrap">
 
-              <video
-                id="ref-video-hero"
-                src="videos/reference_video.mp4"
-                title="Rotoscope Reference — How to Rotoscope"
-                preload="metadata"
-                muted
-                playsinline
-              ></video>
+            <video id="ref-video-hero" src="videos/reference_video.mp4" title="Rotoscope Reference — How to Rotoscope"
+              preload="metadata" muted playsinline></video>
 
-            </div>
           </div>
+        </div>
 
-        </div><!-- /comparison-grid -->
+      </div><!-- /comparison-grid -->
 
-        <!-- Sync Control Panel (Timeline + Controls) -->
-        <div class="sync-controls-card" id="sync-controls-panel">
-          <!-- Row 1: The Sync Timeline Slider -->
-          <div class="timeline-container">
-            <span class="time-display" id="time-current">00:00</span>
-            <input type="range" class="timeline-slider" id="sync-timeline-slider" min="0" max="81" value="0" step="0.1" aria-label="Sync Video Timeline">
-            <span class="time-display" id="time-total">01:21</span>
-          </div>
+      <!-- Sync Control Panel (Timeline + Controls) -->
+      <div class="sync-controls-card" id="sync-controls-panel">
+        <!-- Row 1: The Sync Timeline Slider -->
+        <div class="timeline-container">
+          <span class="time-display" id="time-current">00:00</span>
+          <input type="range" class="timeline-slider" id="sync-timeline-slider" min="0" max="81" value="0" step="0.1"
+            aria-label="Sync Video Timeline">
+          <span class="time-display" id="time-total">01:21</span>
+        </div>
 
-          <!-- Row 2: Control buttons -->
-          <div class="controls-row">
-            <div class="playback-group">
-              <button class="skip-btn" id="skip-back-10" aria-label="Rewind 10 seconds">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 17l-5-5 5-5M18 17l-5-5 5-5"/></svg>
-                <span class="skip-val">-10s</span>
-              </button>
-              <button class="skip-btn" id="skip-back-5" aria-label="Rewind 5 seconds">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 19l-7-7 7-7"/></svg>
-                <span class="skip-val">-5s</span>
-              </button>
+        <!-- Row 2: Control buttons -->
+        <div class="controls-row">
+          <div class="playback-group">
+            <button class="skip-btn" id="skip-back-10" aria-label="Rewind 10 seconds">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 17l-5-5 5-5M18 17l-5-5 5-5" />
+              </svg>
+              <span class="skip-val">-10s</span>
+            </button>
+            <button class="skip-btn" id="skip-back-5" aria-label="Rewind 5 seconds">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 19l-7-7 7-7" />
+              </svg>
+              <span class="skip-val">-5s</span>
+            </button>
 
-              <button class="sync-play-btn" id="sync-play-btn" aria-label="Sync and play both videos">
-                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                <span id="sync-btn-label">Sync &amp; Play</span>
-              </button>
+            <button class="sync-play-btn" id="sync-play-btn" aria-label="Sync and play both videos">
+              <svg viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+              <span id="sync-btn-label">Sync &amp; Play</span>
+            </button>
 
-              <button class="skip-btn" id="skip-fwd-5" aria-label="Forward 5 seconds">
-                <span class="skip-val">+5s</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
-              </button>
-              <button class="skip-btn" id="skip-fwd-10" aria-label="Forward 10 seconds">
-                <span class="skip-val">+10s</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5l5 5-5 5M6 5l5 5-5 5"/></svg>
-              </button>
-            </div>
-
-            <!-- Unmute toggle integrated in the controls row -->
-            <button class="unmute-btn" id="unmute-btn" aria-label="Toggle mute on reference video">
-              <svg id="unmute-icon" viewBox="0 0 24 24"><path d="M16.5 12A4.5 4.5 0 0 0 14 7.97v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0 0 21 12c0-4.28-3-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06A8.99 8.99 0 0 0 17.73 19L19 20.27 20.27 19 5.27 3 4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
-              <span id="unmute-label">Unmute Ref</span>
+            <button class="skip-btn" id="skip-fwd-5" aria-label="Forward 5 seconds">
+              <span class="skip-val">+5s</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+            <button class="skip-btn" id="skip-fwd-10" aria-label="Forward 10 seconds">
+              <span class="skip-val">+10s</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M13 5l5 5-5 5M6 5l5 5-5 5" />
+              </svg>
             </button>
           </div>
-          <span class="sync-hint">Controls both videos together at the same timestamp</span>
-        </div>
 
-        <!-- Disclaimer / Credits strip -->
-        <div class="comparison-disclaimer">
-          <div class="disclaimer-block">
-            <p class="disclaimer-title">About the Reference</p>
-            <p class="disclaimer-text">
-              This video serves as the primary reference used for completing the rotoscope exercises in this course.
-              It covers the essential workflow for isolating subjects frame-by-frame, refining edges,
-              and integrating rotoscoped layers into a compositing pipeline using Adobe After Effects.
-            </p>
-          </div>
-          <div class="disclaimer-block">
-            <p class="disclaimer-title">Credits</p>
-            <div class="disclaimer-meta">
-              <div class="disclaimer-row">
-                <span class="disclaimer-role">Source</span>
-                <span class="disclaimer-val">YouTube — <a href="https://www.youtube.com/watch?v=Aym1eH7nMPw" target="_blank" rel="noopener" style="color:var(--accent-2);text-decoration:none;">youtube.com/watch?v=Aym1eH7nMPw</a></span>
-              </div>
-              <div class="disclaimer-row">
-                <span class="disclaimer-role">Technique</span>
-                <span class="disclaimer-val">Rotoscoping / Frame-by-frame Isolation</span>
-              </div>
-              <div class="disclaimer-row">
-                <span class="disclaimer-role">Software</span>
-                <span class="disclaimer-val">Adobe After Effects</span>
-              </div>
-              <div class="disclaimer-row">
-                <span class="disclaimer-role">Used for</span>
-                <span class="disclaimer-val">Weeks 1–12 Rotoscope Exercises</span>
-              </div>
-            </div>
-          </div>
-        </div><!-- /comparison-disclaimer -->
-
-      </section>
-
-      <!-- ── 12-Card Video Gallery ── -->
-      <section class="video-gallery-section">
-        <div class="gallery-header">
-          <h2>Rotoscope Videos</h2>
-          <span class="count-badge">12 clips</span>
-        </div>
-
-        <div class="video-grid">
-
-          <!-- Card 1 -->
-          <article class="video-card reveal">
-            <div class="video-card-embed">
-              <iframe src="https://www.youtube.com/embed/fzbKEajYmQw?rel=0&modestbranding=1&enablejsapi=1&mute=1"
-                title="Rotoscope — Week 1 (Under the Influence)"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-                loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-            </div>
-            <div class="video-card-body">
-              <span class="video-card-week">WEEK 1</span>
-              <span class="video-card-tag">First Frames</span>
-              <h3 class="video-card-title">Under the Influence — Start</h3>
-              <p class="video-card-desc">The opening 7 seconds of the rotoscope series. Establishes the core style — flat blue fill, faceless character with brown hair — traced over a cloudy sky background with a reference PIP overlay.</p>
-            </div>
-          </article>
-
-          <!-- Card 2 -->
-          <article class="video-card reveal">
-            <div class="video-card-embed">
-              <iframe src="https://www.youtube.com/embed/ycbWnjMzN-w?rel=0&modestbranding=1&enablejsapi=1&mute=1"
-                title="Rotoscope — Week 2 (Under the Influence)"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-                loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-            </div>
-            <div class="video-card-body">
-              <span class="video-card-week">WEEK 2</span>
-              <span class="video-card-tag">Background Update</span>
-              <h3 class="video-card-title">Under the Influence — Crouching Pose</h3>
-              <p class="video-card-desc">Extends the clip to 14 seconds, introducing a crouching figure pose. The background is upgraded to a 3D-style room with a purple/pink floor and sky-toned walls.</p>
-            </div>
-          </article>
-
-          <!-- Card 3 -->
-          <article class="video-card reveal">
-            <div class="video-card-embed">
-              <iframe src="https://www.youtube.com/embed/3XIwjtwgTAo?rel=0&modestbranding=1&enablejsapi=1&mute=1"
-                title="Rotoscope — Week 3 (Under the Influence)"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-                loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-            </div>
-            <div class="video-card-body">
-              <span class="video-card-week">WEEK 3</span>
-              <span class="video-card-tag">Full Outfit</span>
-              <h3 class="video-card-title">Under the Influence — Full Jumpsuit</h3>
-              <p class="video-card-desc">Clip grows to 21 seconds. The character now wears a complete blue jumpsuit with white shoes. Background features a pink/purple stage floor with a cloudy backdrop.</p>
-            </div>
-          </article>
-
-          <!-- Card 4 -->
-          <article class="video-card reveal">
-            <div class="video-card-embed">
-              <iframe src="https://www.youtube.com/embed/pwMfYqy9S1A?rel=0&modestbranding=1&enablejsapi=1&mute=1"
-                title="Rotoscope Week 4"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-                loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-            </div>
-            <div class="video-card-body">
-              <span class="video-card-week">WEEK 4</span>
-              <span class="video-card-tag">Dynamic Motion</span>
-              <h3 class="video-card-title">Under the Influence — Bending &amp; Flow</h3>
-              <p class="video-card-desc">28 seconds of animation. Introduces more complex bending poses and dynamic weight shifts, building on the established flat-color jumpsuit style with increased movement range.</p>
-            </div>
-          </article>
-
-          <!-- Card 5 -->
-          <article class="video-card reveal">
-            <div class="video-card-embed">
-              <iframe src="https://www.youtube.com/embed/tFmCBHKDeOw?rel=0&modestbranding=1&enablejsapi=1&mute=1"
-                title="Rotoscope Week 5"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-                loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-            </div>
-            <div class="video-card-body">
-              <span class="video-card-week">WEEK 5</span>
-              <span class="video-card-tag">Refinement</span>
-              <h3 class="video-card-title">Under the Influence — Smoother Lines</h3>
-              <p class="video-card-desc">35 seconds of animation with noticeably cleaner linework. Dark navy full-body suit with a pinkish wooden-plank floor and bright cloudy sky as the background environment.</p>
-            </div>
-          </article>
-
-          <!-- Card 6 -->
-          <article class="video-card reveal">
-            <div class="video-card-embed">
-              <iframe src="https://www.youtube.com/embed/1URfx-wO-rM?rel=0&modestbranding=1&enablejsapi=1&mute=1"
-                title="Rotoscope Week 6"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-                loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-            </div>
-            <div class="video-card-body">
-              <span class="video-card-week">WEEK 6</span>
-              <span class="video-card-tag">Arm Extension</span>
-              <h3 class="video-card-title">Under the Influence — Upper Body Focus</h3>
-              <p class="video-card-desc">42-second sequence focusing on upright posture and wide arm movements. The consistent dark blue suit style is maintained as choreography coverage continues to expand.</p>
-            </div>
-          </article>
-
-          <!-- Card 7 -->
-          <article class="video-card reveal">
-            <div class="video-card-embed">
-              <iframe src="https://www.youtube.com/embed/R4b-PG0zh_o?rel=0&modestbranding=1&enablejsapi=1&mute=1"
-                title="Rotoscope Week 7"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-                loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-            </div>
-            <div class="video-card-body">
-              <span class="video-card-week">WEEK 7</span>
-              <span class="video-card-tag">Halfway Mark</span>
-              <h3 class="video-card-title">Under the Influence — Nearly 50 Seconds</h3>
-              <p class="video-card-desc">Approaching the halfway point of the full song. Nearly 50 seconds of fluid dance choreography rendered in consistent flat-color rotoscope style with a staged floor environment.</p>
-            </div>
-          </article>
-
-          <!-- Card 8 -->
-          <article class="video-card reveal">
-            <div class="video-card-embed">
-              <iframe src="https://www.youtube.com/embed/XmrTWTL0iBE?rel=0&modestbranding=1&enablejsapi=1&mute=1"
-                title="Rotoscope Week 8"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-                loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-            </div>
-            <div class="video-card-body">
-              <span class="video-card-week">WEEK 8</span>
-              <span class="video-card-tag">Clean Outlines</span>
-              <h3 class="video-card-title">Under the Influence — Nearing One Minute</h3>
-              <p class="video-card-desc">56 seconds of animation with noticeably clean character outlines. The sequence now covers a large portion of the choreography, showcasing improved frame consistency throughout.</p>
-            </div>
-          </article>
-
-          <!-- Card 9 -->
-          <article class="video-card reveal">
-            <div class="video-card-embed">
-              <iframe src="https://www.youtube.com/embed/kgVKYnyhLJE?rel=0&modestbranding=1&enablejsapi=1&mute=1"
-                title="Rotoscope Week 9"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-                loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-            </div>
-            <div class="video-card-body">
-              <span class="video-card-week">WEEK 9</span>
-              <span class="video-card-tag">Environment Update</span>
-              <h3 class="video-card-title">Under the Influence — New Floor &amp; Sky</h3>
-              <p class="video-card-desc">1 minute 3 seconds rendered. Features an updated environment — a light-colored wooden plank floor under a very bright open sky — giving the scene a cleaner, more polished feel.</p>
-            </div>
-          </article>
-
-          <!-- Card 10 -->
-          <article class="video-card reveal">
-            <div class="video-card-embed">
-              <iframe src="https://www.youtube.com/embed/mQb102tn4pk?rel=0&modestbranding=1&enablejsapi=1&mute=1"
-                title="Rotoscope Week 10"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-                loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-            </div>
-            <div class="video-card-body">
-              <span class="video-card-week">WEEK 10</span>
-              <span class="video-card-tag">Deep Choreography</span>
-              <h3 class="video-card-title">Under the Influence — Full Routine Coverage</h3>
-              <p class="video-card-desc">1 minute 10 seconds of animation. The high-contrast blue suit style is fully established and even more of the song's dynamic dance moves are accurately traced and timed.</p>
-            </div>
-          </article>
-
-          <!-- Card 11 -->
-          <article class="video-card reveal">
-            <div class="video-card-embed">
-              <iframe src="https://www.youtube.com/embed/hPW5mu1xRy8?rel=0&modestbranding=1&enablejsapi=1&mute=1"
-                title="Rotoscope Week 11"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-                loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-            </div>
-            <div class="video-card-body">
-              <span class="video-card-week">WEEK 11</span>
-              <span class="video-card-tag">Near Completion</span>
-              <h3 class="video-card-title">Under the Influence — Almost Full Length</h3>
-              <p class="video-card-desc">1 minute 15 seconds of fluid animation. The project is near complete, with the character's movement feeling increasingly smooth and the sequence closely matching the pace and energy of the song.</p>
-            </div>
-          </article>
-
-          <!-- Card 12 -->
-          <article class="video-card reveal">
-            <div class="video-card-embed">
-              <iframe src="https://www.youtube.com/embed/PqXh7Yr3pcU?rel=0&modestbranding=1&enablejsapi=1&mute=1"
-                title="Rotoscope Week 12"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-                loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-            </div>
-            <div class="video-card-body">
-              <span class="video-card-week">WEEK 12</span>
-              <span class="video-card-tag">Final Output</span>
-              <h3 class="video-card-title">Under the Influence — Finished</h3>
-              <p class="video-card-desc">The completed 1 minute 21 second rotoscope. The most polished version — full choreography traced over the wooden floor and bright sky background, showcasing the full progression from Week 1 to finish.</p>
-            </div>
-          </article>
-
-        </div><!-- /video-grid -->
-      </section>
-
-      <!-- ── Workflow Accordion ── -->
-      <section class="workflow-section" aria-label="Rotoscope workflow guide">
-        <div style="padding:2.5rem 0 1.5rem">
-
-          <button class="workflow-toggle" id="workflow-toggle" aria-expanded="false" aria-controls="workflow-body" style="margin-bottom:0">
-            <span class="workflow-toggle-left">
-              <span class="workflow-toggle-icon">🎨</span>
-              <span>
-                <span class="workflow-toggle-title">My Rotoscope Workflow</span>
-                <span class="workflow-toggle-sub">10-step guide on how each clip was made — click to expand</span>
-              </span>
-            </span>
-            <span class="workflow-chevron" aria-hidden="true">&#9660;</span>
+          <!-- Unmute toggle integrated in the controls row -->
+          <button class="unmute-btn" id="unmute-btn" aria-label="Toggle mute on reference video">
+            <svg id="unmute-icon" viewBox="0 0 24 24">
+              <path
+                d="M16.5 12A4.5 4.5 0 0 0 14 7.97v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0 0 21 12c0-4.28-3-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06A8.99 8.99 0 0 0 17.73 19L19 20.27 20.27 19 5.27 3 4.27 3zM12 4L9.91 6.09 12 8.18V4z" />
+            </svg>
+            <span id="unmute-label">Unmute Ref</span>
           </button>
-
-          <div class="workflow-body" id="workflow-body" role="region" aria-labelledby="workflow-toggle">
-            <div class="workflow-inner">
-
-              <!-- Step 1 -->
-              <div class="workflow-step">
-                <span class="step-num">1</span>
-                <div class="step-content">
-                  <p class="step-title">Import the Reference Footage</p>
-                  <p class="step-desc">Open After Effects and import the reference video clip into your project. Drag it onto the timeline to create a new composition based on the footage settings.</p>
-                  <img src="photos/step1.png" alt="Step 1 – Import reference footage into After Effects" class="step-img">
-                </div>
-              </div>
-              <div class="workflow-divider"></div>
-
-              <!-- Step 2 -->
-              <div class="workflow-step">
-                <span class="step-num">2</span>
-                <div class="step-content">
-                  <p class="step-title">Plan Your Body Part Layers</p>
-                  <p class="step-desc">Decide which body parts to isolate — head, torso, arms, legs, etc. Each part gets its own layer so they can be colored and animated independently.</p>
-                  <img src="photos/step2.png" alt="Step 2 – Plan body part layers" class="step-img">
-                </div>
-              </div>
-              <div class="workflow-divider"></div>
-
-              <!-- Step 3 -->
-              <div class="workflow-step">
-                <span class="step-num">3</span>
-                <div class="step-content">
-                  <p class="step-title">Duplicate the Layer &amp; Add a Green Screen Solid</p>
-                  <p class="step-desc">Select the footage layer in the timeline, then press <kbd>Ctrl</kbd>&thinsp;+&thinsp;<kbd>D</kbd> to duplicate it for each body part you plan to rotoscope. Additionally, create a new <strong style="color:var(--text)">Solid layer</strong> (<em>Layer &gt; New &gt; Solid…</em>) and set its color to <strong style="color:#00cc44">pure green</strong> — this acts as your green screen background to make masking and compositing easier.</p>
-                  <div class="workflow-tip">
-                    <span class="workflow-tip-icon">💡</span>
-                    <span>Rename each duplicated layer clearly (e.g. "Left Arm", "Head", "Torso") and place the green solid at the very bottom of the stack so it shows through wherever the subject hasn't been masked yet.</span>
-                  </div>
-                  <img src="photos/step3.png" alt="Step 3 – Duplicate layer and add green screen solid" class="step-img">
-                </div>
-              </div>
-              <div class="workflow-divider"></div>
-
-              <!-- Step 4 -->
-              <div class="workflow-step">
-                <span class="step-num">4</span>
-                <div class="step-content">
-                  <p class="step-title">Select the Specific Layer (Body Part) Then Pre-compose</p>
-                  <p class="step-desc">Before pre-composing, make sure you have selected <strong style="color:var(--text)">the exact body part layer</strong> you want to isolate in the timeline — only that layer should be highlighted. Then pre-compose it to keep the roto work isolated. Use the shortcut:</p>
-                  <div class="step-kbd">
-                    <kbd>Ctrl</kbd>
-                    <span style="color:var(--muted);font-size:0.8rem">+</span>
-                    <kbd>Shift</kbd>
-                    <span style="color:var(--muted);font-size:0.8rem">+</span>
-                    <kbd>C</kbd>
-                  </div>
-                  <div class="workflow-tip" style="margin-top:0.6rem">
-                    <span class="workflow-tip-icon">⌨️</span>
-                    <span>In the Pre-compose dialog, choose <strong style="color:var(--text)">"Move all attributes into the new composition"</strong> so your masks and effects stay inside the pre-comp. If you don't select the correct layer first, you'll pre-compose the wrong content!</span>
-                  </div>
-                  <img src="photos/step4.png" alt="Step 4 – Select specific layer then pre-compose" class="step-img">
-                </div>
-              </div>
-              <div class="workflow-divider"></div>
-
-              <!-- Step 5 -->
-              <div class="workflow-step">
-                <span class="step-num">5</span>
-                <div class="step-content">
-                  <p class="step-title">Rotoscope Frame by Frame</p>
-                  <p class="step-desc">Double-click into each pre-comp and use the Pen tool or Roto Brush to trace the body part outline on every frame. Adjust the mask path carefully to follow the movement.</p>
-                  <img src="photos/step5.png" alt="Step 5 – Rotoscope frame by frame" class="step-img">
-                </div>
-              </div>
-              <div class="workflow-divider"></div>
-
-              <!-- Step 6 -->
-              <div class="workflow-step">
-                <span class="step-num">6</span>
-                <div class="step-content">
-                  <p class="step-title">Refine Matte Edges (Apply Effects to the Pre-comp Layer)</p>
-                  <p class="step-desc">In the main composition, <strong style="color:var(--text)">select the pre-comp video layer</strong> you just made, then <strong style="color:var(--text)">right-click → Effect</strong> to add the following effects directly onto that pre-comp layer to clean up the mask edges:</p>
-                  <div class="workflow-tip" style="margin-top:0.5rem;flex-direction:column;gap:0.6rem">
-                    <div style="display:flex;gap:0.6rem;align-items:flex-start">
-                      <span class="workflow-tip-icon">&#128306;</span>
-                      <span><strong style="color:var(--text)">Fast Box Blur</strong> &mdash; right-click the pre-comp layer → <em>Effect &gt; Blur &amp; Sharpen &gt; Fast Box Blur</em> to soften hard, jagged edges. Keep the blur radius low (2&ndash;5 px) to avoid losing detail.</span>
-                    </div>
-                    <div style="display:flex;gap:0.6rem;align-items:flex-start">
-                      <span class="workflow-tip-icon">&#9986;&#65039;</span>
-                      <span><strong style="color:var(--text)">Simple Choker</strong> &mdash; right-click the pre-comp layer → <em>Effect &gt; Matte &gt; Simple Choker</em> to contract or expand the matte boundary. A small positive choke trims stray edge pixels; a negative value expands the matte if it&apos;s too tight.</span>
-                    </div>
-                  </div>
-                  <img src="photos/step6.png" alt="Step 6 – Right-click pre-comp to add matte refinement effects" class="step-img">
-                </div>
-              </div>
-              <div class="workflow-divider"></div>
-
-              <!-- Step 7 -->
-              <div class="workflow-step">
-                <span class="step-num">7</span>
-                <div class="step-content">
-                  <p class="step-title">Apply Flat Color to Each Body Part</p>
-                  <p class="step-desc">Once a body part is masked, create a new Solid layer with your desired flat color and place it above the pre-comp in the timeline. This creates the signature stylized rotoscope look.</p>
-                  <img src="photos/step7.png" alt="Step 7 – Apply flat color solid to body part" class="step-img">
-                </div>
-              </div>
-              <div class="workflow-divider"></div>
-
-              <!-- Step 8 (NEW) -->
-              <div class="workflow-step">
-                <span class="step-num">8</span>
-                <div class="step-content">
-                  <p class="step-title">Set the Track Matte on the Solid Color Layer</p>
-                  <p class="step-desc">Select the <strong style="color:var(--text)">solid color layer</strong> you just added. In the timeline, find the <strong style="color:var(--text)">Track Matte</strong> dropdown (TrkMat column — enable it via the Switches/Modes panel if it's hidden). From that dropdown, select the <strong style="color:var(--text)">pre-comp video layer with the rotoscope</strong> you want to apply the color to. This clips the solid color precisely to the rotoscoped silhouette.</p>
-                  <div class="workflow-tip">
-                    <span class="workflow-tip-icon">🎭</span>
-                    <span>Choose <strong style="color:var(--text)">"Alpha Matte"</strong> from the Track Matte dropdown so the solid color is only visible where the pre-comp's alpha channel is opaque — i.e., exactly the rotoscoped area.</span>
-                  </div>
-                  <img src="photos/step8.png" alt="Step 8 – Select solid color and set Track Matte to rotoscope pre-comp" class="step-img">
-                </div>
-              </div>
-              <div class="workflow-divider"></div>
-
-              <!-- Step 9 (old 8) -->
-              <div class="workflow-step">
-                <span class="step-num">9</span>
-                <div class="step-content">
-                  <p class="step-title">Repeat for All Body Parts</p>
-                  <p class="step-desc">Go back to the main composition and repeat Steps 3–8 for every body part layer. Stack the pre-comps and their corresponding color solids in the correct order (arms behind torso, etc.) to build the complete figure.</p>
-                  <img src="photos/step9.png" alt="Step 9 – Repeat process for all body parts" class="step-img">
-                </div>
-              </div>
-              <div class="workflow-divider"></div>
-
-              <!-- Step 10 (old 9) -->
-              <div class="workflow-step">
-                <span class="step-num">10</span>
-                <div class="step-content">
-                  <p class="step-title">Review, Refine, and Export</p>
-                  <p class="step-desc">Play through the full animation in the main composition. Adjust timing, layer order, and colors as needed, then export via <strong style="color:var(--text)">Composition → Add to Render Queue</strong> and set your output format and destination before hitting Render.</p>
-                  <img src="photos/step10.png" alt="Step 10 – Add to Render Queue and export" class="step-img">
-                </div>
-              </div>
-
-            </div>
-          </div>
-
         </div>
-      </section>
-
-      <!-- Reference section removed: now integrated into hero comparison grid above -->
-
-      <!-- ── Left Hover Sidebar (Side-peek stack) ── -->
-      <div class="side-peek-stack left">
-        
-        <!-- Card 1: Production Stack -->
-        <aside class="side-peek" id="side-peek-tools" aria-label="Rotoscope Production Stack">
-          <div class="side-peek-card">
-            <div class="side-peek-section">
-              <h3>Production Stack</h3>
-              <p class="side-peek-sub">Tools &amp; platforms used in the workflow.</p>
-              <div class="tools-list">
-                <div class="tool-item">
-                  <div class="tool-item-header">
-                    <span style="color:var(--accent-2)">🎥</span>
-                    <span class="tool-item-name">After Effects</span>
-                  </div>
-                  <div class="tool-item-role">Frame masking &amp; track matte clipping</div>
-                </div>
-                <div class="tool-item">
-                  <div class="tool-item-header">
-                    <span style="color:var(--accent)">✂️</span>
-                    <span class="tool-item-name">CapCut</span>
-                  </div>
-                  <div class="tool-item-role">Timeline assembly, pacing &amp; audio synch</div>
-                </div>
-                <div class="tool-item">
-                  <div class="tool-item-header">
-                    <span style="color:#ff4b4b">📺</span>
-                    <span class="tool-item-name">YouTube</span>
-                  </div>
-                  <div class="tool-item-role">High-quality hosting, portfolio integration &amp; playback</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="side-peek-tab tools-tab" id="side-peek-tab-tools" tabindex="0" role="button" aria-expanded="false" title="Production Stack">
-            <svg class="side-peek-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
-            </svg>
-            Tools &amp; Stack
-          </div>
-        </aside>
-
-        <!-- Card 2: Trivia -->
-        <aside class="side-peek" id="side-peek-trivia" aria-label="Rotoscope History &amp; Trivia">
-          <div class="side-peek-card">
-            <div class="side-peek-section">
-              <h3>Rotoscope Trivia</h3>
-              <p class="side-peek-sub">Fascinating historical facts about the craft.</p>
-              <div class="trivia-card">
-                <p class="trivia-text" id="roto-trivia-text">Max Fleischer patented the rotoscope in 1915 to bring fluid, lifelike movements to Koko the Clown.</p>
-                <button class="trivia-btn" id="roto-trivia-next-btn">
-                  <span>Next Trivia</span>
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="side-peek-tab trivia-tab" id="side-peek-tab-trivia" tabindex="0" role="button" aria-expanded="false" title="Rotoscope Trivia">
-            <svg class="side-peek-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/>
-            </svg>
-            Roto Trivia
-          </div>
-        </aside>
-
-        <!-- Card 3: Frame Calculator -->
-        <aside class="side-peek" id="side-peek-calc" aria-label="Animator's Frame Calculator">
-          <div class="side-peek-card">
-            <div class="side-peek-section">
-              <h3>Frame Calculator</h3>
-              <p class="side-peek-sub">Estimate the workload for hand-traced animation.</p>
-              <div class="calc-group">
-                <label class="calc-label" for="roto-calc-duration">Video Duration (secs)</label>
-                <input class="calc-input" type="number" id="roto-calc-duration" value="10" min="1" max="3600">
-              </div>
-              <div class="calc-group">
-                <label class="calc-label" for="roto-calc-fps">Animation Timing</label>
-                <select class="calc-select" id="roto-calc-fps">
-                  <option value="24">24 FPS (On Ones - fluid)</option>
-                  <option value="12" selected>12 FPS (On Twos - standard)</option>
-                  <option value="8">8 FPS (On Threes - stylized)</option>
-                  <option value="30">30 FPS (Video standard)</option>
-                  <option value="60">60 FPS (Ultra fluid)</option>
-                </select>
-              </div>
-              <div class="calc-result-box">
-                <div class="calc-result-val" id="roto-calc-result">120</div>
-                <div class="calc-result-label">Total Frames to Trace</div>
-              </div>
-            </div>
-          </div>
-          <div class="side-peek-tab calc-tab" id="side-peek-tab-calc" tabindex="0" role="button" aria-expanded="false" title="Workload Calculator">
-            <svg class="side-peek-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/><line x1="12" y1="9" x2="12" y2="17"/>
-            </svg>
-            Work Calculator
-          </div>
-        </aside>
-
-        <!-- Card 4: Glossary / Terminology -->
-        <aside class="side-peek" id="side-peek-glossary" aria-label="Animation Key Terminology">
-          <div class="side-peek-card">
-            <div class="side-peek-section">
-              <h3>Key Terminology</h3>
-              <p class="side-peek-sub">Essential concepts in trace-animation.</p>
-              <div class="glossary-list">
-                <div class="glossary-term">
-                  <strong>Rotoscoping</strong>
-                  An animation technique where animators trace over live-action footage frame by frame to achieve realistic movement.
-                </div>
-                <div class="glossary-term">
-                  <strong>Matte / Silhouette</strong>
-                  An isolated shape that serves as a cutout mask to separate the character from the background.
-                </div>
-                <div class="glossary-term">
-                  <strong>Onion Skinning</strong>
-                  Displaying semi-transparent copies of adjacent frames to check spacing and movement consistency.
-                </div>
-                <div class="glossary-term">
-                  <strong>Keyframe vs. In-between</strong>
-                  Keyframes define the start/end points of a motion transition, while in-betweens fill the frames in between.
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="side-peek-tab glossary-tab" id="side-peek-tab-glossary" tabindex="0" role="button" aria-expanded="false" title="Key Terms Glossary">
-            <svg class="side-peek-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-            </svg>
-            Key Terms
-          </div>
-        </aside>
-
+        <span class="sync-hint">Controls both videos together at the same timestamp</span>
       </div>
 
-    </main>
-
-    <footer class="footer">
-      <span class="footer-school">Technological University of the Philippines – Taguig</span>
-      <span class="footer-credit">Made by: Kelly Laurence Q. Roduta, BSIT-S-2A</span>
-      <span class="footer-copy">&copy; 2026 All rights reserved.</span>
-    </footer>
-    <!-- Card zoom lightbox (must be in DOM before scripts run) -->
-    <div class="czm" id="czm" role="dialog" aria-modal="true" aria-label="Video preview" aria-hidden="true">
-      <div class="czm-backdrop" id="czm-backdrop"></div>
-      <div class="czm-wrap">
-        <div class="czm-video">
-          <iframe id="czm-iframe"allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="Video preview" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      <!-- Disclaimer / Credits strip -->
+      <div class="comparison-disclaimer">
+        <div class="disclaimer-block">
+          <p class="disclaimer-title">About the Reference</p>
+          <p class="disclaimer-text">
+            This video serves as the primary reference used for completing the rotoscope exercises in this course.
+            It covers the essential workflow for isolating subjects frame-by-frame, refining edges,
+            and integrating rotoscoped layers into a compositing pipeline using Adobe After Effects.
+          </p>
         </div>
-        <div class="czm-meta">
-          <div>
-            <p class="czm-week" id="czm-week"></p>
-            <p class="czm-title" id="czm-title"></p>
+        <div class="disclaimer-block">
+          <p class="disclaimer-title">Credits</p>
+          <div class="disclaimer-meta">
+            <div class="disclaimer-row">
+              <span class="disclaimer-role">Source</span>
+              <span class="disclaimer-val">YouTube — <a href="https://www.youtube.com/watch?v=Aym1eH7nMPw"
+                  target="_blank" rel="noopener"
+                  style="color:var(--accent-2);text-decoration:none;">youtube.com/watch?v=Aym1eH7nMPw</a></span>
+            </div>
+            <div class="disclaimer-row">
+              <span class="disclaimer-role">Technique</span>
+              <span class="disclaimer-val">Rotoscoping / Frame-by-frame Isolation</span>
+            </div>
+            <div class="disclaimer-row">
+              <span class="disclaimer-role">Software</span>
+              <span class="disclaimer-val">Adobe After Effects</span>
+            </div>
+            <div class="disclaimer-row">
+              <span class="disclaimer-role">Used for</span>
+              <span class="disclaimer-val">Weeks 1–12 Rotoscope Exercises</span>
+            </div>
           </div>
-          <button class="czm-close" id="czm-close">× Close</button>
         </div>
+      </div><!-- /comparison-disclaimer -->
+
+    </section>
+
+    <!-- ── 12-Card Video Gallery ── -->
+    <section class="video-gallery-section">
+      <div class="gallery-header">
+        <h2>Rotoscope Videos</h2>
+        <span class="count-badge">12 clips</span>
       </div>
+
+      <div class="video-grid">
+
+        <!-- Card 1 -->
+        <article class="video-card reveal">
+          <div class="video-card-embed">
+            <iframe src="https://www.youtube.com/embed/fzbKEajYmQw?rel=0&modestbranding=1&enablejsapi=1&mute=1"
+              title="Rotoscope — Week 1 (Under the Influence)"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          </div>
+          <div class="video-card-body">
+            <span class="video-card-week">WEEK 1</span>
+            <span class="video-card-tag">First Frames</span>
+            <h3 class="video-card-title">Under the Influence — Start</h3>
+            <p class="video-card-desc">The opening 7 seconds of the rotoscope series. Establishes the core style — flat
+              blue fill, faceless character with brown hair — traced over a cloudy sky background with a reference PIP
+              overlay.</p>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="video-card reveal">
+          <div class="video-card-embed">
+            <iframe src="https://www.youtube.com/embed/ycbWnjMzN-w?rel=0&modestbranding=1&enablejsapi=1&mute=1"
+              title="Rotoscope — Week 2 (Under the Influence)"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          </div>
+          <div class="video-card-body">
+            <span class="video-card-week">WEEK 2</span>
+            <span class="video-card-tag">Background Update</span>
+            <h3 class="video-card-title">Under the Influence — Crouching Pose</h3>
+            <p class="video-card-desc">Extends the clip to 14 seconds, introducing a crouching figure pose. The
+              background is upgraded to a 3D-style room with a purple/pink floor and sky-toned walls.</p>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="video-card reveal">
+          <div class="video-card-embed">
+            <iframe src="https://www.youtube.com/embed/3XIwjtwgTAo?rel=0&modestbranding=1&enablejsapi=1&mute=1"
+              title="Rotoscope — Week 3 (Under the Influence)"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          </div>
+          <div class="video-card-body">
+            <span class="video-card-week">WEEK 3</span>
+            <span class="video-card-tag">Full Outfit</span>
+            <h3 class="video-card-title">Under the Influence — Full Jumpsuit</h3>
+            <p class="video-card-desc">Clip grows to 21 seconds. The character now wears a complete blue jumpsuit with
+              white shoes. Background features a pink/purple stage floor with a cloudy backdrop.</p>
+          </div>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="video-card reveal">
+          <div class="video-card-embed">
+            <iframe src="https://www.youtube.com/embed/pwMfYqy9S1A?rel=0&modestbranding=1&enablejsapi=1&mute=1"
+              title="Rotoscope Week 4"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          </div>
+          <div class="video-card-body">
+            <span class="video-card-week">WEEK 4</span>
+            <span class="video-card-tag">Dynamic Motion</span>
+            <h3 class="video-card-title">Under the Influence — Bending &amp; Flow</h3>
+            <p class="video-card-desc">28 seconds of animation. Introduces more complex bending poses and dynamic weight
+              shifts, building on the established flat-color jumpsuit style with increased movement range.</p>
+          </div>
+        </article>
+
+        <!-- Card 5 -->
+        <article class="video-card reveal">
+          <div class="video-card-embed">
+            <iframe src="https://www.youtube.com/embed/tFmCBHKDeOw?rel=0&modestbranding=1&enablejsapi=1&mute=1"
+              title="Rotoscope Week 5"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          </div>
+          <div class="video-card-body">
+            <span class="video-card-week">WEEK 5</span>
+            <span class="video-card-tag">Refinement</span>
+            <h3 class="video-card-title">Under the Influence — Smoother Lines</h3>
+            <p class="video-card-desc">35 seconds of animation with noticeably cleaner linework. Dark navy full-body
+              suit with a pinkish wooden-plank floor and bright cloudy sky as the background environment.</p>
+          </div>
+        </article>
+
+        <!-- Card 6 -->
+        <article class="video-card reveal">
+          <div class="video-card-embed">
+            <iframe src="https://www.youtube.com/embed/1URfx-wO-rM?rel=0&modestbranding=1&enablejsapi=1&mute=1"
+              title="Rotoscope Week 6"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          </div>
+          <div class="video-card-body">
+            <span class="video-card-week">WEEK 6</span>
+            <span class="video-card-tag">Arm Extension</span>
+            <h3 class="video-card-title">Under the Influence — Upper Body Focus</h3>
+            <p class="video-card-desc">42-second sequence focusing on upright posture and wide arm movements. The
+              consistent dark blue suit style is maintained as choreography coverage continues to expand.</p>
+          </div>
+        </article>
+
+        <!-- Card 7 -->
+        <article class="video-card reveal">
+          <div class="video-card-embed">
+            <iframe src="https://www.youtube.com/embed/R4b-PG0zh_o?rel=0&modestbranding=1&enablejsapi=1&mute=1"
+              title="Rotoscope Week 7"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          </div>
+          <div class="video-card-body">
+            <span class="video-card-week">WEEK 7</span>
+            <span class="video-card-tag">Halfway Mark</span>
+            <h3 class="video-card-title">Under the Influence — Nearly 50 Seconds</h3>
+            <p class="video-card-desc">Approaching the halfway point of the full song. Nearly 50 seconds of fluid dance
+              choreography rendered in consistent flat-color rotoscope style with a staged floor environment.</p>
+          </div>
+        </article>
+
+        <!-- Card 8 -->
+        <article class="video-card reveal">
+          <div class="video-card-embed">
+            <iframe src="https://www.youtube.com/embed/XmrTWTL0iBE?rel=0&modestbranding=1&enablejsapi=1&mute=1"
+              title="Rotoscope Week 8"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          </div>
+          <div class="video-card-body">
+            <span class="video-card-week">WEEK 8</span>
+            <span class="video-card-tag">Clean Outlines</span>
+            <h3 class="video-card-title">Under the Influence — Nearing One Minute</h3>
+            <p class="video-card-desc">56 seconds of animation with noticeably clean character outlines. The sequence
+              now covers a large portion of the choreography, showcasing improved frame consistency throughout.</p>
+          </div>
+        </article>
+
+        <!-- Card 9 -->
+        <article class="video-card reveal">
+          <div class="video-card-embed">
+            <iframe src="https://www.youtube.com/embed/kgVKYnyhLJE?rel=0&modestbranding=1&enablejsapi=1&mute=1"
+              title="Rotoscope Week 9"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          </div>
+          <div class="video-card-body">
+            <span class="video-card-week">WEEK 9</span>
+            <span class="video-card-tag">Environment Update</span>
+            <h3 class="video-card-title">Under the Influence — New Floor &amp; Sky</h3>
+            <p class="video-card-desc">1 minute 3 seconds rendered. Features an updated environment — a light-colored
+              wooden plank floor under a very bright open sky — giving the scene a cleaner, more polished feel.</p>
+          </div>
+        </article>
+
+        <!-- Card 10 -->
+        <article class="video-card reveal">
+          <div class="video-card-embed">
+            <iframe src="https://www.youtube.com/embed/mQb102tn4pk?rel=0&modestbranding=1&enablejsapi=1&mute=1"
+              title="Rotoscope Week 10"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          </div>
+          <div class="video-card-body">
+            <span class="video-card-week">WEEK 10</span>
+            <span class="video-card-tag">Deep Choreography</span>
+            <h3 class="video-card-title">Under the Influence — Full Routine Coverage</h3>
+            <p class="video-card-desc">1 minute 10 seconds of animation. The high-contrast blue suit style is fully
+              established and even more of the song's dynamic dance moves are accurately traced and timed.</p>
+          </div>
+        </article>
+
+        <!-- Card 11 -->
+        <article class="video-card reveal">
+          <div class="video-card-embed">
+            <iframe src="https://www.youtube.com/embed/hPW5mu1xRy8?rel=0&modestbranding=1&enablejsapi=1&mute=1"
+              title="Rotoscope Week 11"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          </div>
+          <div class="video-card-body">
+            <span class="video-card-week">WEEK 11</span>
+            <span class="video-card-tag">Near Completion</span>
+            <h3 class="video-card-title">Under the Influence — Almost Full Length</h3>
+            <p class="video-card-desc">1 minute 15 seconds of fluid animation. The project is near complete, with the
+              character's movement feeling increasingly smooth and the sequence closely matching the pace and energy of
+              the song.</p>
+          </div>
+        </article>
+
+        <!-- Card 12 -->
+        <article class="video-card reveal">
+          <div class="video-card-embed">
+            <iframe src="https://www.youtube.com/embed/PqXh7Yr3pcU?rel=0&modestbranding=1&enablejsapi=1&mute=1"
+              title="Rotoscope Week 12"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          </div>
+          <div class="video-card-body">
+            <span class="video-card-week">WEEK 12</span>
+            <span class="video-card-tag">Final Output</span>
+            <h3 class="video-card-title">Under the Influence — Finished</h3>
+            <p class="video-card-desc">The completed 1 minute 21 second rotoscope. The most polished version — full
+              choreography traced over the wooden floor and bright sky background, showcasing the full progression from
+              Week 1 to finish.</p>
+          </div>
+        </article>
+
+      </div><!-- /video-grid -->
+    </section>
+
+    <!-- ── Workflow Accordion ── -->
+    <section class="workflow-section" aria-label="Rotoscope workflow guide">
+      <div style="padding:2.5rem 0 1.5rem">
+
+        <button class="workflow-toggle" id="workflow-toggle" aria-expanded="false" aria-controls="workflow-body"
+          style="margin-bottom:0">
+          <span class="workflow-toggle-left">
+            <span class="workflow-toggle-icon">🎨</span>
+            <span>
+              <span class="workflow-toggle-title">My Rotoscope Workflow</span>
+              <span class="workflow-toggle-sub">10-step guide on how each clip was made — click to expand</span>
+            </span>
+          </span>
+          <span class="workflow-chevron" aria-hidden="true">&#9660;</span>
+        </button>
+
+        <div class="workflow-body" id="workflow-body" role="region" aria-labelledby="workflow-toggle">
+          <div class="workflow-inner">
+
+            <!-- Step 1 -->
+            <div class="workflow-step">
+              <span class="step-num">1</span>
+              <div class="step-content">
+                <p class="step-title">Import the Reference Footage</p>
+                <p class="step-desc">Open After Effects and import the reference video clip into your project. Drag it
+                  onto the timeline to create a new composition based on the footage settings.</p>
+                <img src="photos/step1.png" alt="Step 1 – Import reference footage into After Effects" class="step-img">
+              </div>
+            </div>
+            <div class="workflow-divider"></div>
+
+            <!-- Step 2 -->
+            <div class="workflow-step">
+              <span class="step-num">2</span>
+              <div class="step-content">
+                <p class="step-title">Plan Your Body Part Layers</p>
+                <p class="step-desc">Decide which body parts to isolate — head, torso, arms, legs, etc. Each part gets
+                  its own layer so they can be colored and animated independently.</p>
+                <img src="photos/step2.png" alt="Step 2 – Plan body part layers" class="step-img">
+              </div>
+            </div>
+            <div class="workflow-divider"></div>
+
+            <!-- Step 3 -->
+            <div class="workflow-step">
+              <span class="step-num">3</span>
+              <div class="step-content">
+                <p class="step-title">Duplicate the Layer &amp; Add a Green Screen Solid</p>
+                <p class="step-desc">Select the footage layer in the timeline, then press
+                  <kbd>Ctrl</kbd>&thinsp;+&thinsp;<kbd>D</kbd> to duplicate it for each body part you plan to rotoscope.
+                  Additionally, create a new <strong style="color:var(--text)">Solid layer</strong> (<em>Layer &gt; New
+                    &gt; Solid…</em>) and set its color to <strong style="color:#00cc44">pure green</strong> — this acts
+                  as your green screen background to make masking and compositing easier.</p>
+                <div class="workflow-tip">
+                  <span class="workflow-tip-icon">💡</span>
+                  <span>Rename each duplicated layer clearly (e.g. "Left Arm", "Head", "Torso") and place the green
+                    solid at the very bottom of the stack so it shows through wherever the subject hasn't been masked
+                    yet.</span>
+                </div>
+                <img src="photos/step3.png" alt="Step 3 – Duplicate layer and add green screen solid" class="step-img">
+              </div>
+            </div>
+            <div class="workflow-divider"></div>
+
+            <!-- Step 4 -->
+            <div class="workflow-step">
+              <span class="step-num">4</span>
+              <div class="step-content">
+                <p class="step-title">Select the Specific Layer (Body Part) Then Pre-compose</p>
+                <p class="step-desc">Before pre-composing, make sure you have selected <strong
+                    style="color:var(--text)">the exact body part layer</strong> you want to isolate in the timeline —
+                  only that layer should be highlighted. Then pre-compose it to keep the roto work isolated. Use the
+                  shortcut:</p>
+                <div class="step-kbd">
+                  <kbd>Ctrl</kbd>
+                  <span style="color:var(--muted);font-size:0.8rem">+</span>
+                  <kbd>Shift</kbd>
+                  <span style="color:var(--muted);font-size:0.8rem">+</span>
+                  <kbd>C</kbd>
+                </div>
+                <div class="workflow-tip" style="margin-top:0.6rem">
+                  <span class="workflow-tip-icon">⌨️</span>
+                  <span>In the Pre-compose dialog, choose <strong style="color:var(--text)">"Move all attributes into
+                      the new composition"</strong> so your masks and effects stay inside the pre-comp. If you don't
+                    select the correct layer first, you'll pre-compose the wrong content!</span>
+                </div>
+                <img src="photos/step4.png" alt="Step 4 – Select specific layer then pre-compose" class="step-img">
+              </div>
+            </div>
+            <div class="workflow-divider"></div>
+
+            <!-- Step 5 -->
+            <div class="workflow-step">
+              <span class="step-num">5</span>
+              <div class="step-content">
+                <p class="step-title">Rotoscope Frame by Frame</p>
+                <p class="step-desc">Double-click into each pre-comp and use the Pen tool or Roto Brush to trace the
+                  body part outline on every frame. Adjust the mask path carefully to follow the movement.</p>
+                <img src="photos/step5.png" alt="Step 5 – Rotoscope frame by frame" class="step-img">
+              </div>
+            </div>
+            <div class="workflow-divider"></div>
+
+            <!-- Step 6 -->
+            <div class="workflow-step">
+              <span class="step-num">6</span>
+              <div class="step-content">
+                <p class="step-title">Refine Matte Edges (Apply Effects to the Pre-comp Layer)</p>
+                <p class="step-desc">In the main composition, <strong style="color:var(--text)">select the pre-comp
+                    video layer</strong> you just made, then <strong style="color:var(--text)">right-click →
+                    Effect</strong> to add the following effects directly onto that pre-comp layer to clean up the mask
+                  edges:</p>
+                <div class="workflow-tip" style="margin-top:0.5rem;flex-direction:column;gap:0.6rem">
+                  <div style="display:flex;gap:0.6rem;align-items:flex-start">
+                    <span class="workflow-tip-icon">&#128306;</span>
+                    <span><strong style="color:var(--text)">Fast Box Blur</strong> &mdash; right-click the pre-comp
+                      layer → <em>Effect &gt; Blur &amp; Sharpen &gt; Fast Box Blur</em> to soften hard, jagged edges.
+                      Keep the blur radius low (2&ndash;5 px) to avoid losing detail.</span>
+                  </div>
+                  <div style="display:flex;gap:0.6rem;align-items:flex-start">
+                    <span class="workflow-tip-icon">&#9986;&#65039;</span>
+                    <span><strong style="color:var(--text)">Simple Choker</strong> &mdash; right-click the pre-comp
+                      layer → <em>Effect &gt; Matte &gt; Simple Choker</em> to contract or expand the matte boundary. A
+                      small positive choke trims stray edge pixels; a negative value expands the matte if it&apos;s too
+                      tight.</span>
+                  </div>
+                </div>
+                <img src="photos/step6.png" alt="Step 6 – Right-click pre-comp to add matte refinement effects"
+                  class="step-img">
+              </div>
+            </div>
+            <div class="workflow-divider"></div>
+
+            <!-- Step 7 -->
+            <div class="workflow-step">
+              <span class="step-num">7</span>
+              <div class="step-content">
+                <p class="step-title">Apply Flat Color to Each Body Part</p>
+                <p class="step-desc">Once a body part is masked, create a new Solid layer with your desired flat color
+                  and place it above the pre-comp in the timeline. This creates the signature stylized rotoscope look.
+                </p>
+                <img src="photos/step7.png" alt="Step 7 – Apply flat color solid to body part" class="step-img">
+              </div>
+            </div>
+            <div class="workflow-divider"></div>
+
+            <!-- Step 8 (NEW) -->
+            <div class="workflow-step">
+              <span class="step-num">8</span>
+              <div class="step-content">
+                <p class="step-title">Set the Track Matte on the Solid Color Layer</p>
+                <p class="step-desc">Select the <strong style="color:var(--text)">solid color layer</strong> you just
+                  added. In the timeline, find the <strong style="color:var(--text)">Track Matte</strong> dropdown
+                  (TrkMat column — enable it via the Switches/Modes panel if it's hidden). From that dropdown, select
+                  the <strong style="color:var(--text)">pre-comp video layer with the rotoscope</strong> you want to
+                  apply the color to. This clips the solid color precisely to the rotoscoped silhouette.</p>
+                <div class="workflow-tip">
+                  <span class="workflow-tip-icon">🎭</span>
+                  <span>Choose <strong style="color:var(--text)">"Alpha Matte"</strong> from the Track Matte dropdown so
+                    the solid color is only visible where the pre-comp's alpha channel is opaque — i.e., exactly the
+                    rotoscoped area.</span>
+                </div>
+                <img src="photos/step8.png" alt="Step 8 – Select solid color and set Track Matte to rotoscope pre-comp"
+                  class="step-img">
+              </div>
+            </div>
+            <div class="workflow-divider"></div>
+
+            <!-- Step 9 (old 8) -->
+            <div class="workflow-step">
+              <span class="step-num">9</span>
+              <div class="step-content">
+                <p class="step-title">Repeat for All Body Parts</p>
+                <p class="step-desc">Go back to the main composition and repeat Steps 3–8 for every body part layer.
+                  Stack the pre-comps and their corresponding color solids in the correct order (arms behind torso,
+                  etc.) to build the complete figure.</p>
+                <img src="photos/step9.png" alt="Step 9 – Repeat process for all body parts" class="step-img">
+              </div>
+            </div>
+            <div class="workflow-divider"></div>
+
+            <!-- Step 10 (old 9) -->
+            <div class="workflow-step">
+              <span class="step-num">10</span>
+              <div class="step-content">
+                <p class="step-title">Review, Refine, and Export</p>
+                <p class="step-desc">Play through the full animation in the main composition. Adjust timing, layer
+                  order, and colors as needed, then export via <strong style="color:var(--text)">Composition → Add to
+                    Render Queue</strong> and set your output format and destination before hitting Render.</p>
+                <img src="photos/step10.png" alt="Step 10 – Add to Render Queue and export" class="step-img">
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Reference section removed: now integrated into hero comparison grid above -->
+
+    <!-- ── Left Hover Sidebar (Side-peek stack) ── -->
+    <div class="side-peek-stack left">
+
+      <!-- Card 1: Production Stack -->
+      <aside class="side-peek" id="side-peek-tools" aria-label="Rotoscope Production Stack">
+        <div class="side-peek-card">
+          <div class="side-peek-section">
+            <h3>Production Stack</h3>
+            <p class="side-peek-sub">Tools &amp; platforms used in the workflow.</p>
+            <div class="tools-list">
+              <div class="tool-item">
+                <div class="tool-item-header">
+                  <span style="color:var(--accent-2)">🎥</span>
+                  <span class="tool-item-name">After Effects</span>
+                </div>
+                <div class="tool-item-role">Frame masking &amp; track matte clipping</div>
+              </div>
+              <div class="tool-item">
+                <div class="tool-item-header">
+                  <span style="color:var(--accent)">✂️</span>
+                  <span class="tool-item-name">CapCut</span>
+                </div>
+                <div class="tool-item-role">Timeline assembly, pacing &amp; audio synch</div>
+              </div>
+              <div class="tool-item">
+                <div class="tool-item-header">
+                  <span style="color:#ff4b4b">📺</span>
+                  <span class="tool-item-name">YouTube</span>
+                </div>
+                <div class="tool-item-role">High-quality hosting, portfolio integration &amp; playback</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="side-peek-tab tools-tab" id="side-peek-tab-tools" tabindex="0" role="button" aria-expanded="false"
+          title="Production Stack">
+          <svg class="side-peek-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path
+              d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+          </svg>
+          Tools &amp; Stack
+        </div>
+      </aside>
+
+      <!-- Card 2: Trivia -->
+      <aside class="side-peek" id="side-peek-trivia" aria-label="Rotoscope History &amp; Trivia">
+        <div class="side-peek-card">
+          <div class="side-peek-section">
+            <h3>Rotoscope Trivia</h3>
+            <p class="side-peek-sub">Fascinating historical facts about the craft.</p>
+            <div class="trivia-card">
+              <p class="trivia-text" id="roto-trivia-text">Max Fleischer patented the rotoscope in 1915 to bring fluid,
+                lifelike movements to Koko the Clown.</p>
+              <button class="trivia-btn" id="roto-trivia-next-btn">
+                <span>Next Trivia</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="side-peek-tab trivia-tab" id="side-peek-tab-trivia" tabindex="0" role="button" aria-expanded="false"
+          title="Rotoscope Trivia">
+          <svg class="side-peek-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01" />
+          </svg>
+          Roto Trivia
+        </div>
+      </aside>
+
+      <!-- Card 3: Frame Calculator -->
+      <aside class="side-peek" id="side-peek-calc" aria-label="Animator's Frame Calculator">
+        <div class="side-peek-card">
+          <div class="side-peek-section">
+            <h3>Frame Calculator</h3>
+            <p class="side-peek-sub">Estimate the workload for hand-traced animation.</p>
+            <div class="calc-group">
+              <label class="calc-label" for="roto-calc-duration">Video Duration (secs)</label>
+              <input class="calc-input" type="number" id="roto-calc-duration" value="10" min="1" max="3600">
+            </div>
+            <div class="calc-group">
+              <label class="calc-label" for="roto-calc-fps">Animation Timing</label>
+              <select class="calc-select" id="roto-calc-fps">
+                <option value="24">24 FPS (On Ones - fluid)</option>
+                <option value="12" selected>12 FPS (On Twos - standard)</option>
+                <option value="8">8 FPS (On Threes - stylized)</option>
+                <option value="30">30 FPS (Video standard)</option>
+                <option value="60">60 FPS (Ultra fluid)</option>
+              </select>
+            </div>
+            <div class="calc-result-box">
+              <div class="calc-result-val" id="roto-calc-result">120</div>
+              <div class="calc-result-label">Total Frames to Trace</div>
+            </div>
+          </div>
+        </div>
+        <div class="side-peek-tab calc-tab" id="side-peek-tab-calc" tabindex="0" role="button" aria-expanded="false"
+          title="Workload Calculator">
+          <svg class="side-peek-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+            <line x1="9" y1="9" x2="15" y2="9" />
+            <line x1="9" y1="13" x2="15" y2="13" />
+            <line x1="9" y1="17" x2="15" y2="17" />
+            <line x1="12" y1="9" x2="12" y2="17" />
+          </svg>
+          Work Calculator
+        </div>
+      </aside>
+
+      <!-- Card 4: Glossary / Terminology -->
+      <aside class="side-peek" id="side-peek-glossary" aria-label="Animation Key Terminology">
+        <div class="side-peek-card">
+          <div class="side-peek-section">
+            <h3>Key Terminology</h3>
+            <p class="side-peek-sub">Essential concepts in trace-animation.</p>
+            <div class="glossary-list">
+              <div class="glossary-term">
+                <strong>Rotoscoping</strong>
+                An animation technique where animators trace over live-action footage frame by frame to achieve
+                realistic movement.
+              </div>
+              <div class="glossary-term">
+                <strong>Matte / Silhouette</strong>
+                An isolated shape that serves as a cutout mask to separate the character from the background.
+              </div>
+              <div class="glossary-term">
+                <strong>Onion Skinning</strong>
+                Displaying semi-transparent copies of adjacent frames to check spacing and movement consistency.
+              </div>
+              <div class="glossary-term">
+                <strong>Keyframe vs. In-between</strong>
+                Keyframes define the start/end points of a motion transition, while in-betweens fill the frames in
+                between.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="side-peek-tab glossary-tab" id="side-peek-tab-glossary" tabindex="0" role="button"
+          aria-expanded="false" title="Key Terms Glossary">
+          <svg class="side-peek-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+          </svg>
+          Key Terms
+        </div>
+      </aside>
+
     </div>
 
-    <script src="script.js"></script>
+  </main>
 
-    <!-- YouTube IFrame API -->
-    <script src="https://www.youtube.com/iframe_api"></script>
+  <footer class="footer">
+    <span class="footer-school">Technological University of the Philippines – Taguig</span>
+    <span class="footer-credit">Made by: Kelly Laurence Q. Roduta, BSIT-S-2A</span>
+    <span class="footer-copy">&copy; 2026 All rights reserved.</span>
+  </footer>
+  <!-- Card zoom lightbox (must be in DOM before scripts run) -->
+  <div class="czm" id="czm" role="dialog" aria-modal="true" aria-label="Video preview" aria-hidden="true">
+    <div class="czm-backdrop" id="czm-backdrop"></div>
+    <div class="czm-wrap">
+      <div class="czm-video">
+        <iframe id="czm-iframe"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen title="Video preview" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+      <div class="czm-meta">
+        <div>
+          <p class="czm-week" id="czm-week"></p>
+          <p class="czm-title" id="czm-title"></p>
+        </div>
+        <button class="czm-close" id="czm-close">× Close</button>
+      </div>
+    </div>
+  </div>
 
-    <script>
-      /* ══════════════════════════════════════════════════════
-         COMPARISON VIDEO SYNC
-         ─ Final output  : YouTube IFrame API  (playerOutput) — always blocked
-         ─ Reference     : local <video> element (refVideo)   — no native controls
-         ─ Control       : Sync button only (always visible)
+  <script src="script.js"></script>
 
-         On every button click:
-           ─ if PLAYING  → pause both
-           ─ if PAUSED   → sync reference timestamp to YouTube, play both
-      ══════════════════════════════════════════════════════ */
+  <!-- YouTube IFrame API -->
+  <script src="https://www.youtube.com/iframe_api"></script>
 
-      var playerOutput = null;   // YT.Player for the final video
-      var refVideo     = null;   // native <video> for the reference
-      var syncing      = false;
+  <script>
+    /* ══════════════════════════════════════════════════════
+       COMPARISON VIDEO SYNC
+       ─ Final output  : YouTube IFrame API  (playerOutput) — always blocked
+       ─ Reference     : local <video> element (refVideo)   — no native controls
+       ─ Control       : Sync button only (always visible)
 
-      /* Update the Sync button label & icon */
-      function updateSyncBtn(isPlaying) {
-        var btn   = document.getElementById('sync-play-btn');
-        var label = document.getElementById('sync-btn-label');
-        var icon  = btn ? btn.querySelector('svg') : null;
-        if (!btn || !label || !icon) return;
-        if (isPlaying) {
-          label.textContent = 'Pause Both';
-          icon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
-        } else {
-          label.textContent = 'Sync & Play';
-          icon.innerHTML = '<path d="M8 5v14l11-7z"/>';
+       On every button click:
+         ─ if PLAYING  → pause both
+         ─ if PAUSED   → sync reference timestamp to YouTube, play both
+    ══════════════════════════════════════════════════════ */
+
+    var playerOutput = null;   // YT.Player for the final video
+    var refVideo = null;   // native <video> for the reference
+    var syncing = false;
+
+    /* Update the Sync button label & icon */
+    function updateSyncBtn(isPlaying) {
+      var btn = document.getElementById('sync-play-btn');
+      var label = document.getElementById('sync-btn-label');
+      var icon = btn ? btn.querySelector('svg') : null;
+      if (!btn || !label || !icon) return;
+      if (isPlaying) {
+        label.textContent = 'Pause Both';
+        icon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+      } else {
+        label.textContent = 'Sync & Play';
+        icon.innerHTML = '<path d="M8 5v14l11-7z"/>';
+      }
+    }
+
+    /* ── YouTube IFrame API callback ── */
+    function onYouTubeIframeAPIReady() {
+      var playerReady = false;
+
+      playerOutput = new YT.Player('featured-video', {
+        events: {
+          onReady: function () {
+            playerReady = true;
+          },
+          onStateChange: onOutputStateChange
         }
+      });
+
+      refVideo = document.getElementById('ref-video-hero');
+
+      /* ── Sync toggle button & Controls ── */
+      var playBtn = document.getElementById('sync-play-btn');
+      var unmuteBtn = document.getElementById('unmute-btn');
+      var unmuteIcon = document.getElementById('unmute-icon');
+      var unmuteLabel = document.getElementById('unmute-label');
+      var slider = document.getElementById('sync-timeline-slider');
+      var timeCurrent = document.getElementById('time-current');
+      var timeTotal = document.getElementById('time-total');
+      var isDragging = false;
+
+      function formatTime(seconds) {
+        var s = Math.floor(seconds % 60);
+        var m = Math.floor(seconds / 60);
+        return (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
       }
 
-      /* ── YouTube IFrame API callback ── */
-      function onYouTubeIframeAPIReady() {
-        var playerReady = false;
+      if (playBtn) {
+        playBtn.addEventListener('click', function () {
+          if (!playerReady || !playerOutput || typeof playerOutput.getPlayerState !== 'function') {
+            console.log("YouTube player is not ready yet.");
+            return;
+          }
+          var state = playerOutput.getPlayerState();
+          var isPlaying = (state === YT.PlayerState.PLAYING ||
+            state === YT.PlayerState.BUFFERING);
 
-        playerOutput = new YT.Player('featured-video', {
-          events: {
-            onReady: function () {
-              playerReady = true;
-            },
-            onStateChange: onOutputStateChange
+          if (isPlaying) {
+            /* ── Pause both ── */
+            syncing = true;
+            playerOutput.pauseVideo();
+            if (refVideo && !refVideo.paused) refVideo.pause();
+            setTimeout(function () { syncing = false; }, 600);
+            updateSyncBtn(false);
+          } else {
+            /* ── Sync timestamps then play both ── */
+            var ytTime = (typeof playerOutput.getCurrentTime === 'function')
+              ? (playerOutput.getCurrentTime() || 0) : 0;
+            if (refVideo) refVideo.currentTime = ytTime;
+            syncing = true;
+            playerOutput.playVideo();
+            if (refVideo) {
+              var p = refVideo.play();
+              if (p && p.catch) p.catch(function () { });
+            }
+            setTimeout(function () { syncing = false; }, 600);
+            updateSyncBtn(true);
+          }
+        });
+      }
+
+      /* Unmute / re-mute the reference video (with exclusive audio toggle) */
+      if (unmuteBtn && refVideo) {
+        unmuteBtn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          refVideo.muted = !refVideo.muted;
+          var muted = refVideo.muted;
+          unmuteLabel.textContent = muted ? 'Unmute Ref' : 'Mute Ref';
+          unmuteIcon.innerHTML = muted
+            ? '<path d="M16.5 12A4.5 4.5 0 0 0 14 7.97v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0 0 21 12c0-4.28-3-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06A8.99 8.99 0 0 0 17.73 19L19 20.27 20.27 19 5.27 3 4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>'
+            : '<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>';
+
+          // Toggle YouTube video mute state to prevent battling sounds
+          if (playerReady && playerOutput && typeof playerOutput.mute === 'function') {
+            if (muted) {
+              playerOutput.unMute();
+            } else {
+              playerOutput.mute();
+            }
+          }
+        });
+      }
+
+      /* ── Timeline slider interaction ── */
+      if (slider) {
+        slider.addEventListener('input', function () {
+          isDragging = true;
+          var val = parseFloat(slider.value);
+          if (timeCurrent) timeCurrent.textContent = formatTime(val);
+          var dur = (refVideo && refVideo.duration) ? refVideo.duration : 81;
+          var pct = (val / dur) * 100;
+          slider.style.setProperty('--progress', pct + '%');
+        });
+
+        slider.addEventListener('change', function () {
+          isDragging = false;
+          var val = parseFloat(slider.value);
+          if (refVideo) {
+            refVideo.currentTime = val;
+          }
+          if (playerReady && playerOutput && typeof playerOutput.seekTo === 'function') {
+            playerOutput.seekTo(val, true);
+          }
+        });
+      }
+
+      /* ── Synchronize timeline with playback ── */
+      if (refVideo && slider) {
+        refVideo.addEventListener('timeupdate', function () {
+          if (!isDragging) {
+            var curr = refVideo.currentTime || 0;
+            var dur = refVideo.duration || 81;
+            slider.value = curr;
+            slider.max = dur;
+            if (timeCurrent) timeCurrent.textContent = formatTime(curr);
+            if (timeTotal) timeTotal.textContent = formatTime(dur);
+
+            var pct = (curr / dur) * 100;
+            slider.style.setProperty('--progress', pct + '%');
           }
         });
 
-        refVideo = document.getElementById('ref-video-hero');
+        refVideo.addEventListener('loadedmetadata', function () {
+          var dur = refVideo.duration || 81;
+          slider.max = dur;
+          if (timeTotal) timeTotal.textContent = formatTime(dur);
+        });
+      }
 
-        /* ── Sync toggle button & Controls ── */
-        var playBtn     = document.getElementById('sync-play-btn');
-        var unmuteBtn   = document.getElementById('unmute-btn');
-        var unmuteIcon  = document.getElementById('unmute-icon');
-        var unmuteLabel = document.getElementById('unmute-label');
-        var slider      = document.getElementById('sync-timeline-slider');
-        var timeCurrent = document.getElementById('time-current');
-        var timeTotal   = document.getElementById('time-total');
-        var isDragging  = false;
+      /* ── Skip Buttons (-10s, -5s, +5s, +10s) ── */
+      function skip(amount) {
+        if (!refVideo) return;
+        var curr = refVideo.currentTime || 0;
+        var dur = refVideo.duration || 81;
+        var target = curr + amount;
+        if (target < 0) target = 0;
+        if (target > dur) target = dur;
 
-        function formatTime(seconds) {
-          var s = Math.floor(seconds % 60);
-          var m = Math.floor(seconds / 60);
-          return (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+        refVideo.currentTime = target;
+        if (playerReady && playerOutput && typeof playerOutput.seekTo === 'function') {
+          playerOutput.seekTo(target, true);
         }
 
-        if (playBtn) {
-          playBtn.addEventListener('click', function () {
-            if (!playerReady || !playerOutput || typeof playerOutput.getPlayerState !== 'function') {
-              console.log("YouTube player is not ready yet.");
-              return;
-            }
-            var state     = playerOutput.getPlayerState();
-            var isPlaying = (state === YT.PlayerState.PLAYING ||
-                             state === YT.PlayerState.BUFFERING);
-
-            if (isPlaying) {
-              /* ── Pause both ── */
-              syncing = true;
-              playerOutput.pauseVideo();
-              if (refVideo && !refVideo.paused) refVideo.pause();
-              setTimeout(function () { syncing = false; }, 600);
-              updateSyncBtn(false);
-            } else {
-              /* ── Sync timestamps then play both ── */
-              var ytTime = (typeof playerOutput.getCurrentTime === 'function')
-                           ? (playerOutput.getCurrentTime() || 0) : 0;
-              if (refVideo) refVideo.currentTime = ytTime;
-              syncing = true;
-              playerOutput.playVideo();
-              if (refVideo) {
-                var p = refVideo.play();
-                if (p && p.catch) p.catch(function () {});
-              }
-              setTimeout(function () { syncing = false; }, 600);
-              updateSyncBtn(true);
-            }
-          });
-        }
-
-        /* Unmute / re-mute the reference video (with exclusive audio toggle) */
-        if (unmuteBtn && refVideo) {
-          unmuteBtn.addEventListener('click', function (e) {
-            e.stopPropagation();
-            refVideo.muted = !refVideo.muted;
-            var muted = refVideo.muted;
-            unmuteLabel.textContent = muted ? 'Unmute Ref' : 'Mute Ref';
-            unmuteIcon.innerHTML = muted
-              ? '<path d="M16.5 12A4.5 4.5 0 0 0 14 7.97v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0 0 21 12c0-4.28-3-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06A8.99 8.99 0 0 0 17.73 19L19 20.27 20.27 19 5.27 3 4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>'
-              : '<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>';
-
-            // Toggle YouTube video mute state to prevent battling sounds
-            if (playerReady && playerOutput && typeof playerOutput.mute === 'function') {
-              if (muted) {
-                playerOutput.unMute();
-              } else {
-                playerOutput.mute();
-              }
-            }
-          });
-        }
-
-        /* ── Timeline slider interaction ── */
         if (slider) {
-          slider.addEventListener('input', function () {
-            isDragging = true;
-            var val = parseFloat(slider.value);
-            if (timeCurrent) timeCurrent.textContent = formatTime(val);
-            var dur = (refVideo && refVideo.duration) ? refVideo.duration : 81;
-            var pct = (val / dur) * 100;
-            slider.style.setProperty('--progress', pct + '%');
-          });
-
-          slider.addEventListener('change', function () {
-            isDragging = false;
-            var val = parseFloat(slider.value);
-            if (refVideo) {
-              refVideo.currentTime = val;
-            }
-            if (playerReady && playerOutput && typeof playerOutput.seekTo === 'function') {
-              playerOutput.seekTo(val, true);
-            }
-          });
+          slider.value = target;
+          var pct = (target / dur) * 100;
+          slider.style.setProperty('--progress', pct + '%');
         }
+        if (timeCurrent) timeCurrent.textContent = formatTime(target);
+      }
 
-        /* ── Synchronize timeline with playback ── */
-        if (refVideo && slider) {
-          refVideo.addEventListener('timeupdate', function () {
-            if (!isDragging) {
-              var curr = refVideo.currentTime || 0;
-              var dur  = refVideo.duration || 81;
-              slider.value = curr;
-              slider.max = dur;
-              if (timeCurrent) timeCurrent.textContent = formatTime(curr);
-              if (timeTotal) timeTotal.textContent = formatTime(dur);
-              
-              var pct = (curr / dur) * 100;
-              slider.style.setProperty('--progress', pct + '%');
-            }
-          });
+      var btnBack10 = document.getElementById('skip-back-10');
+      var btnBack5 = document.getElementById('skip-back-5');
+      var btnFwd5 = document.getElementById('skip-fwd-5');
+      var btnFwd10 = document.getElementById('skip-fwd-10');
 
-          refVideo.addEventListener('loadedmetadata', function () {
-            var dur = refVideo.duration || 81;
-            slider.max = dur;
-            if (timeTotal) timeTotal.textContent = formatTime(dur);
-          });
-        }
+      if (btnBack10) btnBack10.addEventListener('click', function () { skip(-10); });
+      if (btnBack5) btnBack5.addEventListener('click', function () { skip(-5); });
+      if (btnFwd5) btnFwd5.addEventListener('click', function () { skip(5); });
+      if (btnFwd10) btnFwd10.addEventListener('click', function () { skip(10); });
 
-        /* ── Skip Buttons (-10s, -5s, +5s, +10s) ── */
-        function skip(amount) {
-          if (!refVideo) return;
-          var curr = refVideo.currentTime || 0;
-          var dur  = refVideo.duration || 81;
-          var target = curr + amount;
-          if (target < 0) target = 0;
-          if (target > dur) target = dur;
-          
-          refVideo.currentTime = target;
-          if (playerReady && playerOutput && typeof playerOutput.seekTo === 'function') {
-            playerOutput.seekTo(target, true);
-          }
-          
-          if (slider) {
-            slider.value = target;
-            var pct = (target / dur) * 100;
-            slider.style.setProperty('--progress', pct + '%');
-          }
-          if (timeCurrent) timeCurrent.textContent = formatTime(target);
-        }
+      /* ── Card YT players — open lightbox when user clicks play ── */
+      var cardPlayers = [];
+      var czmOpening = false;   /* guard against state-change loops */
 
-        var btnBack10 = document.getElementById('skip-back-10');
-        var btnBack5  = document.getElementById('skip-back-5');
-        var btnFwd5   = document.getElementById('skip-fwd-5');
-        var btnFwd10  = document.getElementById('skip-fwd-10');
+      document.querySelectorAll('.video-card-embed iframe').forEach(function (iframe) {
+        var card = iframe.closest('.video-card');
+        var week = card ? ((card.querySelector('.video-card-week') || {}).textContent || '') : '';
+        var title = card ? ((card.querySelector('.video-card-title') || {}).textContent || '') : '';
+        var videoBase = iframe.src.split('?')[0]; /* capture before YT modifies src */
 
-        if (btnBack10) btnBack10.addEventListener('click', function() { skip(-10); });
-        if (btnBack5)  btnBack5.addEventListener('click',  function() { skip(-5); });
-        if (btnFwd5)   btnFwd5.addEventListener('click',   function() { skip(5); });
-        if (btnFwd10)  btnFwd10.addEventListener('click',  function() { skip(10); });
-
-        /* ── Card YT players — open lightbox when user clicks play ── */
-        var cardPlayers  = [];
-        var czmOpening   = false;   /* guard against state-change loops */
-
-        document.querySelectorAll('.video-card-embed iframe').forEach(function (iframe) {
-          var card  = iframe.closest('.video-card');
-          var week  = card ? ((card.querySelector('.video-card-week')  || {}).textContent || '') : '';
-          var title = card ? ((card.querySelector('.video-card-title') || {}).textContent || '') : '';
-          var videoBase = iframe.src.split('?')[0]; /* capture before YT modifies src */
-
-          (function (base, w, t) {
-            var cp = new YT.Player(iframe, {
-              events: {
-                onStateChange: function (e) {
-                  if (e.data === YT.PlayerState.PLAYING && !czmOpening) {
-                    czmOpening = true;
-                    cp.pauseVideo(); /* pause card — only one YT player active */
-                    if (typeof window.openCardLightbox === 'function') {
-                      window.openCardLightbox(base + '?rel=0&modestbranding=1', w, t);
-                    }
-                    setTimeout(function () { czmOpening = false; }, 800);
+        (function (base, w, t) {
+          var cp = new YT.Player(iframe, {
+            events: {
+              onStateChange: function (e) {
+                if (e.data === YT.PlayerState.PLAYING && !czmOpening) {
+                  czmOpening = true;
+                  cp.pauseVideo(); /* pause card — only one YT player active */
+                  if (typeof window.openCardLightbox === 'function') {
+                    window.openCardLightbox(base + '?rel=0&modestbranding=1', w, t);
                   }
+                  setTimeout(function () { czmOpening = false; }, 800);
                 }
               }
-            });
-            cardPlayers.push(cp);
-          })(videoBase, week, title);
-        });
-      }
+            }
+          });
+          cardPlayers.push(cp);
+        })(videoBase, week, title);
+      });
+    }
 
-      /* YouTube state change → update button label only (no individual control) */
-      function onOutputStateChange(e) {
-        if (syncing) return;
-        if (e.data === YT.PlayerState.PLAYING) {
-          updateSyncBtn(true);
-        } else if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) {
-          updateSyncBtn(false);
-          /* Mirror pause to reference just in case */
-          if (refVideo && !refVideo.paused) {
-            syncing = true;
-            refVideo.pause();
-            setTimeout(function () { syncing = false; }, 600);
-          }
+    /* YouTube state change → update button label only (no individual control) */
+    function onOutputStateChange(e) {
+      if (syncing) return;
+      if (e.data === YT.PlayerState.PLAYING) {
+        updateSyncBtn(true);
+      } else if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) {
+        updateSyncBtn(false);
+        /* Mirror pause to reference just in case */
+        if (refVideo && !refVideo.paused) {
+          syncing = true;
+          refVideo.pause();
+          setTimeout(function () { syncing = false; }, 600);
         }
       }
+    }
 
-      /* ── Workflow accordion ── */
-      (function () {
-        var toggle = document.getElementById('workflow-toggle');
-        var body   = document.getElementById('workflow-body');
-        if (!toggle || !body) return;
-        toggle.addEventListener('click', function () {
-          var isOpen = body.classList.toggle('open');
-          toggle.classList.toggle('open', isOpen);
-          toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-        });
-      })();
+    /* ── Workflow accordion ── */
+    (function () {
+      var toggle = document.getElementById('workflow-toggle');
+      var body = document.getElementById('workflow-body');
+      if (!toggle || !body) return;
+      toggle.addEventListener('click', function () {
+        var isOpen = body.classList.toggle('open');
+        toggle.classList.toggle('open', isOpen);
+        toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+    })();
 
-      /* ── Card zoom lightbox ── */
-      (function () {
-        var czm         = document.getElementById('czm');
-        var czmIframe   = document.getElementById('czm-iframe');
-        var czmWeek     = document.getElementById('czm-week');
-        var czmTitle    = document.getElementById('czm-title');
-        var czmClose    = document.getElementById('czm-close');
-        var czmBackdrop = document.getElementById('czm-backdrop');
-        if (!czm || !czmIframe) return;
+    /* ── Card zoom lightbox ── */
+    (function () {
+      var czm = document.getElementById('czm');
+      var czmIframe = document.getElementById('czm-iframe');
+      var czmWeek = document.getElementById('czm-week');
+      var czmTitle = document.getElementById('czm-title');
+      var czmClose = document.getElementById('czm-close');
+      var czmBackdrop = document.getElementById('czm-backdrop');
+      if (!czm || !czmIframe) return;
 
-        var srcTimer = null;
+      var srcTimer = null;
 
-        /* Called by card players when user presses play */
-        window.openCardLightbox = function (src, week, title) {
-          clearTimeout(srcTimer);
-          if (czmIframe.src !== src) czmIframe.src = src;
-          if (czmWeek)  czmWeek.textContent  = week  || '';
-          if (czmTitle) czmTitle.textContent = title || '';
-          czm.classList.add('visible');
-          czm.setAttribute('aria-hidden', 'false');
-        };
+      /* Called by card players when user presses play */
+      window.openCardLightbox = function (src, week, title) {
+        clearTimeout(srcTimer);
+        if (czmIframe.src !== src) czmIframe.src = src;
+        if (czmWeek) czmWeek.textContent = week || '';
+        if (czmTitle) czmTitle.textContent = title || '';
+        czm.classList.add('visible');
+        czm.setAttribute('aria-hidden', 'false');
+      };
 
-        function closeLightbox() {
-          czm.classList.remove('visible');
-          czm.setAttribute('aria-hidden', 'true');
-          srcTimer = setTimeout(function () { czmIframe.src = ''; }, 350);
-        }
+      function closeLightbox() {
+        czm.classList.remove('visible');
+        czm.setAttribute('aria-hidden', 'true');
+        srcTimer = setTimeout(function () { czmIframe.src = ''; }, 350);
+      }
 
-        if (czmClose)    czmClose.addEventListener('click',    closeLightbox);
-        if (czmBackdrop) czmBackdrop.addEventListener('click', closeLightbox);
-        document.addEventListener('keydown', function (e) {
-          if (e.key === 'Escape') closeLightbox();
-        });
-      })();
+      if (czmClose) czmClose.addEventListener('click', closeLightbox);
+      if (czmBackdrop) czmBackdrop.addEventListener('click', closeLightbox);
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeLightbox();
+      });
+    })();
 
-      /* ── Left Side Hover Panel (Side-peek stack) Logic ── */
-      (function () {
-        const peeks = document.querySelectorAll('.side-peek');
-        let pinnedPeek = null;
+    /* ── Left Side Hover Panel (Side-peek stack) Logic ── */
+    (function () {
+      const peeks = document.querySelectorAll('.side-peek');
+      let pinnedPeek = null;
 
-        const openPeek = (peek) => {
-          peeks.forEach((other) => {
-            if (other !== peek) {
-              other.classList.remove('is-open');
-              const t = other.querySelector('.side-peek-tab');
-              if (t) t.setAttribute('aria-expanded', 'false');
-              const c = other.querySelector('.side-peek-card');
-              if (c) c.style.maxHeight = '';
-            }
-          });
-          peek.classList.add('is-open');
-          const tab = peek.querySelector('.side-peek-tab');
-          if (tab) tab.setAttribute('aria-expanded', 'true');
-          
-          const card = peek.querySelector('.side-peek-card');
-          if (card) {
-            const cardTop = card.getBoundingClientRect().top;
-            const availableHeight = window.innerHeight - cardTop - 25;
-            card.style.maxHeight = Math.max(availableHeight, 150) + 'px';
+      const openPeek = (peek) => {
+        peeks.forEach((other) => {
+          if (other !== peek) {
+            other.classList.remove('is-open');
+            const t = other.querySelector('.side-peek-tab');
+            if (t) t.setAttribute('aria-expanded', 'false');
+            const c = other.querySelector('.side-peek-card');
+            if (c) c.style.maxHeight = '';
           }
-        };
-
-        const closePeek = (peek) => {
-          peek.classList.remove('is-open');
-          const tab = peek.querySelector('.side-peek-tab');
-          if (tab) tab.setAttribute('aria-expanded', 'false');
-          const card = peek.querySelector('.side-peek-card');
-          if (card) card.style.maxHeight = '';
-        };
-
-        peeks.forEach((peek) => {
-          const tab = peek.querySelector('.side-peek-tab');
-          if (!tab) return;
-
-          peek.addEventListener('mouseenter', () => {
-            if (pinnedPeek && pinnedPeek !== peek) {
-              closePeek(pinnedPeek);
-              pinnedPeek = null;
-            }
-            openPeek(peek);
-          });
-
-          peek.addEventListener('mouseleave', () => {
-            if (pinnedPeek !== peek) {
-              closePeek(peek);
-            }
-          });
-
-          const toggle = () => {
-            if (pinnedPeek === peek) {
-              pinnedPeek = null;
-              closePeek(peek);
-            } else {
-              pinnedPeek = peek;
-              openPeek(peek);
-            }
-          };
-
-          tab.addEventListener('click', (e) => {
-            e.stopPropagation();
-            toggle();
-          });
-
-          tab.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              e.stopPropagation();
-              toggle();
-            }
-          });
         });
+        peek.classList.add('is-open');
+        const tab = peek.querySelector('.side-peek-tab');
+        if (tab) tab.setAttribute('aria-expanded', 'true');
 
-        document.addEventListener('click', (e) => {
-          if (pinnedPeek && !pinnedPeek.contains(e.target)) {
+        const card = peek.querySelector('.side-peek-card');
+        if (card) {
+          const cardTop = card.getBoundingClientRect().top;
+          const availableHeight = window.innerHeight - cardTop - 25;
+          card.style.maxHeight = Math.max(availableHeight, 150) + 'px';
+        }
+      };
+
+      const closePeek = (peek) => {
+        peek.classList.remove('is-open');
+        const tab = peek.querySelector('.side-peek-tab');
+        if (tab) tab.setAttribute('aria-expanded', 'false');
+        const card = peek.querySelector('.side-peek-card');
+        if (card) card.style.maxHeight = '';
+      };
+
+      peeks.forEach((peek) => {
+        const tab = peek.querySelector('.side-peek-tab');
+        if (!tab) return;
+
+        peek.addEventListener('mouseenter', () => {
+          if (pinnedPeek && pinnedPeek !== peek) {
             closePeek(pinnedPeek);
             pinnedPeek = null;
           }
+          openPeek(peek);
         });
 
-        /* Dynamic Rotoscope Trivia */
-        var ROTO_TRIVIA = [
-          "Max Fleischer patented the rotoscope in 1915 to bring fluid, lifelike movements to Koko the Clown.",
-          "In the original Star Wars (1977), lightsaber blades were hand-rotoscoped frame-by-frame on physical film layers to add their glow.",
-          "Disney's Snow White and the Seven Dwarfs (1937) heavily used rotoscoping for Snow White to make her appear graceful.",
-          "Ralph Bakshi's The Lord of the Rings (1978) utilized rotoscoping extensively for battle sequences to save on production costs.",
-          "A-ha's famous 'Take On Me' music video (1985) used pencil-traced rotoscoping over 16 weeks to achieve its comic book sketch look.",
-          "Traced animation 'on ones' means drawing a new frame every frame (24 fps), while 'on twos' means drawing a frame every two frames (12 fps)."
-        ];
-        var triviaIndex = 0;
-        var triviaText = document.getElementById('roto-trivia-text');
-        var triviaBtn = document.getElementById('roto-trivia-next-btn');
-
-        if (triviaBtn && triviaText) {
-          triviaBtn.addEventListener('click', function () {
-            triviaIndex = (triviaIndex + 1) % ROTO_TRIVIA.length;
-            triviaText.textContent = ROTO_TRIVIA[triviaIndex];
-          });
-        }
-
-        /* Animator's Frame Calculator */
-        var durationInput = document.getElementById('roto-calc-duration');
-        var fpsSelect = document.getElementById('roto-calc-fps');
-        var resultVal = document.getElementById('roto-calc-result');
-
-        // Initial setup
-        function updateRotoCalc() {
-          if (!durationInput || !fpsSelect || !resultVal) return;
-          var sec = parseFloat(durationInput.value) || 0;
-          var fps = parseInt(fpsSelect.value) || 12;
-          var frames = Math.round(sec * fps);
-          resultVal.textContent = frames.toLocaleString();
-        }
-
-        if (durationInput) durationInput.addEventListener('input', updateRotoCalc);
-        if (fpsSelect) fpsSelect.addEventListener('change', updateRotoCalc);
-
-        /* Position the left side-peek stack just below the real header dynamically */
-        const adjustStackTop = () => {
-          const header = document.querySelector('.topbar');
-          const stack = document.querySelector('.side-peek-stack.left');
-          if (header && stack) {
-            const h = header.getBoundingClientRect().height;
-            stack.style.top = (h + 15) + 'px';
+        peek.addEventListener('mouseleave', () => {
+          if (pinnedPeek !== peek) {
+            closePeek(peek);
           }
-          // Update open card height if any is active
-          const openCard = document.querySelector('.side-peek.is-open .side-peek-card');
-          if (openCard) {
-            const cardTop = openCard.getBoundingClientRect().top;
-            const availableHeight = window.innerHeight - cardTop - 25;
-            openCard.style.maxHeight = Math.max(availableHeight, 150) + 'px';
+        });
+
+        const toggle = () => {
+          if (pinnedPeek === peek) {
+            pinnedPeek = null;
+            closePeek(peek);
+          } else {
+            pinnedPeek = peek;
+            openPeek(peek);
           }
         };
-        window.addEventListener('resize', adjustStackTop);
-        window.addEventListener('DOMContentLoaded', adjustStackTop);
-        setTimeout(adjustStackTop, 50);
-        adjustStackTop();
-      })();
-    </script>
-  </body>
+
+        tab.addEventListener('click', (e) => {
+          e.stopPropagation();
+          toggle();
+        });
+
+        tab.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            e.stopPropagation();
+            toggle();
+          }
+        });
+      });
+
+      document.addEventListener('click', (e) => {
+        if (pinnedPeek && !pinnedPeek.contains(e.target)) {
+          closePeek(pinnedPeek);
+          pinnedPeek = null;
+        }
+      });
+
+      /* Dynamic Rotoscope Trivia */
+      var ROTO_TRIVIA = [
+        "Max Fleischer patented the rotoscope in 1915 to bring fluid, lifelike movements to Koko the Clown.",
+        "In the original Star Wars (1977), lightsaber blades were hand-rotoscoped frame-by-frame on physical film layers to add their glow.",
+        "Disney's Snow White and the Seven Dwarfs (1937) heavily used rotoscoping for Snow White to make her appear graceful.",
+        "Ralph Bakshi's The Lord of the Rings (1978) utilized rotoscoping extensively for battle sequences to save on production costs.",
+        "A-ha's famous 'Take On Me' music video (1985) used pencil-traced rotoscoping over 16 weeks to achieve its comic book sketch look.",
+        "Traced animation 'on ones' means drawing a new frame every frame (24 fps), while 'on twos' means drawing a frame every two frames (12 fps)."
+      ];
+      var triviaIndex = 0;
+      var triviaText = document.getElementById('roto-trivia-text');
+      var triviaBtn = document.getElementById('roto-trivia-next-btn');
+
+      if (triviaBtn && triviaText) {
+        triviaBtn.addEventListener('click', function () {
+          triviaIndex = (triviaIndex + 1) % ROTO_TRIVIA.length;
+          triviaText.textContent = ROTO_TRIVIA[triviaIndex];
+        });
+      }
+
+      /* Animator's Frame Calculator */
+      var durationInput = document.getElementById('roto-calc-duration');
+      var fpsSelect = document.getElementById('roto-calc-fps');
+      var resultVal = document.getElementById('roto-calc-result');
+
+      // Initial setup
+      function updateRotoCalc() {
+        if (!durationInput || !fpsSelect || !resultVal) return;
+        var sec = parseFloat(durationInput.value) || 0;
+        var fps = parseInt(fpsSelect.value) || 12;
+        var frames = Math.round(sec * fps);
+        resultVal.textContent = frames.toLocaleString();
+      }
+
+      if (durationInput) durationInput.addEventListener('input', updateRotoCalc);
+      if (fpsSelect) fpsSelect.addEventListener('change', updateRotoCalc);
+
+      /* Position the left side-peek stack just below the real header dynamically */
+      const adjustStackTop = () => {
+        const header = document.querySelector('.topbar');
+        const stack = document.querySelector('.side-peek-stack.left');
+        if (header && stack) {
+          const h = header.getBoundingClientRect().height;
+          stack.style.top = (h + 15) + 'px';
+        }
+        // Update open card height if any is active
+        const openCard = document.querySelector('.side-peek.is-open .side-peek-card');
+        if (openCard) {
+          const cardTop = openCard.getBoundingClientRect().top;
+          const availableHeight = window.innerHeight - cardTop - 25;
+          openCard.style.maxHeight = Math.max(availableHeight, 150) + 'px';
+        }
+      };
+      window.addEventListener('resize', adjustStackTop);
+      window.addEventListener('DOMContentLoaded', adjustStackTop);
+      setTimeout(adjustStackTop, 50);
+      adjustStackTop();
+    })();
+  </script>
+</body>
+
 </html>
