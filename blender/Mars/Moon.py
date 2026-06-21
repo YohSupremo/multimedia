@@ -174,7 +174,7 @@ def build_moon_material(texture_path: str):
     print(f"✅  Baked: frames {FRAME_START}–{FRAME_END}")
     print()
     print("   💡 Render tips:")
-    print("      • Engine: Cycles, samples ≥ 128")
+    print("      • Engine: EEVEE, samples: 128")
     print("      • Add an HDRI (deep space / black with stars)")
     print("      • Single directional light off to one side = sunlight")
     print("      • Add a subtle blue Rim light on the dark side")

@@ -121,7 +121,7 @@ def build_moon_material(texture_path: str):
 
     print("✅  Moon_Cinematic material applied!")
     print("   💡 Render tips:")
-    print("      • Engine: Cycles, samples ≥ 128")
+    print("      • Engine: EEVEE, samples: 128")
     print("      • Add an HDRI (deep space / black with stars)")
     print("      • Single directional light off to one side = sunlight")
     print("      • Disable Bloom OR keep it very subtle (0.05)")

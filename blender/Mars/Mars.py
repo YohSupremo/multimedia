@@ -212,7 +212,7 @@ def build_mars_material(texture_path: str):
     print(f"✅  Tilt:  {AXIAL_TILT_DEGREES}° (X axis)")
     print(f"✅  Spin:  1 rotation per {MARS_SPIN_FRAMES} frames")
     print(f"✅  Baked: frames {FRAME_START}–{FRAME_END}")
-    print("   💡 Tips: Cycles ≥128 samples | HDRI space lighting | Sun lamp off to one side")
+    print("   💡 Tips: EEVEE 128 samples | HDRI space lighting | Sun lamp off to one side")
 
 
 build_mars_material(TEXTURE_PATH)

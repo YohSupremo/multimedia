@@ -274,7 +274,7 @@ def build_mercury_material(texture_path: str):
     print("   💡  Render tips:")
     print("       • Single strong Sun/Point light (Mercury is close to the Sun)")
     print("       • Very low ambient — no atmosphere scattering")
-    print("       • Black background, Cycles, ≥128 samples")
+    print("       • Black background, EEVEE, 128 samples")
 
 
 build_mercury_material(TEXTURE_PATH)

@@ -151,17 +151,110 @@
         object-fit: cover;
       }
 
-      /* ── Sync bar ("Play Both" button below the two videos) ── */
-      .sync-bar {
+      /* ── Sync Control Panel (Card, Timeline, Slider, Row, Buttons) ── */
+      .sync-controls-card {
+        width: 100%;
+        max-width: 1200px;
+        margin: 1.5rem auto 1.5rem;
+        background: rgba(10, 12, 18, 0.6);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-xl);
+        padding: 1.25rem 1.5rem;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 20px rgba(124, 224, 195, 0.03);
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 0.45rem;
-        margin: 1rem auto 0;
-        width: 100%;
-        max-width: 1200px;
+        gap: 1rem;
+        backdrop-filter: blur(8px);
       }
-      .sync-bar.hidden { display: none; }
+
+      .timeline-container {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        width: 100%;
+        background: rgba(10, 12, 18, 0.4);
+        padding: 0.5rem 1rem;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--line);
+      }
+
+      .time-display {
+        font-family: monospace;
+        font-size: 0.8rem;
+        color: var(--muted);
+        min-width: 45px;
+        text-align: center;
+        user-select: none;
+      }
+
+      .timeline-slider {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 100%;
+        height: 6px;
+        border-radius: 99px;
+        background: linear-gradient(to right, var(--accent) 0%, var(--accent) var(--progress, 0%), rgba(255, 255, 255, 0.1) var(--progress, 0%), rgba(255, 255, 255, 0.1) 100%);
+        outline: none;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      .timeline-slider::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 6px;
+        cursor: pointer;
+      }
+
+      .timeline-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--accent);
+        cursor: pointer;
+        box-shadow: 0 0 10px rgba(124, 224, 195, 0.6);
+        transition: transform 0.1s, background-color 0.2s;
+        margin-top: -4px;
+      }
+
+      .timeline-slider::-webkit-slider-thumb:hover {
+        transform: scale(1.25);
+        background: #fff;
+      }
+
+      .timeline-slider::-moz-range-thumb {
+        width: 14px;
+        height: 14px;
+        border: none;
+        border-radius: 50%;
+        background: var(--accent);
+        cursor: pointer;
+        box-shadow: 0 0 10px rgba(124, 224, 195, 0.6);
+        transition: transform 0.1s, background-color 0.2s;
+      }
+
+      .timeline-slider::-moz-range-thumb:hover {
+        transform: scale(1.25);
+        background: #fff;
+      }
+
+      .controls-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.8rem;
+        flex-wrap: wrap;
+        width: 100%;
+      }
+
+      .playback-group {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+      }
 
       .sync-play-btn {
         display: inline-flex;
@@ -179,11 +272,46 @@
         box-shadow: 0 4px 20px rgba(124,224,195,0.35);
         transition: transform 0.15s, box-shadow 0.15s;
       }
+
       .sync-play-btn:hover {
         transform: scale(1.04);
         box-shadow: 0 6px 28px rgba(124,224,195,0.5);
       }
-      .sync-play-btn svg { width:18px; height:18px; fill:currentColor; flex-shrink:0; }
+
+      .sync-play-btn svg { width: 18px; height: 18px; fill: currentColor; flex-shrink: 0; }
+
+      .skip-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--muted);
+        border: 1px solid var(--line);
+        border-radius: 99px;
+        padding: 0.45rem 1rem;
+        font-size: 0.82rem;
+        font-weight: 600;
+        font-family: inherit;
+        cursor: pointer;
+        transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.1s;
+      }
+
+      .skip-btn:hover {
+        background: rgba(255, 255, 255, 0.09);
+        color: var(--text);
+        border-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-1px);
+      }
+
+      .skip-btn:active {
+        transform: translateY(0);
+      }
+
+      .skip-val {
+        font-size: 0.72rem;
+        margin: 0 0.15rem;
+        color: var(--accent);
+      }
 
       .sync-hint {
         font-size: 0.75rem;
@@ -191,29 +319,69 @@
         letter-spacing: 0.04em;
       }
 
-      /* Unmute toggle pill */
-      .unmute-btn {
-        position: absolute;
-        bottom: 0.5rem;
-        right: 0.6rem;
-        z-index: 20;
-        display: flex;
+      /* Integrated unmute button in controls card */
+      .sync-controls-card .unmute-btn {
+        position: static;
+        display: inline-flex;
         align-items: center;
         gap: 0.35rem;
-        background: rgba(10,12,18,0.75);
-        border: 1px solid rgba(121,167,255,0.3);
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--line);
         border-radius: 99px;
-        padding: 0.25rem 0.65rem;
-        font-size: 0.72rem;
+        padding: 0.45rem 1rem;
+        font-size: 0.82rem;
         font-weight: 600;
         color: var(--accent-2);
         font-family: inherit;
         cursor: pointer;
-        transition: background 0.2s, border-color 0.2s;
-        backdrop-filter: blur(4px);
+        transition: background 0.2s, border-color 0.2s, transform 0.1s;
+        backdrop-filter: none;
       }
-      .unmute-btn:hover { background: rgba(121,167,255,0.12); border-color: var(--accent-2); }
-      .unmute-btn svg { width:13px; height:13px; fill:currentColor; }
+
+      .sync-controls-card .unmute-btn:hover {
+        background: rgba(121, 167, 255, 0.08);
+        border-color: rgba(121, 167, 255, 0.35);
+        transform: translateY(-1px);
+      }
+
+      .sync-controls-card .unmute-btn:active {
+        transform: translateY(0);
+      }
+
+      .sync-controls-card .unmute-btn svg { width: 13px; height: 13px; fill: currentColor; }
+
+      @media (max-width: 640px) {
+        .controls-row {
+          flex-direction: column;
+          gap: 0.75rem;
+        }
+        .playback-group {
+          width: 100%;
+          justify-content: center;
+          gap: 0.4rem;
+        }
+        .skip-btn .skip-val {
+          display: none;
+        }
+        .skip-btn {
+          padding: 0.5rem;
+          min-width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .sync-play-btn {
+          padding: 0.55rem 1.4rem;
+          font-size: 0.85rem;
+        }
+        .sync-controls-card .unmute-btn {
+          width: 100%;
+          justify-content: center;
+          margin-left: 0;
+        }
+      }
 
       /* Disclaimer strip below comparison grid */
       .comparison-disclaimer {
@@ -798,6 +966,432 @@
         flex-shrink: 0;
       }
       .czm-close:hover { background: rgba(255,255,255,0.14); color: var(--text); }
+
+      /* ── SIDE HOVER PANEL (SIDE-PEEK) STYLES ── */
+      :root {
+        --card-width: 290px;
+      }
+
+      @media (max-width: 720px) {
+        :root {
+          --card-width: min(70vw, 250px);
+        }
+      }
+
+      .side-peek-stack {
+        position: fixed;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+        z-index: 500;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        pointer-events: none;
+      }
+
+      .side-peek {
+        display: flex;
+        align-items: stretch;
+        transform: translateX(var(--card-width));
+        transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+        pointer-events: auto;
+        position: relative;
+      }
+
+      .side-peek.is-open {
+        transform: translateX(0);
+      }
+
+      .side-peek-tab {
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        flex-shrink: 0;
+        width: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.45rem;
+        padding: 1rem 0;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-right: none;
+        border-radius: var(--radius-md) 0 0 var(--radius-md);
+        color: var(--accent-2);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+        cursor: pointer;
+        box-shadow: -6px 0 24px rgba(0, 0, 0, 0.25);
+        transition: color 0.2s, background 0.25s, border-color 0.25s, box-shadow 0.25s, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        user-select: none;
+        animation: peekBounce 2.6s ease-in-out infinite, peekGlow 2.6s ease-in-out infinite;
+      }
+
+      @keyframes peekBounce {
+        0%, 100% { transform: translateX(0); }
+        50% { transform: translateX(-6px); }
+      }
+
+      @keyframes peekGlow {
+        0%, 100% { box-shadow: -6px 0 24px rgba(0, 0, 0, 0.25), 0 0 0 rgba(121, 167, 255, 0); }
+        50% { box-shadow: -6px 0 24px rgba(0, 0, 0, 0.25), 0 0 16px 3px rgba(121, 167, 255, 0.45); }
+      }
+
+      .side-peek.is-open .side-peek-tab {
+        animation-play-state: paused;
+        transform: translateX(-3px);
+      }
+
+      .side-peek-tab svg.side-peek-icon {
+        writing-mode: horizontal-tb;
+        flex-shrink: 0;
+        transition: transform 0.3s ease;
+      }
+
+      .side-peek-tab:hover {
+        color: var(--text);
+        background: rgba(121, 167, 255, 0.14);
+        border-color: var(--accent-2);
+        box-shadow: -8px 0 28px rgba(0, 0, 0, 0.3), 0 0 22px 4px rgba(121, 167, 255, 0.35), inset 0 0 0 1px rgba(121, 167, 255, 0.25);
+      }
+
+      .side-peek-tab:hover svg.side-peek-icon {
+        transform: scale(1.18) rotate(8deg);
+      }
+
+      .side-peek-tab:active {
+        transform: translateX(-1px) scale(0.97);
+      }
+
+      .side-peek-card {
+        width: var(--card-width);
+        flex-shrink: 0;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-right: none;
+        box-shadow: -10px 0 32px rgba(0, 0, 0, 0.35);
+        padding: 1.1rem 1.1rem 1rem;
+        max-height: 78vh;
+        overflow-y: auto;
+      }
+
+      .side-peek-card h3 {
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: var(--text);
+        margin: 0 0 0.15rem;
+      }
+
+      .side-peek-card .side-peek-sub {
+        font-size: 0.68rem;
+        color: var(--muted);
+        margin: 0 0 0.7rem;
+        line-height: 1.4;
+      }
+
+      .side-peek-section {
+        margin-top: 0;
+        padding-top: 0;
+        border-top: none;
+      }
+
+      .side-peek-section+.side-peek-section {
+        margin-top: 1.1rem;
+        padding-top: 1.1rem;
+        border-top: 1px solid var(--line);
+      }
+
+      /* Mobile styling moved to bottom for proper cascade */
+
+      /* Left-side stack overrides */
+      .side-peek-stack.left {
+        top: 110px;
+        transform: none;
+        left: 0;
+        right: auto;
+        align-items: flex-start;
+        gap: 0;
+        z-index: 500;
+      }
+
+      .side-peek-stack.left .side-peek {
+        transform: translateX(calc(-1 * var(--card-width)));
+        align-items: flex-start;
+        flex-direction: row;
+      }
+
+      .side-peek-stack.left .side-peek-tab {
+        padding: 0.8rem 0;
+        font-size: 0.62rem;
+        gap: 0.35rem;
+        border-radius: 0 var(--radius-md) var(--radius-md) 0;
+        border-right: 1px solid var(--line);
+        border-left: none;
+        box-shadow: 6px 0 24px rgba(0, 0, 0, 0.25);
+        animation: leftTabBounce 2.6s ease-in-out infinite, peekLeftGlow 2.6s ease-in-out infinite;
+      }
+
+      @keyframes leftTabBounce {
+        0%, 100% { transform: translateX(0); }
+        50% { transform: translateX(5px); }
+      }
+
+      @keyframes peekLeftGlow {
+        0%, 100% { box-shadow: 6px 0 24px rgba(0, 0, 0, 0.25), 0 0 0 rgba(121, 167, 255, 0); }
+        50% { box-shadow: 6px 0 24px rgba(0, 0, 0, 0.25), 0 0 16px 3px rgba(121, 167, 255, 0.45); }
+      }
+
+      .side-peek-stack.left .side-peek.is-open .side-peek-tab {
+        animation-play-state: paused;
+        transform: translateX(2px);
+      }
+
+      .side-peek-stack.left .side-peek-tab svg.side-peek-icon {
+        width: 14px;
+        height: 14px;
+      }
+
+      .side-peek-stack.left .side-peek.is-open {
+        transform: translateX(0);
+      }
+
+      .side-peek-stack.left .side-peek-card {
+        border-right: 1px solid var(--line);
+        border-left: none;
+        box-shadow: 10px 0 32px rgba(0, 0, 0, 0.35);
+        max-height: 0;
+        padding: 0 0.9rem;
+        border-top: 0 solid transparent;
+        border-bottom: 0 solid transparent;
+        overflow: hidden;
+        transition: max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                    padding 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                    border-color 0.4s;
+      }
+
+      .side-peek-stack.left .side-peek.is-open .side-peek-card {
+        max-height: 52vh;
+        padding: 0.85rem 0.9rem 0.8rem;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        overflow-y: auto;
+      }
+
+      /* Specific Card Widget Styling */
+      .tools-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        margin-top: 0.6rem;
+      }
+
+      .tool-item {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-md);
+        padding: 0.6rem 0.8rem;
+        transition: border-color 0.2s, background 0.2s;
+      }
+
+      .tool-item:hover {
+        border-color: var(--accent);
+        background: rgba(124, 224, 195, 0.04);
+      }
+
+      .tool-item-header {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-weight: 700;
+        font-size: 0.78rem;
+        margin-bottom: 0.15rem;
+      }
+
+      .tool-item-name {
+        color: var(--text);
+      }
+
+      .tool-item-role {
+        font-size: 0.65rem;
+        color: var(--muted);
+      }
+
+      /* Trivia styles */
+      .trivia-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-md);
+        padding: 0.8rem 1rem;
+        min-height: 120px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 0.8rem;
+      }
+
+      .trivia-text {
+        font-size: 0.78rem;
+        line-height: 1.5;
+        color: var(--text);
+        margin: 0;
+      }
+
+      .trivia-btn {
+        background: linear-gradient(135deg, var(--accent-2), #79a7ff);
+        color: #05070c;
+        border: none;
+        border-radius: 99px;
+        padding: 0.45rem 1rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.35rem;
+        transition: transform 0.1s, box-shadow 0.2s;
+      }
+
+      .trivia-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(121,167,255,0.3);
+      }
+
+      /* Calculator styles */
+      .calc-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .calc-label {
+        font-size: 0.68rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--muted);
+        letter-spacing: 0.05em;
+      }
+
+      .calc-input {
+        width: 100%;
+        background: rgba(0,0,0,0.25);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-md);
+        padding: 0.45rem 0.65rem;
+        color: var(--text);
+        font-family: inherit;
+        font-size: 0.8rem;
+        outline: none;
+      }
+
+      .calc-input:focus {
+        border-color: var(--accent-2);
+      }
+
+      .calc-select {
+        width: 100%;
+        background: rgba(0,0,0,0.25);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-md);
+        padding: 0.45rem 0.65rem;
+        color: var(--text);
+        font-family: inherit;
+        font-size: 0.8rem;
+        outline: none;
+        cursor: pointer;
+      }
+
+      .calc-select option {
+        background: #0d111a;
+      }
+
+      .calc-result-box {
+        background: rgba(121,167,255,0.06);
+        border: 1px solid rgba(121,167,255,0.15);
+        border-radius: var(--radius-md);
+        padding: 0.75rem;
+        text-align: center;
+      }
+
+      .calc-result-val {
+        font-size: 1.35rem;
+        font-weight: 800;
+        color: var(--accent-2);
+        font-family: monospace;
+      }
+
+      .calc-result-label {
+        font-size: 0.68rem;
+        color: var(--muted);
+        margin-top: 0.15rem;
+      }
+
+      /* Glossary styles */
+      .glossary-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+      }
+
+      .glossary-term {
+        font-size: 0.75rem;
+        line-height: 1.45;
+        color: var(--muted);
+      }
+
+      .glossary-term strong {
+        color: var(--text);
+        font-weight: 700;
+        display: block;
+        margin-bottom: 0.05rem;
+      }
+
+      /* ── Mobile viewport overrides (cascade-correct bottom placement) ── */
+      @media (max-width: 720px) {
+        .side-peek-stack.left {
+          position: static;
+          transform: none;
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 1.6rem !important; /* Ensure proper spacing between cards */
+          padding: 0 1rem 3rem;
+          max-width: 1200px;
+          margin: 3.5rem auto 0; /* Add top margin before the cards stack */
+          width: 100%;
+          box-sizing: border-box;
+          pointer-events: auto;
+        }
+
+        .side-peek-stack.left .side-peek {
+          position: static;
+          transform: none !important;
+          width: 100%;
+          display: block;
+          height: auto;
+          pointer-events: auto;
+        }
+
+        .side-peek-stack.left .side-peek-tab {
+          display: none !important;
+        }
+
+        .side-peek-stack.left .side-peek-card,
+        .side-peek-stack.left .side-peek.is-open .side-peek-card {
+          width: 100% !important;
+          max-height: none !important;
+          padding: 1.5rem !important;
+          border: 1px solid var(--line) !important;
+          border-radius: var(--radius-xl) !important;
+          background: var(--panel) !important;
+          box-shadow: none !important;
+          overflow: visible !important;
+          display: block !important;
+          margin-top: 0 !important;
+        }
+      }
     </style>
   </head>
   <body>
@@ -865,23 +1459,53 @@
                 playsinline
               ></video>
 
-              <!-- Unmute toggle (appears after sync starts) -->
-              <button class="unmute-btn" id="unmute-btn" aria-label="Toggle mute on reference video" style="display:none">
-                <svg id="unmute-icon" viewBox="0 0 24 24"><path d="M16.5 12A4.5 4.5 0 0 0 14 7.97v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0 0 21 12c0-4.28-3-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06A8.99 8.99 0 0 0 17.73 19L19 20.27 20.27 19 5.27 3 4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
-                <span id="unmute-label">Unmute Ref</span>
-              </button>
-
             </div>
           </div>
 
         </div><!-- /comparison-grid -->
 
-        <!-- Sync toggle button (always visible — controls both videos) -->
-        <div class="sync-bar" id="sync-overlay">
-          <button class="sync-play-btn" id="sync-play-btn" aria-label="Sync and play both videos">
-            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-            <span id="sync-btn-label">Sync &amp; Play</span>
-          </button>
+        <!-- Sync Control Panel (Timeline + Controls) -->
+        <div class="sync-controls-card" id="sync-controls-panel">
+          <!-- Row 1: The Sync Timeline Slider -->
+          <div class="timeline-container">
+            <span class="time-display" id="time-current">00:00</span>
+            <input type="range" class="timeline-slider" id="sync-timeline-slider" min="0" max="81" value="0" step="0.1" aria-label="Sync Video Timeline">
+            <span class="time-display" id="time-total">01:21</span>
+          </div>
+
+          <!-- Row 2: Control buttons -->
+          <div class="controls-row">
+            <div class="playback-group">
+              <button class="skip-btn" id="skip-back-10" aria-label="Rewind 10 seconds">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 17l-5-5 5-5M18 17l-5-5 5-5"/></svg>
+                <span class="skip-val">-10s</span>
+              </button>
+              <button class="skip-btn" id="skip-back-5" aria-label="Rewind 5 seconds">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 19l-7-7 7-7"/></svg>
+                <span class="skip-val">-5s</span>
+              </button>
+
+              <button class="sync-play-btn" id="sync-play-btn" aria-label="Sync and play both videos">
+                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                <span id="sync-btn-label">Sync &amp; Play</span>
+              </button>
+
+              <button class="skip-btn" id="skip-fwd-5" aria-label="Forward 5 seconds">
+                <span class="skip-val">+5s</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+              </button>
+              <button class="skip-btn" id="skip-fwd-10" aria-label="Forward 10 seconds">
+                <span class="skip-val">+10s</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5l5 5-5 5M6 5l5 5-5 5"/></svg>
+              </button>
+            </div>
+
+            <!-- Unmute toggle integrated in the controls row -->
+            <button class="unmute-btn" id="unmute-btn" aria-label="Toggle mute on reference video">
+              <svg id="unmute-icon" viewBox="0 0 24 24"><path d="M16.5 12A4.5 4.5 0 0 0 14 7.97v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0 0 21 12c0-4.28-3-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06A8.99 8.99 0 0 0 17.73 19L19 20.27 20.27 19 5.27 3 4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+              <span id="unmute-label">Unmute Ref</span>
+            </button>
+          </div>
           <span class="sync-hint">Controls both videos together at the same timestamp</span>
         </div>
 
@@ -1299,6 +1923,142 @@
       </section>
 
       <!-- Reference section removed: now integrated into hero comparison grid above -->
+
+      <!-- ── Left Hover Sidebar (Side-peek stack) ── -->
+      <div class="side-peek-stack left">
+        
+        <!-- Card 1: Production Stack -->
+        <aside class="side-peek" id="side-peek-tools" aria-label="Rotoscope Production Stack">
+          <div class="side-peek-card">
+            <div class="side-peek-section">
+              <h3>Production Stack</h3>
+              <p class="side-peek-sub">Tools &amp; platforms used in the workflow.</p>
+              <div class="tools-list">
+                <div class="tool-item">
+                  <div class="tool-item-header">
+                    <span style="color:var(--accent-2)">🎥</span>
+                    <span class="tool-item-name">After Effects</span>
+                  </div>
+                  <div class="tool-item-role">Frame masking &amp; track matte clipping</div>
+                </div>
+                <div class="tool-item">
+                  <div class="tool-item-header">
+                    <span style="color:var(--accent)">✂️</span>
+                    <span class="tool-item-name">CapCut</span>
+                  </div>
+                  <div class="tool-item-role">Timeline assembly, pacing &amp; audio synch</div>
+                </div>
+                <div class="tool-item">
+                  <div class="tool-item-header">
+                    <span style="color:#ff4b4b">📺</span>
+                    <span class="tool-item-name">YouTube</span>
+                  </div>
+                  <div class="tool-item-role">High-quality hosting, portfolio integration &amp; playback</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="side-peek-tab tools-tab" id="side-peek-tab-tools" tabindex="0" role="button" aria-expanded="false" title="Production Stack">
+            <svg class="side-peek-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+            </svg>
+            Tools &amp; Stack
+          </div>
+        </aside>
+
+        <!-- Card 2: Trivia -->
+        <aside class="side-peek" id="side-peek-trivia" aria-label="Rotoscope History &amp; Trivia">
+          <div class="side-peek-card">
+            <div class="side-peek-section">
+              <h3>Rotoscope Trivia</h3>
+              <p class="side-peek-sub">Fascinating historical facts about the craft.</p>
+              <div class="trivia-card">
+                <p class="trivia-text" id="roto-trivia-text">Max Fleischer patented the rotoscope in 1915 to bring fluid, lifelike movements to Koko the Clown.</p>
+                <button class="trivia-btn" id="roto-trivia-next-btn">
+                  <span>Next Trivia</span>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="side-peek-tab trivia-tab" id="side-peek-tab-trivia" tabindex="0" role="button" aria-expanded="false" title="Rotoscope Trivia">
+            <svg class="side-peek-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/>
+            </svg>
+            Roto Trivia
+          </div>
+        </aside>
+
+        <!-- Card 3: Frame Calculator -->
+        <aside class="side-peek" id="side-peek-calc" aria-label="Animator's Frame Calculator">
+          <div class="side-peek-card">
+            <div class="side-peek-section">
+              <h3>Frame Calculator</h3>
+              <p class="side-peek-sub">Estimate the workload for hand-traced animation.</p>
+              <div class="calc-group">
+                <label class="calc-label" for="roto-calc-duration">Video Duration (secs)</label>
+                <input class="calc-input" type="number" id="roto-calc-duration" value="10" min="1" max="3600">
+              </div>
+              <div class="calc-group">
+                <label class="calc-label" for="roto-calc-fps">Animation Timing</label>
+                <select class="calc-select" id="roto-calc-fps">
+                  <option value="24">24 FPS (On Ones - fluid)</option>
+                  <option value="12" selected>12 FPS (On Twos - standard)</option>
+                  <option value="8">8 FPS (On Threes - stylized)</option>
+                  <option value="30">30 FPS (Video standard)</option>
+                  <option value="60">60 FPS (Ultra fluid)</option>
+                </select>
+              </div>
+              <div class="calc-result-box">
+                <div class="calc-result-val" id="roto-calc-result">120</div>
+                <div class="calc-result-label">Total Frames to Trace</div>
+              </div>
+            </div>
+          </div>
+          <div class="side-peek-tab calc-tab" id="side-peek-tab-calc" tabindex="0" role="button" aria-expanded="false" title="Workload Calculator">
+            <svg class="side-peek-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/><line x1="12" y1="9" x2="12" y2="17"/>
+            </svg>
+            Work Calculator
+          </div>
+        </aside>
+
+        <!-- Card 4: Glossary / Terminology -->
+        <aside class="side-peek" id="side-peek-glossary" aria-label="Animation Key Terminology">
+          <div class="side-peek-card">
+            <div class="side-peek-section">
+              <h3>Key Terminology</h3>
+              <p class="side-peek-sub">Essential concepts in trace-animation.</p>
+              <div class="glossary-list">
+                <div class="glossary-term">
+                  <strong>Rotoscoping</strong>
+                  An animation technique where animators trace over live-action footage frame by frame to achieve realistic movement.
+                </div>
+                <div class="glossary-term">
+                  <strong>Matte / Silhouette</strong>
+                  An isolated shape that serves as a cutout mask to separate the character from the background.
+                </div>
+                <div class="glossary-term">
+                  <strong>Onion Skinning</strong>
+                  Displaying semi-transparent copies of adjacent frames to check spacing and movement consistency.
+                </div>
+                <div class="glossary-term">
+                  <strong>Keyframe vs. In-between</strong>
+                  Keyframes define the start/end points of a motion transition, while in-betweens fill the frames in between.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="side-peek-tab glossary-tab" id="side-peek-tab-glossary" tabindex="0" role="button" aria-expanded="false" title="Key Terms Glossary">
+            <svg class="side-peek-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+            </svg>
+            Key Terms
+          </div>
+        </aside>
+
+      </div>
+
     </main>
 
     <footer class="footer">
@@ -1361,22 +2121,41 @@
 
       /* ── YouTube IFrame API callback ── */
       function onYouTubeIframeAPIReady() {
+        var playerReady = false;
 
         playerOutput = new YT.Player('featured-video', {
-          events: { onStateChange: onOutputStateChange }
+          events: {
+            onReady: function () {
+              playerReady = true;
+            },
+            onStateChange: onOutputStateChange
+          }
         });
 
         refVideo = document.getElementById('ref-video-hero');
 
-        /* ── Sync toggle button ── */
-        var playBtn   = document.getElementById('sync-play-btn');
-        var unmuteBtn = document.getElementById('unmute-btn');
+        /* ── Sync toggle button & Controls ── */
+        var playBtn     = document.getElementById('sync-play-btn');
+        var unmuteBtn   = document.getElementById('unmute-btn');
         var unmuteIcon  = document.getElementById('unmute-icon');
         var unmuteLabel = document.getElementById('unmute-label');
+        var slider      = document.getElementById('sync-timeline-slider');
+        var timeCurrent = document.getElementById('time-current');
+        var timeTotal   = document.getElementById('time-total');
+        var isDragging  = false;
+
+        function formatTime(seconds) {
+          var s = Math.floor(seconds % 60);
+          var m = Math.floor(seconds / 60);
+          return (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+        }
 
         if (playBtn) {
           playBtn.addEventListener('click', function () {
-            if (!playerOutput) return;
+            if (!playerReady || !playerOutput || typeof playerOutput.getPlayerState !== 'function') {
+              console.log("YouTube player is not ready yet.");
+              return;
+            }
             var state     = playerOutput.getPlayerState();
             var isPlaying = (state === YT.PlayerState.PLAYING ||
                              state === YT.PlayerState.BUFFERING);
@@ -1401,13 +2180,11 @@
               }
               setTimeout(function () { syncing = false; }, 600);
               updateSyncBtn(true);
-              /* Show unmute button on first play */
-              if (unmuteBtn) unmuteBtn.style.display = 'flex';
             }
           });
         }
 
-        /* Unmute / re-mute the reference video */
+        /* Unmute / re-mute the reference video (with exclusive audio toggle) */
         if (unmuteBtn && refVideo) {
           unmuteBtn.addEventListener('click', function (e) {
             e.stopPropagation();
@@ -1417,8 +2194,95 @@
             unmuteIcon.innerHTML = muted
               ? '<path d="M16.5 12A4.5 4.5 0 0 0 14 7.97v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0 0 21 12c0-4.28-3-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06A8.99 8.99 0 0 0 17.73 19L19 20.27 20.27 19 5.27 3 4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>'
               : '<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>';
+
+            // Toggle YouTube video mute state to prevent battling sounds
+            if (playerReady && playerOutput && typeof playerOutput.mute === 'function') {
+              if (muted) {
+                playerOutput.unMute();
+              } else {
+                playerOutput.mute();
+              }
+            }
           });
         }
+
+        /* ── Timeline slider interaction ── */
+        if (slider) {
+          slider.addEventListener('input', function () {
+            isDragging = true;
+            var val = parseFloat(slider.value);
+            if (timeCurrent) timeCurrent.textContent = formatTime(val);
+            var dur = (refVideo && refVideo.duration) ? refVideo.duration : 81;
+            var pct = (val / dur) * 100;
+            slider.style.setProperty('--progress', pct + '%');
+          });
+
+          slider.addEventListener('change', function () {
+            isDragging = false;
+            var val = parseFloat(slider.value);
+            if (refVideo) {
+              refVideo.currentTime = val;
+            }
+            if (playerReady && playerOutput && typeof playerOutput.seekTo === 'function') {
+              playerOutput.seekTo(val, true);
+            }
+          });
+        }
+
+        /* ── Synchronize timeline with playback ── */
+        if (refVideo && slider) {
+          refVideo.addEventListener('timeupdate', function () {
+            if (!isDragging) {
+              var curr = refVideo.currentTime || 0;
+              var dur  = refVideo.duration || 81;
+              slider.value = curr;
+              slider.max = dur;
+              if (timeCurrent) timeCurrent.textContent = formatTime(curr);
+              if (timeTotal) timeTotal.textContent = formatTime(dur);
+              
+              var pct = (curr / dur) * 100;
+              slider.style.setProperty('--progress', pct + '%');
+            }
+          });
+
+          refVideo.addEventListener('loadedmetadata', function () {
+            var dur = refVideo.duration || 81;
+            slider.max = dur;
+            if (timeTotal) timeTotal.textContent = formatTime(dur);
+          });
+        }
+
+        /* ── Skip Buttons (-10s, -5s, +5s, +10s) ── */
+        function skip(amount) {
+          if (!refVideo) return;
+          var curr = refVideo.currentTime || 0;
+          var dur  = refVideo.duration || 81;
+          var target = curr + amount;
+          if (target < 0) target = 0;
+          if (target > dur) target = dur;
+          
+          refVideo.currentTime = target;
+          if (playerReady && playerOutput && typeof playerOutput.seekTo === 'function') {
+            playerOutput.seekTo(target, true);
+          }
+          
+          if (slider) {
+            slider.value = target;
+            var pct = (target / dur) * 100;
+            slider.style.setProperty('--progress', pct + '%');
+          }
+          if (timeCurrent) timeCurrent.textContent = formatTime(target);
+        }
+
+        var btnBack10 = document.getElementById('skip-back-10');
+        var btnBack5  = document.getElementById('skip-back-5');
+        var btnFwd5   = document.getElementById('skip-fwd-5');
+        var btnFwd10  = document.getElementById('skip-fwd-10');
+
+        if (btnBack10) btnBack10.addEventListener('click', function() { skip(-10); });
+        if (btnBack5)  btnBack5.addEventListener('click',  function() { skip(-5); });
+        if (btnFwd5)   btnFwd5.addEventListener('click',   function() { skip(5); });
+        if (btnFwd10)  btnFwd10.addEventListener('click',  function() { skip(10); });
 
         /* ── Card YT players — open lightbox when user clicks play ── */
         var cardPlayers  = [];
@@ -1512,7 +2376,149 @@
           if (e.key === 'Escape') closeLightbox();
         });
       })();
-    </script>
 
+      /* ── Left Side Hover Panel (Side-peek stack) Logic ── */
+      (function () {
+        const peeks = document.querySelectorAll('.side-peek');
+        let pinnedPeek = null;
+
+        const openPeek = (peek) => {
+          peeks.forEach((other) => {
+            if (other !== peek) {
+              other.classList.remove('is-open');
+              const t = other.querySelector('.side-peek-tab');
+              if (t) t.setAttribute('aria-expanded', 'false');
+              const c = other.querySelector('.side-peek-card');
+              if (c) c.style.maxHeight = '';
+            }
+          });
+          peek.classList.add('is-open');
+          const tab = peek.querySelector('.side-peek-tab');
+          if (tab) tab.setAttribute('aria-expanded', 'true');
+          
+          const card = peek.querySelector('.side-peek-card');
+          if (card) {
+            const cardTop = card.getBoundingClientRect().top;
+            const availableHeight = window.innerHeight - cardTop - 25;
+            card.style.maxHeight = Math.max(availableHeight, 150) + 'px';
+          }
+        };
+
+        const closePeek = (peek) => {
+          peek.classList.remove('is-open');
+          const tab = peek.querySelector('.side-peek-tab');
+          if (tab) tab.setAttribute('aria-expanded', 'false');
+          const card = peek.querySelector('.side-peek-card');
+          if (card) card.style.maxHeight = '';
+        };
+
+        peeks.forEach((peek) => {
+          const tab = peek.querySelector('.side-peek-tab');
+          if (!tab) return;
+
+          peek.addEventListener('mouseenter', () => {
+            if (pinnedPeek && pinnedPeek !== peek) {
+              closePeek(pinnedPeek);
+              pinnedPeek = null;
+            }
+            openPeek(peek);
+          });
+
+          peek.addEventListener('mouseleave', () => {
+            if (pinnedPeek !== peek) {
+              closePeek(peek);
+            }
+          });
+
+          const toggle = () => {
+            if (pinnedPeek === peek) {
+              pinnedPeek = null;
+              closePeek(peek);
+            } else {
+              pinnedPeek = peek;
+              openPeek(peek);
+            }
+          };
+
+          tab.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggle();
+          });
+
+          tab.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              e.stopPropagation();
+              toggle();
+            }
+          });
+        });
+
+        document.addEventListener('click', (e) => {
+          if (pinnedPeek && !pinnedPeek.contains(e.target)) {
+            closePeek(pinnedPeek);
+            pinnedPeek = null;
+          }
+        });
+
+        /* Dynamic Rotoscope Trivia */
+        var ROTO_TRIVIA = [
+          "Max Fleischer patented the rotoscope in 1915 to bring fluid, lifelike movements to Koko the Clown.",
+          "In the original Star Wars (1977), lightsaber blades were hand-rotoscoped frame-by-frame on physical film layers to add their glow.",
+          "Disney's Snow White and the Seven Dwarfs (1937) heavily used rotoscoping for Snow White to make her appear graceful.",
+          "Ralph Bakshi's The Lord of the Rings (1978) utilized rotoscoping extensively for battle sequences to save on production costs.",
+          "A-ha's famous 'Take On Me' music video (1985) used pencil-traced rotoscoping over 16 weeks to achieve its comic book sketch look.",
+          "Traced animation 'on ones' means drawing a new frame every frame (24 fps), while 'on twos' means drawing a frame every two frames (12 fps)."
+        ];
+        var triviaIndex = 0;
+        var triviaText = document.getElementById('roto-trivia-text');
+        var triviaBtn = document.getElementById('roto-trivia-next-btn');
+
+        if (triviaBtn && triviaText) {
+          triviaBtn.addEventListener('click', function () {
+            triviaIndex = (triviaIndex + 1) % ROTO_TRIVIA.length;
+            triviaText.textContent = ROTO_TRIVIA[triviaIndex];
+          });
+        }
+
+        /* Animator's Frame Calculator */
+        var durationInput = document.getElementById('roto-calc-duration');
+        var fpsSelect = document.getElementById('roto-calc-fps');
+        var resultVal = document.getElementById('roto-calc-result');
+
+        // Initial setup
+        function updateRotoCalc() {
+          if (!durationInput || !fpsSelect || !resultVal) return;
+          var sec = parseFloat(durationInput.value) || 0;
+          var fps = parseInt(fpsSelect.value) || 12;
+          var frames = Math.round(sec * fps);
+          resultVal.textContent = frames.toLocaleString();
+        }
+
+        if (durationInput) durationInput.addEventListener('input', updateRotoCalc);
+        if (fpsSelect) fpsSelect.addEventListener('change', updateRotoCalc);
+
+        /* Position the left side-peek stack just below the real header dynamically */
+        const adjustStackTop = () => {
+          const header = document.querySelector('.topbar');
+          const stack = document.querySelector('.side-peek-stack.left');
+          if (header && stack) {
+            const h = header.getBoundingClientRect().height;
+            stack.style.top = (h + 15) + 'px';
+          }
+          // Update open card height if any is active
+          const openCard = document.querySelector('.side-peek.is-open .side-peek-card');
+          if (openCard) {
+            const cardTop = openCard.getBoundingClientRect().top;
+            const availableHeight = window.innerHeight - cardTop - 25;
+            openCard.style.maxHeight = Math.max(availableHeight, 150) + 'px';
+          }
+        };
+        window.addEventListener('resize', adjustStackTop);
+        window.addEventListener('DOMContentLoaded', adjustStackTop);
+        setTimeout(adjustStackTop, 50);
+        adjustStackTop();
+      })();
+    </script>
   </body>
 </html>
